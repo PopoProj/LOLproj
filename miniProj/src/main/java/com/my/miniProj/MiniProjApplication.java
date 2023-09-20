@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(value = {"com.my.miniProj.*"})
 public class MiniProjApplication {
 
 	public static void main(String[] args) {
