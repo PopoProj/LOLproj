@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.miniProj.model.RecordDAO">
+
+	<resultMap
+		type="com.my.miniProj.model.RecordDTO" id="recMap">
+		<id property="popoId" column="POPO_ID" />
+		<result property="sumName" column="SUM_NAME" />
+		<result property="searchDate" column="SEARCH_DATE" />
+
+		
+	</resultMap>
+	
+	<delete id = "delete" parameterType="java.util.Map">
+	DELETE * FROM record WHERE (sum_name = ${sumName} AND popo_id = ${popoId})
+	</delete>
+	
+	<insert id="add" parameterType="java.util.Map">
+	INSERT INTO (popo_id, sum_name, SEARCH_DATE) VALUES (${popoId}, ${sumName}, SYSDATE)
+	
+	</insert>
+	
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.miniProj.model.BoardDao">
+
+	<resultMap
+		type="com.my.miniProj.model.Board" id="board">
+		<id property="boardNum" column="BOARD_NUM" />
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="boardDate" column="BOARD_DATE" />
+		<result property="boardWriter" column="BOARD_WRITER" />
+		<result property="boardLike" column="BOARD_LIKE" />
+		<result property="boardViews" column="BOARD_VIEWS" />
+	</resultMap>
+
+	<!-- 게시글 등록 처리 -->
+	<insert id="create">
+	<![CDATA[
+		INSERT INTO board
+		(
+		board_num,
+		board_title,
+		board_content,
+		board_writer,
+		board_like,
+		board_views
+		)
+		VALUES
+		(
+		notice_seq.NEXTVAL,
+		#{boardTitle},
+		#{boardContent}
+		#{boardWriter},
+		0,
+		0
+		)
+	]]>
+	</insert>
+
+	<!-- 게시글 목록 -->
+	<select id="list" parameterType="Pages" resultMap="board">
+	<![CDATA[
+		SELECT board_num,
+		board_title,
+		board_content,
+		board_date,
+		board_writer,
+		board_like,
+		board_views
+		FROM 
+		(select A.BOARD_NUM,
+		A.BOARD_TITLE,
+		A.BOARD_CONTENT,
+		A.BOARD_DATE,
+		A.BOARD_WRITER,
+		A.BOARD_LIKE,
+		A.BOARD_VIEwS,
+		rownum as rnum
+		from 
+		( SELECT BOARD_NUM,
+		BOARD_TITLE,
+		BOARD_CONTENT,
+		BOARD_DATE,
+		BOARD_WRITER,
+		BOARD_LIKE,
+		BOARD_VIEws
+		from board
+		order by BOARD_DATE desc, BOARD_NUM desc
+		)
+		 A
+		)
+		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+  ]]>
+	</select>
+
+	<!--게시글 전체 건수 조회 -->
+	<select id="count" resultType="int">
+    <![CDATA[
+    	SELECT count(BOARD_NUM)
+    	FROM BOARD
+    	WHERE BOARD_NUM > 0
+    ]]>
+    
+    <!-- 게시글 상세보기 -->
+    </select>
+    <select id="read" resultMap="board">
+    <![CDATA[
+    	SELECT board_num,
+		board_title,
+		board_content,
+		board_date,
+		board_writer,
+		board_like,
+		board_views
+		FROM BOARD
+		WHERE board_num = #{boardNum}
+    	]]>
+    </select>
+    
+    <!-- 게시글 수정 -->
+    <update id="update">
+    <![CDATA[
+		UPDATE board
+		SET BOARD_TITLE = #{boardTitle},
+		Board_content = #{boardContent}
+		WHERE BOARD_NUM = #{boardNum}
+	]]>
+	</update>
+
+	<!-- 공지사항 삭제 처리 -->
+	<delete id="delete">
+		DELETE FROM board
+		WHERE BOARD_NUM = #{boardNum}
+	</delete>
+
+</mapper>
