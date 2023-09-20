@@ -30,6 +30,11 @@
 		</tr>
 		
 		<tr>
+			<td>게시글 글쓴이</td>
+			<td>${board.boardWriter }</td>
+		</tr>
+		
+		<tr>
 			<td>게시글 추천수</td>
 			<td>${board.boardLike }</td>
 		</tr>
