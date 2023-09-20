@@ -21,15 +21,17 @@
 		board_num,
 		board_title,
 		board_content,
+		board_date,
 		board_writer,
 		board_like,
 		board_views
 		)
 		VALUES
 		(
-		notice_seq.NEXTVAL,
+		board_seq.NEXTVAL,
 		#{boardTitle},
-		#{boardContent}
+		#{boardContent},
+		sysdate,
 		'임시글쓴이',
 		0,
 		0

@@ -13,19 +13,17 @@
 </head>
 <body>
 <form action="boardRegister" method="post">
-    <label for="title">제목:</label>
-    <input type="text" id="title" name="title" required><br>
+    <label for="boardTitle">제목:</label>
+    <input type="text" id="boardTitle" name="boardTitle" required><br>
 
-    <label for="content">내용:</label>
-    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+    <label for="boardContent">내용:</label>
+    <textarea id="boardContent" name="boardContent" rows="4" cols="50" required></textarea><br>
 
     <input type="submit" value="작성">
 </form>
 
 <!-- 목록으로 돌아가기 버튼 -->
 <form action="boardList" method="get">
-    <%-- <input type="hidden" name="page" value="${pages.page}">
-    <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}"> --%>
     <input type="submit" value="목록으로 돌아가기">
 </form>
 
