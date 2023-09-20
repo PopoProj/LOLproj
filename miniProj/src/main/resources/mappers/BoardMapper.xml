@@ -30,7 +30,7 @@
 		notice_seq.NEXTVAL,
 		#{boardTitle},
 		#{boardContent}
-		#{boardWriter},
+		'임시글쓴이',
 		0,
 		0
 		)
@@ -80,9 +80,18 @@
     	FROM BOARD
     	WHERE BOARD_NUM > 0
     ]]>
+    </select>
+    
+    <!-- 게시글 조회수 증가 -->
+    <select id="views">
+    <![CDATA[
+   		UPDATE board
+		SET BOARD_VIEWS = BOARD_VIEWS+1
+		WHERE BOARD_NUM = #{boardNum}
+    ]]>
+    </select>
     
     <!-- 게시글 상세보기 -->
-    </select>
     <select id="read" resultMap="board">
     <![CDATA[
     	SELECT board_num,
@@ -102,7 +111,7 @@
     <![CDATA[
 		UPDATE board
 		SET BOARD_TITLE = #{boardTitle},
-		Board_content = #{boardContent}
+		BOARD_CONTENT = #{boardContent}
 		WHERE BOARD_NUM = #{boardNum}
 	]]>
 	</update>
