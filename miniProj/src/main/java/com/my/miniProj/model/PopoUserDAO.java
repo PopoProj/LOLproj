@@ -16,7 +16,10 @@ public interface PopoUserDAO {
 	    public void createAuth();
 	    public PopoUserDTO getUserById(String id);
 	    public void updateInfo(PopoUserDTO popo);
-	    public List<PopoUserDTO> listUsers();
+	    
+	    // 회원 관리 목록
+	    public List<PopoUserDTO> popoList(Pages pages) throws Exception;
+	   
 	    public int countUsers();
 	    public PopoUserDTO getUserDetails(int num);
 	    public void banUser(int num);

@@ -27,7 +27,6 @@
 		<result property="popoDate" column="POPO_DATE" />
 		<result property="popoQuit" column="POPO_QUIT" />
 		<result property="popoBan" column="POPO_BAN" />
-		<collection property="popoAuthList" resultMap="authMap" />
 	</resultMap>
 
 	<!-- 게시글 등록 처리 -->
@@ -144,7 +143,7 @@
 	</delete>
 	
 	<!-- 내가 쓴 게시글 목록 -->
-	<!-- popo_id로 board 가져오기 -->
+	<!-- popo_num로 board 가져오기 -->
 	<select id="listMyBoard" resultMap="board">
 	<![CDATA[
 		SELECT board_num,

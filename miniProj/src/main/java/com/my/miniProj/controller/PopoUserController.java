@@ -121,12 +121,12 @@ public class PopoUserController {
     	popoUserService.updateInfo(popo);
     	return "updateInfo";
     }
-    
-    @GetMapping("listUsers")
-    public String listUsers() {
-    	List<PopoUserDTO> selUser = popoUserService.listUsers();
-    	return "listUsers";
-    }
+//    
+//    @GetMapping("listUsers")
+//    public String listUsers() {
+//    	List<PopoUserDTO> selUser = popoUserService.listUsers();
+//    	return "listUsers";
+//    }
     
     @GetMapping("countUsers")
     public String countUsers() {

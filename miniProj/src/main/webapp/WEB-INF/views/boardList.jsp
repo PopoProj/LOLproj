@@ -16,6 +16,10 @@
 <body>
 </div>
 <h2>
+	<a href="/search" /> POPO 홈</a>
+</h2>
+<h2>
+	<a href="/admin" /> admin 홈</a>
 </h2>
 <table class="table table-hover">
 	<tr>
@@ -23,9 +27,9 @@
 
 		<th class="th2" id="boardTitle" align="center" width="320" scope="cols">게시글 제목</th>
 
-		<th class="th3" id="boardDate" align="center" width="180" scope="cols">게시글 발행 날짜</th>
+		<th class="th3" id="boardDate" align="left" width="180" scope="cols">게시글 발행 날짜</th>
 		
-		<th class="th3" id="boardViews" align="center" width="180" scope="cols">게시글 조회수</th>
+		<th class="th4" id="boardViews" align="center" width="180" scope="cols">게시글 조회수</th>
 	</tr>
 
 	<tbody>
