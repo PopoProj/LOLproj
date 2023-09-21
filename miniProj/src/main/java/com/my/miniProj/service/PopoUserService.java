@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.my.miniProj.model.Pages;
 import com.my.miniProj.model.PopoUserDAO;
 import com.my.miniProj.model.PopoUserDTO;
 
@@ -39,9 +39,14 @@ public class PopoUserService{
     public void updateInfo(PopoUserDTO popo) {
     	popoUserDAO.updateInfo(popo);
     }
-    public List<PopoUserDTO> listUsers(){
-    	return popoUserDAO.listUsers();
-    }
+    
+    // 회원 관리 목록
+    public List<PopoUserDTO> popoList(Pages pages) throws Exception {
+    	System.out.println("회원 관리 목록 서비스");
+		List<PopoUserDTO> popoList = popoUserDAO.popoList(pages);
+    	return popoList;
+    }    
+    
     public int countUsers() {
     	return popoUserDAO.countUsers();
     }

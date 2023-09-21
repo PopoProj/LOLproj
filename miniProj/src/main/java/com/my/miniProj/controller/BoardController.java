@@ -85,8 +85,9 @@ public class BoardController {
 		Board board = boardService.read(boardNum);
 		model.addAttribute(board);
 		
-		// 조회수 증가
-		
+		// 게시글 조회수 증가
+		boardService.views(boardNum);
+		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
 
 		return url;
 
@@ -125,7 +126,7 @@ public class BoardController {
 		rttr.addAttribute("page", pages.getPage());
 		rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		System.out.println("공지사항 삭제처리");
+		System.out.println("게시글 삭제처리");
 
 		return "redirect:/board" + "" + "List";
 	}

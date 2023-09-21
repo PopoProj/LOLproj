@@ -23,4 +23,10 @@ public interface BoardDao {
 		
 		// 게시글 전체 건수 반환
 		public int count() throws Exception;
+
+		// 게시글 조회수 증가
+		public void views(Integer boardNum)throws Exception;
+
+		// 내가 쓴 게시글 목록
+		public Board listMyBoard(Integer popoNum) throws Exception;
 }

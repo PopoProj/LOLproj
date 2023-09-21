@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class PopoUserDTO {
 	
+
 	 int popoNum;
 	 String popoId; 
 	 String popoPw;
@@ -19,6 +20,5 @@ public class PopoUserDTO {
 	 Date popoDate;
 	 int popoQuit;
 	 int popoBan;
-	
-
+	 
 }
