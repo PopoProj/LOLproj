@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.my.miniProj.model.FavouritesDAO">
-	<!-- Popo resultmap 정의 -->
+
 	<resultMap
 		type="com.my.miniProj.model.FavouritesDTO" id="favMap">
-		<id property="popoId" column="POPO_ID" />
-		<result property="sumName" column="SUM_NAME" />
-
-		
+		<id property="popoNum" column="POPO_NUM" />
+		<result property="sumName" column="SUM_NAME" />		
 	</resultMap>
 	
-	<delete id = "delete" parameterType="java.util.Map">
-	DELETE * FROM favourites WHERE (sum_name = ${sumName} AND popo_id = ${popoId})
+	<select id = "checkDupfav" parameterType="com.my.miniProj.model.RecordDTO" resultType="int">
+		SELECT COUNT(*) FROM favourites WHERE (sum_name = #{sumName} AND popo_num = #{popoNum})
+	</select>
+	
+	
+	<delete id = "deleteFav" parameterType="com.my.miniProj.model.FavouritesDTO">
+	DELETE FROM favourites WHERE (sum_name = #{sumName} AND popo_num = #{popoNum})
 	</delete>
 	
-	<insert id="add" parameterType="java.util.Map">
-	INSERT INTO (popo_id, sum_name) VALUES (${popoId}, ${sumName})
-	
+	<insert id="addFav" parameterType="com.my.miniProj.model.FavouritesDTO">
+	INSERT INTO favourites(popo_num, sum_name) VALUES (#{popoNum}, #{sumName})
 	</insert>
+	
+	<select id = "countFav" parameterType="int">
+		SELECT COUNT(*) FROM favourites WHERE popo_num = #{popoNum}
+	</select>
+	
+	<select id = "listFav" parameterType = "int" resultMap="favMap">
+		SELECT * FROM favourites WHERE popo_num = #{popoNum}
+	</select>
 	
 </mapper>

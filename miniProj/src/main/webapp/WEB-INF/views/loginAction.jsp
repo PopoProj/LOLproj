@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.my.miniProj.model.PopoUserDTO" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,20 +9,20 @@
 </head>
 <body>
 <%
-	int result = (int) request.getAttribute("result");
+	boolean isLogin = (null == (PopoUserDTO) request.getAttribute("result"))? false:true;
 %>
 
 
 
 <script>
 	function proceed(){
-		var result = <%= result %>
-		if (result == 0){
+		
+		if (<%= !isLogin %>){
 			alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
 			history.back();
 		}
 		else{
-			location.href = "/search";
+			location.href = "/";
 		}	
 	}
 	proceed();

@@ -11,13 +11,28 @@
 		
 	</resultMap>
 	
-	<delete id = "delete" parameterType="java.util.Map">
-	DELETE * FROM record WHERE (sum_name = ${sumName} AND popo_id = ${popoId})
+	<select id = "checkDupRec" parameterType="com.my.miniProj.model.RecordDTO" resultType="int">
+		SELECT COUNT(*) FROM record WHERE (sum_name = #{sumName} AND popo_num = #{popoNum})
+	</select>
+	
+	<delete id = "deleteRec" parameterType="com.my.miniProj.model.RecordDTO">
+	DELETE * FROM record WHERE (sum_name = #{sumName} AND popo_num = #{popoNum})
 	</delete>
 	
-	<insert id="add" parameterType="java.util.Map">
-	INSERT INTO (popo_id, sum_name, SEARCH_DATE) VALUES (${popoId}, ${sumName}, SYSDATE)
-	
+	<insert id="addRec" parameterType="com.my.miniProj.model.RecordDTO">
+	INSERT INTO record(popo_num, sum_name, SEARCH_DATE) VALUES (#{popoNum}, #{sumName}, SYSDATE)
 	</insert>
+	
+	<delete id = "deleteOldRec" parameterType = "int">
+	DELETE * FROM record WHERE popo_num = #{popoNum} AND search_date = (SELECT MIN(search_date) FROM record)
+	</delete>	
+	
+	<select id = "countRec" parameterType = "int" resultType="int">
+		SELECT COUNT(*) FROM record WHERE popo_num = #{popoNum}
+	</select>
+	
+	<select id = "listRec" parameterType = "int" resultMap="recMap">
+		SELECT * FROM record WHERE popo_num = #{popoNum}
+	</select>
 	
 </mapper>
