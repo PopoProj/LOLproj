@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 public class PopoUserDTO {
 	
-	String popoNum;
+
+	 int popoNum;
 	 String popoId; 
 	 String popoPw;
 	 String popoName;

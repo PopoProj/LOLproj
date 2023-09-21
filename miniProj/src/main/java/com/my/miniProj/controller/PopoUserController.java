@@ -3,17 +3,24 @@ package com.my.miniProj.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpSession;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 import com.my.miniProj.model.PopoUserDTO;
+import com.my.miniProj.service.FavouritesService;
 import com.my.miniProj.service.PopoUserService;
+import com.my.miniProj.service.RecordService;
 
 @Controller
 public class PopoUserController {
@@ -21,7 +28,8 @@ public class PopoUserController {
 	
 	@Autowired
     private PopoUserService popoUserService;
-    
+
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
@@ -31,10 +39,52 @@ public class PopoUserController {
 	public String loginAction(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		int result = popoUserService.loginAction(id, pw);
-		request.setAttribute("result", result);
+		PopoUserDTO popo = popoUserService.loginAction(id, pw);
+		request.setAttribute("result", popo);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("userSessionID", popo);
+		
+		System.out.println("login successful");
+		System.out.println(popo);
 		return "loginAction";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		return "logoutAction";
+	}
+	
+	@GetMapping("/")
+	public String homeLogin(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "login";
+		}
+		
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		if (loginMember == null) {
+			return "login";
+		}
+		
+		return "search";
+	
+	}
+	
+	@GetMapping("/toMyPage")
+	public String toMyPage(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		request.setAttribute("userNickName", loginMember.getPopoNickname());
+		return "myPage";
+	}
+	
+	
+	
 	
 	@GetMapping("/inputForId")
 	public String inputForId() {

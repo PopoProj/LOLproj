@@ -62,9 +62,9 @@ public class PopoUserService{
     public List<PopoUserDTO> listQuit(){
     	return popoUserDAO.listQuit();
     }
-	public int loginAction(String id, String pw) {
-		int result = popoUserDAO.loginAction(id, pw);
-		return result;		
+	public PopoUserDTO loginAction(String id, String pw) {
+		return popoUserDAO.loginAction(id, pw);
+		
 	}
     
 

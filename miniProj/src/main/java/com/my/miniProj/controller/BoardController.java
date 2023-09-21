@@ -2,10 +2,14 @@ package com.my.miniProj.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.my.miniProj.model.Board;
 import com.my.miniProj.model.Pages;
 import com.my.miniProj.model.Pagination;
+import com.my.miniProj.model.PopoUserDTO;
 import com.my.miniProj.service.BoardServiceImpl;
 
 @Controller
@@ -125,4 +130,13 @@ public class BoardController {
 
 		return "redirect:/board" + "" + "List";
 	}
+	
+//	@GetMapping("/toMyBoard")
+//	public String toMyBoard(HttpServletRequest request, Pages pages) throws Exception {
+//		HttpSession session = request.getSession(false);
+//		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+//		List<Board> myList = boardService.listMyBoard(pages, loginMember.getPopoNum());
+//		return "viewMyBoard";
+//	}
+	
 }

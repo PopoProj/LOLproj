@@ -25,6 +25,6 @@ public interface PopoUserDAO {
 	    public void banUser(int num);
 	    public List<PopoUserDTO> listBanned();
 	    public List<PopoUserDTO> listQuit();
-		public int loginAction(@Param("id") String id, @Param("pw") String pw);
+		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);
 }
 
