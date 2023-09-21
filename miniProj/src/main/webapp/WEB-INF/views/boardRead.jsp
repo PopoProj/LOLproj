@@ -54,10 +54,10 @@
 </form>
 
 <!-- 삭제하기 버튼 -->
+<!-- 해당 페이지의 유일한 게시글을 삭제할 경우 해당 페이지보다 1 작은 페이지로 넘어가게 구현해야 함 -->
 <form action="boardRemove" method="post">
-    <input type="hidden" name="boardNum" value="${board.boardNum}">
-    <input type="hidden" name="page" value="${pages.page}">
-    <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
+	<input type="hidden" name="boardNum" value="${board.boardNum}">
+	<input type="hidden" name="page" value="${pages.page}">
     <input type="submit" value="삭제하기">
 </form>
 

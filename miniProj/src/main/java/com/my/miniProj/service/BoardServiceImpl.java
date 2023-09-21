@@ -53,10 +53,17 @@ public class BoardServiceImpl {
 			System.out.println("게시물 개수 : "+result);
 			return result;
 		}
-		
+
 		// 게시글 조회수 증가
 		public void views(Integer boardNum) throws Exception{
 			boardDao.views(boardNum);
+		}
+		
+	// 내가 쓴 게시글 목록
+		public Board listMyBoard(Pages pages, Integer popoNum) throws Exception {
+			System.out.println("내가 쓴 게시글 목록 서비스");
+			Board board = boardDao.listMyBoard(popoNum);
+			return board;
 		}
 
 }

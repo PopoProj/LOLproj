@@ -12,6 +12,23 @@
 		<result property="boardLike" column="BOARD_LIKE" />
 		<result property="boardViews" column="BOARD_VIEWS" />
 	</resultMap>
+	
+	<resultMap
+		type="com.my.miniProj.model.PopoUserDTO" id="popoMap">
+		<id property="popoNum" column="POPO_NUM" />
+		<result property="popoId" column="POPO_ID" />
+		<result property="popoPw" column="POPO_PW" />
+		<result property="popoName" column="POPO_NAME" />
+		<result property="popoTel" column="POPO_TEL" />
+		<result property="popoEmail" column="POPO_EMAIL" />
+		<result property="popoNickname" column="POPO_NICKNAME" />
+		<result property="popoMain" column="POPO_MAIN" />
+		<result property="popoSub" column="POPO_SUB" />
+		<result property="popoDate" column="POPO_DATE" />
+		<result property="popoQuit" column="POPO_QUIT" />
+		<result property="popoBan" column="POPO_BAN" />
+		<collection property="popoAuthList" resultMap="authMap" />
+	</resultMap>
 
 	<!-- 게시글 등록 처리 -->
 	<insert id="create">
@@ -118,10 +135,32 @@
 	]]>
 	</update>
 
-	<!-- 공지사항 삭제 처리 -->
+	<!-- 게시글 삭제 처리 -->
 	<delete id="delete">
+	<![CDATA[
 		DELETE FROM board
 		WHERE BOARD_NUM = #{boardNum}
+	]]>
 	</delete>
+	
+	<!-- 내가 쓴 게시글 목록 -->
+	<!-- popo_id로 board 가져오기 -->
+	<select id="listMyBoard" resultMap="board">
+	<![CDATA[
+		SELECT board_num,
+		board_title,
+		board_content,
+		board_date,
+		board_writer,
+		board_like,
+		board_views
+		FROM board
+		where board_writer in (
+			select popo_id
+			from popouser
+			where popo_num = #{popoNum}
+		);
+	]]>
+	</select>
 
 </mapper>
