@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-Count complete
+	<script type="text/javascript">
+		alert("삭제되었습니다.");
+		location.href = "/toMyPage";
+	</script>
 </body>
 </html>

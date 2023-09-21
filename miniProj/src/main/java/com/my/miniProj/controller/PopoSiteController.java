@@ -8,9 +8,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.my.miniProj.model.PopoUserDTO;
+import com.my.miniProj.model.RecordDTO;
+import com.my.miniProj.service.RecordService;
 
 import leagueAPI.InstSummoner;
 import leagueAPI.SearchEngine;
@@ -20,10 +26,6 @@ import leagueAPI.Summoner;
 @Controller
 public class PopoSiteController {
 
-	@GetMapping("/")
-	public String home() {
-		return "login";
-	}
     
     @GetMapping("/search")
     public String search() {  	 
@@ -32,7 +34,16 @@ public class PopoSiteController {
     
     @GetMapping("/searchResult")
     public String searchResult(HttpServletRequest request) {
-    	String summonerName = request.getParameter("sumName");
+    	HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		int popoNum = loginMember.getPopoNum();
+    	String name = request.getParameter("sumName");
+    	String summonerName = name.replace(" ", "");
+    	
+    	RecordDTO newRecord = new RecordDTO();
+    	newRecord.setPopoNum(popoNum);
+    	newRecord.setSumName(summonerName);	
+    	
     	SearchEngine engine = SearchEngine.getInstance();
     	Summoner searched = engine.searchSummoner(summonerName);
     	List<String> matchIDs = engine.searchMatches(searched.getPuuid());
@@ -79,12 +90,43 @@ public class PopoSiteController {
     			champMap.put(champion, perChamp);
     		}
     	}	
+    	for (String lane : laneMap.keySet()) {
+    		HashMap<String, Integer> perLane2 = laneMap.get(lane);
+    		int winrate = 0;
+    		if (perLane2.get("defeat") == 0){
+    			if (perLane2.get("win") != 0) {
+    				winrate = 100;
+    			}
+    		}
+    		else{
+    			winrate = perLane2.get("win") * 100 / (perLane2.get("win") + perLane2.get("defeat"));
+    		}
+    		perLane2.put("winrate", winrate);
+    		laneMap.put(lane, perLane2);
+    	}
+    	
     	searched.setLaneMap(laneMap);
     	searched.setChampMap(champMap);
+    	
     	request.setAttribute("searched", searched);
     	request.setAttribute("matchData", recentMatchData);
-    	return "searchResult";
+    	request.setAttribute("popoNum", popoNum);
+
+    	int count = recordService.countRec(popoNum);
+		int dupCount = recordService.checkDupRec(newRecord);
+		
+		if (dupCount == 0) {
+			if (count >= 10) {
+				recordService.deleteOldRec();
+			}
+			recordService.addRec(newRecord);
+		}
+		return "searchResult";
     }
+    
+	
+	@Autowired
+	private RecordService recordService;
     
     @GetMapping("/matchDetails")
     public String matchDetails(HttpServletRequest request) {

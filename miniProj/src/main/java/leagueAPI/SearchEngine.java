@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SearchEngine {
 	private static SearchEngine instance;
-	private static String apiKey = "RGAPI-5292a2be-bb28-4e9e-a6c1-ccc7dea5cae1";
+	private static String apiKey = "RGAPI-967eaec2-b6c2-4ed9-8596-56fcfda32d9d";
 	
 	private SearchEngine(String apiKey) {}
 	

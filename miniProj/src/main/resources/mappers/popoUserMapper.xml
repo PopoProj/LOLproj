@@ -17,7 +17,9 @@
 		<result property="popoQuit" column="POPO_QUIT" />
 		<result property="popoBan" column="POPO_BAN" />
 		
+		<!--
 		<collection property="popoAuthList" resultMap="authMap" />
+		-->
 	</resultMap>
 	
 	<!-- PopoAuth resultmap 정의 
@@ -28,8 +30,8 @@
 	</resultMap>
 	-->
 	
-	<select id = "loginAction" parameterType = "String" resultType = "int">
-		SELECT COUNT(*) 
+	<select id = "loginAction" parameterType = "String" resultMap = "popoMap">
+		SELECT *
 		FROM popouser
 		WHERE popo_id = #{id} AND popo_pw = #{pw}
 	
@@ -49,7 +51,7 @@
 		WHERE POPO_ID = #{popoId} and POPO_EMAIL = #{popoEmail}
 	</update>
 
-	<!-- 아이디 읽어오기(로그인) 
+	<!-- 아이디 읽어오기(로그인) 	-->
 	<select id="readByUserId" resultType="com.my.miniProj.model.PopoUserDTO" parameterType="String">
 		SELECT popo.POPO_NUM,
 		popo.POPO_ID, popo.*,
@@ -59,7 +61,7 @@
 		popo.POPO_NUM = auth.POPO_NUM
 		WHERE popo.POPO_ID = #{popoId}
 	</select>
-	-->
+
 
 	
 	<!-- 회원가입 -->
@@ -101,7 +103,7 @@
 		)
 	</insert>
 	
-	<!-- 회원가입 시 권한 부여 
+	<!-- 회원가입 시 권한 부여 -->
 	<insert id="createAuth">
 		INSERT INTO POPO_AUTH
 		(
@@ -114,7 +116,7 @@
 		ROLE_POPO
 		)
 	</insert>
-	-->
+	
 	
 	
 	<!-- 마이페이지 회원정보 -->

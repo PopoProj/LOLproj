@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class RecordDTO {
 
-	int popo_num;
-	String sum_name;
-	Date search_date;
+	int popoNum;
+	String sumName;
+	Date searchDate;
 }
