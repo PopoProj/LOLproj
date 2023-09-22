@@ -30,4 +30,7 @@ public interface BoardDao {
 
 		// 내가 쓴 게시글 목록
 		public List<Board> listMyBoard(Map<String, Object> map) throws Exception;
+
+		// 내가 쓴 게시글 건수 반환
+		public int myCount(Integer popoNum) throws Exception;
 }

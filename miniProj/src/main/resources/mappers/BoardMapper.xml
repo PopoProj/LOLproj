@@ -162,5 +162,18 @@
 		and rownum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	
 	</select>
+	
+	<!-- 내가 쓴 게시글 건수 조회 -->
+	<select id="myCount" resultType="int">
+    <![CDATA[
+    	SELECT count(BOARD_NUM)
+    	FROM BOARD
+    	WHERE board_writer = (
+			select popo_id
+			from popouser
+			where popo_num = #{popoNum}
+		)
+    ]]>
+    </select>
 
 </mapper>

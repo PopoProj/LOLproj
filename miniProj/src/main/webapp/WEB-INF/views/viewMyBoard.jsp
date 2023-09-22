@@ -45,7 +45,7 @@
 						
 						<!-- 게시글 상세보기 할 때 페이징 요청 정보를 매개변수로 전달 -->
 						<td align="center" scope="row">
-							<a href="/boardRead${pagination.makeQuery(pagination.pages.page)}&boardNum=${board.boardNum}">${board.boardTitle}</a>
+							<a href="/myBoardRead${pagination.makeQuery(pagination.pages.page)}&boardNum=${board.boardNum}">${board.boardTitle}</a>
 						</td>
 						<td align="center" scope="row">
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.boardDate}" /></td>
