@@ -131,7 +131,7 @@ public class BoardController {
 		return "redirect:/board" + "" + "List";
 	}
 
-	// 마이페이지 내가 쓴 글
+	// 마이페이지 내가 쓴 게시글 목록
 	@RequestMapping(value = "/toMyBoard", method = RequestMethod.GET)
 	public String toMyBoard(HttpServletRequest request, Pages pages, Model model) throws Exception {
 		HttpSession session = request.getSession(false);
@@ -149,6 +149,24 @@ public class BoardController {
 		System.out.println(model.toString());
 
 		return "viewMyBoard";
+	}
+	
+	// 마이페이지 내가 쓴 게시글 상세보기
+	// value는 jsp 파일에서 href=에 붙는 이름
+	@RequestMapping(value = "/viewMyBoardRead", method = RequestMethod.GET)
+	public String myRead(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+		System.out.println("게시글 상세 컨트롤러");
+
+		String url = "viewMyBoardRead";
+
+		Board board = boardService.read(boardNum);
+		model.addAttribute(board);
+
+		// 게시글 조회수 증가
+		boardService.views(boardNum);
+		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
+
+		return url;
 	}
 
 }
