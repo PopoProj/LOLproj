@@ -132,8 +132,8 @@ public class BoardController {
 	}
 
 	// 마이페이지 내가 쓴 게시글 목록
-	@RequestMapping(value = "/toMyBoard", method = RequestMethod.GET)
-	public String toMyBoard(HttpServletRequest request, Pages pages, Model model) throws Exception {
+	@RequestMapping(value = "/boardMyList", method = RequestMethod.GET)
+	public String toMyBoard(HttpServletRequest request, @ModelAttribute("pages") Pages pages, Model model) throws Exception {
 		HttpSession session = request.getSession(false);
 		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
 
@@ -153,7 +153,7 @@ public class BoardController {
 	
 	// 마이페이지 내가 쓴 게시글 상세보기
 	// value는 jsp 파일에서 href=에 붙는 이름
-	@RequestMapping(value = "/viewMyBoardRead", method = RequestMethod.GET)
+	@RequestMapping(value = "/myBoardRead", method = RequestMethod.GET)
 	public String myRead(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 상세 컨트롤러");
 
@@ -168,5 +168,45 @@ public class BoardController {
 
 		return url;
 	}
+	
+	// 마이페이지 내가 쓴 게시글 수정 페이지
+	@RequestMapping(value = "/myBoardModify", method = RequestMethod.GET)
+	public String myModify1(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+		System.out.println("게시글 수정 컨트롤러");
+		
+		Board board = boardService.read(boardNum);
+		model.addAttribute("board", board);
+		
+		return "viewMyBoardModify";
+	}
+
+		// 게시글 수정 처리
+		@RequestMapping(value = "/myBoardModify", method = RequestMethod.POST)
+		public String myModify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
+			System.out.println("게시글 수정처리 컨트롤러");
+
+			boardService.modify(board);
+
+			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+			rttr.addAttribute("page", pages.getPage());
+			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+			return "myBoardRead";
+		}
+		
+		// 내 게시글 삭제 처리
+		@RequestMapping(value = "/myBoardRemove", method = RequestMethod.POST)
+		public String myRemove(@ModelAttribute("pages") Pages pages, int boardNum, RedirectAttributes rttr) throws Exception {
+			boardService.remove(boardNum);
+
+			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+			rttr.addAttribute("page", pages.getPage());
+			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+			rttr.addFlashAttribute("msg", "SUCCESS");
+			System.out.println("게시글 삭제처리");
+
+			return "redirect:/boardMyList";
+		}
 
 }
