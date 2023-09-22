@@ -144,8 +144,8 @@
 	
 	<!-- 내가 쓴 게시글 목록 -->
 	<!-- popo_num로 board 가져오기 -->
-	<select id="listMyBoard" resultMap="board">
-	<![CDATA[
+	<select id="listMyBoard" parameterType="Map" resultMap="board">
+	
 		SELECT board_num,
 		board_title,
 		board_content,
@@ -154,12 +154,13 @@
 		board_like,
 		board_views
 		FROM board
-		where board_writer in (
+		where board_writer = (
 			select popo_id
 			from popouser
 			where popo_num = #{popoNum}
-		);
-	]]>
+		)
+		and rownum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+	
 	</select>
 
 </mapper>

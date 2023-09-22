@@ -131,12 +131,17 @@ public class BoardController {
 		return "redirect:/board" + "" + "List";
 	}
 	
-//	@GetMapping("/toMyBoard")
-//	public String toMyBoard(HttpServletRequest request, Pages pages) throws Exception {
-//		HttpSession session = request.getSession(false);
-//		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
-//		List<Board> myList = boardService.listMyBoard(pages, loginMember.getPopoNum());
-//		return "viewMyBoard";
-//	}
+	// 마이페이지 내가 쓴 글
+	@RequestMapping(value = "/toMyBoard", method = RequestMethod.GET)
+	public String toMyBoard(HttpServletRequest request, Pages pages, Model model) throws Exception {
+		HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		
+		List<Board> myList = boardService.listMyBoard(pages, loginMember.getPopoNum());
+		model.addAttribute("myList", myList);
+		System.out.println(myList.toString());
+		
+		return "viewMyBoard";
+	}
 	
 }

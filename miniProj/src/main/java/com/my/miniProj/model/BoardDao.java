@@ -1,6 +1,7 @@
 package com.my.miniProj.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -28,5 +29,5 @@ public interface BoardDao {
 		public void views(Integer boardNum)throws Exception;
 
 		// 내가 쓴 게시글 목록
-		public Board listMyBoard(Integer popoNum) throws Exception;
+		public List<Board> listMyBoard(Map<String, Object> map) throws Exception;
 }
