@@ -50,9 +50,6 @@ public class PopoUserService{
     public int countUsers() {
     	return popoUserDAO.countUsers();
     }
-    public PopoUserDTO getUserDetails(int num) {
-    	return popoUserDAO.getUserDetails(num);
-    }
     
     // popoUser 차단
     public void popoBan(int popoNum) {

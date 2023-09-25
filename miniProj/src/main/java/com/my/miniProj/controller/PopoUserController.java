@@ -1,35 +1,21 @@
 package com.my.miniProj.controller;
 
-
-import java.util.List;
-
-
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.my.miniProj.model.PopoUserDTO;
-import com.my.miniProj.service.FavouritesService;
 import com.my.miniProj.service.PopoUserService;
-import com.my.miniProj.service.RecordService;
 
 @Controller
 public class PopoUserController {
 
-	
 	@Autowired
     private PopoUserService popoUserService;
 
-	
 	@GetMapping("/login")
 	public String login(HttpServletRequest request) {
 
@@ -61,8 +47,6 @@ public class PopoUserController {
 		return "logoutAction";
 	}
 	
-
-	
 	@GetMapping("/toMyPage")
 	public String toMyPage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -82,9 +66,6 @@ public class PopoUserController {
 		request.setAttribute("userNickName", loginMember.getPopoNickname());
 		return "myPage";
 	}
-	
-	
-	
 	
 	@GetMapping("/inputForId")
 	public String inputForId() {
@@ -122,8 +103,6 @@ public class PopoUserController {
     	return "checkDuplicate";
     }
 
-    
-	
 	@GetMapping("/inputForRegister")
 	public String inputForRegister() {
 		return "inputForRegister";
@@ -160,52 +139,10 @@ public class PopoUserController {
     	return "createAuth";
     }
     
-    @GetMapping("getUserById")
-    public String getUserById(String id) {
-    	PopoUserDTO selUser = popoUserService.getUserById(id);
-    	return "getUserById";
-    }
-    
     @GetMapping("updateInfo")
     public String updateInfo(PopoUserDTO popo) {
     	popoUserService.updateInfo(popo);
     	return "updateInfo";
     }
-//    
-//    @GetMapping("listUsers")
-//    public String listUsers() {
-//    	List<PopoUserDTO> selUser = popoUserService.listUsers();
-//    	return "listUsers";
-//    }
-    
-    @GetMapping("countUsers")
-    public String countUsers() {
-    	int count = popoUserService.countUsers();
-    	return "countUsers";
-    }
-    
-    @GetMapping("getUserDetails")
-    public String getUserDetails(int num) {
-    	PopoUserDTO selUser = popoUserService.getUserDetails(num);
-    	return "getUserDetails";
-    }
-    
-//    @GetMapping("banUser")
-//    public String banUser(int num) {
-//    	popoUserService.banUser(num);
-//    	return "banUser";
-//    }
-    
-    @GetMapping("listBanned")
-    public String listBanned() {
-    	List<PopoUserDTO> bannedUsers = popoUserService.listBanned();
-    	return "listBanned";
-    }
-    
-    @GetMapping("listQuit")
-    public String listQuit() {
-    	List<PopoUserDTO> quitUsers = popoUserService.listQuit();
-    	return "listQuit";
-    }
-    
+
 }

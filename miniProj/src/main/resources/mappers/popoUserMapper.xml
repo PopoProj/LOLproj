@@ -35,7 +35,6 @@
 	
 	</select> 
 	
-
 	<!-- 회원 아이디 찾기 -->
 	<select id="findId" resultType="String" parameterType = "String">
 		SELECT POPO_ID
@@ -113,8 +112,6 @@
 		)
 	</insert>
 	
-	
-	
 	<!-- 마이페이지 회원정보 -->
 	<select id="getUserById" resultType = "com.my.miniProj.model.PopoUserDTO">
 		SELECT *
@@ -184,7 +181,6 @@ FROM (
 ]]>
 	</select>
 	
-
 	<!-- 전체 인원수를 조회 -->
 	<select id="countUsers" resultType="int">
 	<![CDATA[
@@ -192,23 +188,6 @@ FROM (
 	 FROM POPOUSER
 	WHERE POPO_NUM > 0
 	]]>
-	</select>
-
-	<!-- 회원 상세 조회 -->
-	<select id="getUserDetails"  resultType="com.my.miniProj.model.PopoUserDTO" parameterType="int">
-		SELECT POPO_NUM,
-		POPO_ID,
-		POPO_NAME,
-		POPO_TEL,
-		POPO_EMAIL,
-		POPO_NICKNAME,
-		POPO_MAIN,
-		POPO_SUB,
-		POPO_DATE,
-		POPO_QUIT,
-		POPO_BAN
-		FROM POPOUSER
-		WHERE POPO_NUM = #{popoNum}
 	</select>
 
 	<!-- 회원 차단 -->
@@ -269,7 +248,4 @@ FROM (
 ]]>
 	</select>
 	
-
-
-
 </mapper>

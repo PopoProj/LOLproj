@@ -166,7 +166,7 @@ window.addEventListener("pageshow", (event) => {
  		
     	<div class="topnav">
 	    	  <a class = "active" href="toMyPage"> 마이페이지</a>
-	    	  <a class = "active" href="toBoard"> 게시판 </a>
+	    	  <a class = "active" href="boardList"> 게시판 </a>
 	    	  <%=aStr %>
 	    	
     	</div>

@@ -21,7 +21,6 @@ public interface PopoUserDAO {
 	    public List<PopoUserDTO> popoList(Pages pages) throws Exception;
 	   
 	    public int countUsers();
-	    public PopoUserDTO getUserDetails(int num);
 	    
 	    // 회원 차단
 	    public void banUser(int popoNum);

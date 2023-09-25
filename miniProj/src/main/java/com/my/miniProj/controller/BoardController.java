@@ -28,13 +28,25 @@ public class BoardController {
 	private BoardServiceImpl boardService;
 
 	// 게시글 등록 페이지
-	@RequestMapping(value = "/boardRegister", method = RequestMethod.GET)
-	public void registerForm(Model model) throws Exception {
+	@RequestMapping(value = "/boardRegisterForm", method = RequestMethod.GET)
+	public String registerForm(HttpServletRequest request, Model model) throws Exception {
 		System.out.println("게시글 등록");
+		
+		HttpSession session = request.getSession(false);
+		
+		if (session == null) {
+			return "needLogin";
+		}
+		
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		if (loginMember == null) {
+			return "needLogin";
+		}
 		
 		Board board = new Board();
 
 		model.addAttribute(board);
+		return "/boardRegister";
 	}
 
 	// 게시글 등록 처리
