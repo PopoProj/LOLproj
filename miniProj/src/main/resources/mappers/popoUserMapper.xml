@@ -136,9 +136,7 @@
 			POPO_NAME=#{popoName},
 			POPO_TEL=#{popoTel},
 			POPO_EMAIL=#{popoEmail},
-			POPO_NICKNAME=#{popoNickname},
-			POPO_MAIN=#{popoMain},
-			POPO_SUB=#{popoSub}
+			POPO_NICKNAME=#{popoNickname}
 		WHERE POPO_ID=#{popoId}
 	</update>
 

@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +80,7 @@ button:hover {
 </style>
 
 <meta charset="UTF-8">
-<title>내 정보 보기</title>
+<title>회원 정보 수정</title>
 <script type = "text/javascript">
 	function checkInput(form){
 		var valid = true; 
@@ -115,24 +112,35 @@ button:hover {
  
 </script>
 </head>
+
 <body>
 
-<form name="myInfo" action="myInfoEditForm">
+<form name="myInfoEditForm" action="myInfoEdit" method="post" onsubmit="checkInput(registerForm)" style="border:1px solid #ccc">
+  <input type="hidden" name="popoId" value="${myInfo.popoId}">
   <div class="container">
-    <h1>내 정보</h1>
-    <p>등록된 내 정보입니다</p>
+    <h1>회원 정보 수정</h1>
+    <p>회원 정보 수정을 위해 정보를 입력해주세요.</p>
     <hr>
-		<label for="id"><b>ID : ${myInfo.popoId }</b></label>
-		<br><br>
-		<label for="name"><b>이름 : ${myInfo.popoName }</b></label>
-		<br><br>
-		<label for="tel"><b>전화번호 : ${myInfo.popoTel }</b></label>
-		<br><br>
-		<label for="email"><b>이메일 : ${myInfo.popoEmail }</b></label>
-		<br><br>
-		<label for="nickName"><b>닉네임 : ${myInfo.popoNickname }</b></label>
-		<br><br>
-		<label for="main"><b>롤 주포지션</b></label>
+		
+		<label for="pw"><b>비밀번호</b></label>
+		<input type="text" name="popoPw" value="${myInfo.popoPw}" required>
+
+		<label for="name"><b>이름</b></label>
+		<input type = "text" name="popoName" value="${myInfo.popoName}" required>
+
+		<label for="tel"><b>전화번호</b></label>
+		<input type = "tel" name = "popoTel" value="${myInfo.popoTel}" required>
+		<br>
+
+		<label for="email"><b>이메일</b></label>
+		<input type="email" name="popoEmail" value="${myInfo.popoEmail}" required>
+		<br>
+		<br>
+
+		 <label for="nickName"><b>닉네임</b></label>
+		 <input type = "text" name = "popoNickname" value="${myInfo.popoNickname}" required>
+
+		<label for="popoMain"><b>롤 주포지션</b></label>
 		<c:choose>
 			<c:when test="${myInfo.popoMain == 1}">탑</c:when>
 			<c:when test="${myInfo.popoMain == 2}">정글</c:when>
@@ -140,8 +148,9 @@ button:hover {
 			<c:when test="${myInfo.popoMain == 4}">바텀</c:when>
 			<c:otherwise>서포터</c:otherwise>
 		</c:choose>
+
 		<br><br>
-		<label for="sub"><b>롤 부포지션</b></label>
+		<label for="popoSub"><b>롤 부포지션</b></label>
 		<c:choose>
 			<c:when test="${myInfo.popoSub == 1}">탑</c:when>
 			<c:when test="${myInfo.popoSub == 2}">정글</c:when>
@@ -149,8 +158,12 @@ button:hover {
 			<c:when test="${myInfo.popoSub == 4}">바텀</c:when>
 			<c:otherwise>서포터</c:otherwise>
 		</c:choose>
+
 	   <div class="clearfix">
-      <button type="submit" class="signupbtn">회원 정보 수정</button>
+      <button type="button" class="cancelbtn" onclick = "location.href = 'toMyInfo' ">취소</button>
+      <button type="submit" class="signupbtn">수정하기</button>
     </div>
 </form>
+
+</body>
 </html>

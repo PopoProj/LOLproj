@@ -36,6 +36,8 @@ public class PopoUserService{
     public PopoUserDTO getUserById(String id) {
     	return popoUserDAO.getUserById(id);
     }
+    
+    // 회원 정보 수정
     public void updateInfo(PopoUserDTO popo) {
     	popoUserDAO.updateInfo(popo);
     }
@@ -61,12 +63,10 @@ public class PopoUserService{
     	popoUserDAO.unbanUser(popoNum);
 	}
     
-    public List<PopoUserDTO> listBanned(){
-    	return popoUserDAO.listBanned();
-    }
-    public List<PopoUserDTO> listQuit(){
-    	return popoUserDAO.listQuit();
-    }
+	/*
+	 * public List<PopoUserDTO> listBanned(){ return popoUserDAO.listBanned(); }
+	 * public List<PopoUserDTO> listQuit(){ return popoUserDAO.listQuit(); }
+	 */
 	public PopoUserDTO loginAction(String id, String pw) {
 		return popoUserDAO.loginAction(id, pw);
 		

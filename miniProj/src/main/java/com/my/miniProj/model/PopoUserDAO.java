@@ -15,6 +15,8 @@ public interface PopoUserDAO {
 	    public void registerUser(PopoUserDTO popo);
 	    public void createAuth();
 	    public PopoUserDTO getUserById(String id);
+	    
+	    // 회원 정보 수정
 	    public void updateInfo(PopoUserDTO popo);
 	    
 	    // 회원 관리 목록

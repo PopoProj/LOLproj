@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.my.miniProj.model.PopoUserDAO;
 import com.my.miniProj.model.PopoUserDTO;
 import com.my.miniProj.service.PopoUserService;
 
@@ -148,19 +151,32 @@ public class PopoUserController {
     	HttpSession session = request.getSession(false);
     	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
     	
-    	model.addAttribute(model.addAttribute("myInfo", loginMember));
-    	System.out.println(model.getAttribute("myInfo.popoId"));
-    	
+    	model.addAttribute("myInfo", loginMember);
     	
     	return "myInfo";
     }
     
     // 내 정보 수정 페이지
-    @GetMapping("myInfoEdit")
-    public String myInfoEditForm (Model model) throws Exception {
+    @GetMapping("myInfoEditForm")
+    public String myInfoEditForm (HttpServletRequest request, Model model) throws Exception {
     	System.out.println("내 정보 수정 페이지 컨트롤러");
+    	
+    	HttpSession session = request.getSession(false);
+    	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+ 
+    	model.addAttribute(model.addAttribute("myInfo", loginMember));
+    	
     	return "myInfoEdit";
     }
     
+    // 내 정보 수정
+    @RequestMapping(value = "/myInfoEdit", method = RequestMethod.POST)
+	public String modify(PopoUserDTO popo) throws Exception {
+		System.out.println("내 정보 수정처리 컨트롤러");
+
+		popoUserService.updateInfo(popo);
+
+		return "redirect:/toMyInfo";
+	}
 
 }
