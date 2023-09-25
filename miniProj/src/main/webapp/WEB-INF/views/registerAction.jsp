@@ -8,6 +8,6 @@
 </head>
 <body>
 회원가입이 완료되었습니다.
-<a href = login>로그인하러가기</a>
+<a href = search>메인으로 가기</a>
 </body>
 </html>

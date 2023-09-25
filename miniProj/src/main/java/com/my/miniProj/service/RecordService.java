@@ -22,8 +22,8 @@ public class RecordService {
 		recordDAO.addRec(recUser);
 	}
 	
-	public void deleteOldRec() {
-		recordDAO.deleteOldRec();
+	public void deleteOldRec(int popoNum) {
+		recordDAO.deleteOldRec(popoNum);
 	}
 	
 	public int countRec(int popoNum) {

@@ -39,7 +39,7 @@ public class RecordController {
 		
 		if (dupCount == 0) {
 			if (count >= 10) {
-				recordService.deleteOldRec();
+				recordService.deleteOldRec(popoNum);
 			}
 			recordService.addRec(newRecord);
 		}

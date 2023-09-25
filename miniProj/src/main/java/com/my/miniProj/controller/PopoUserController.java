@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.my.miniProj.model.PopoUserDTO;
 import com.my.miniProj.service.FavouritesService;
@@ -31,12 +31,14 @@ public class PopoUserController {
 
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request) {
+
 		return "login";
 	}
 	
 	@GetMapping("/loginAction")
 	public String loginAction(HttpServletRequest request) {
+
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		PopoUserDTO popo = popoUserService.loginAction(id, pw);
@@ -59,26 +61,24 @@ public class PopoUserController {
 		return "logoutAction";
 	}
 	
-	@GetMapping("/")
-	public String homeLogin(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session == null) {
-			return "login";
-		}
-		
-		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
-		if (loginMember == null) {
-			return "login";
-		}
-		
-		return "search";
-	
-	}
+
 	
 	@GetMapping("/toMyPage")
 	public String toMyPage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		boolean isSignedIn = false;
+		
+		if (session == null) {
+			return "needLogin";
+		}
+		
 		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		if (loginMember == null) {
+			return "needLogin";
+		}
+		
+		isSignedIn = true;
+		request.setAttribute("isSignedIn", isSignedIn);
 		request.setAttribute("userNickName", loginMember.getPopoNickname());
 		return "myPage";
 	}

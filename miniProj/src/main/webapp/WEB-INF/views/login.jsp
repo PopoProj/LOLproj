@@ -7,6 +7,10 @@
 <title>login</title>
 </head>
 <body>
+
+
+
+
 <form action = "loginAction" name = "loginForm">
 	<div>
 		<input type = "text" name = "id" placeholder = "id">
