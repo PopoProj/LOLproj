@@ -21,27 +21,27 @@
 </h2>
 <table class="table table-hover">
 	<tr>
-		<th class="th1" id="popolist" align="center" width="80" scope="cols">회원 번호</th>
+		<th class="th1" id="popoNum" align="center" width="80" scope="cols">회원 번호</th>
 
-		<th class="th2" id="boardTitle" align="center" width="320" scope="cols">회원 아이디</th>
+		<th class="th2" id="popoId" align="center" width="320" scope="cols">회원 아이디</th>
 
-		<th class="th3" id="boardDate" align="center" width="180" scope="cols">회원 이름</th>
+		<th class="th3" id="popoName" align="center" width="180" scope="cols">회원 이름</th>
 		
-		<th class="th4" id="boardViews" align="right" width="180" scope="cols">회원 전화번호</th>
+		<th class="th4" id="popoTel" align="right" width="180" scope="cols">회원 전화번호</th>
 		
-		<th class="th5" id="boardViews" align="right" width="180" scope="cols">회원 이메일</th>
+		<th class="th5" id="popoEmail" align="right" width="180" scope="cols">회원 이메일</th>
 		
-		<th class="th6" id="boardViews" align="center" width="180" scope="cols">회원 닉네임</th>
+		<th class="th6" id="popoNickname" align="center" width="180" scope="cols">회원 닉네임</th>
 		
-		<th class="th7" id="boardViews" align="center" width="180" scope="cols">회원 주라인</th>
+		<th class="th7" id="popoMain" align="center" width="180" scope="cols">회원 주라인</th>
 		
-		<th class="th8" id="boardViews" align="center" width="180" scope="cols">회원 부라인</th>
+		<th class="th8" id="popoSub" align="center" width="180" scope="cols">회원 부라인</th>
 		
-		<th class="th9" id="boardViews" align="left" width="180" scope="cols">회원 가입일</th>
+		<th class="th9" id="popoDate" align="left" width="180" scope="cols">회원 가입일</th>
 		
-		<th class="th10" id="boardViews" align="center" width="180" scope="cols">회원 탈퇴여부</th>
+		<th class="th10" id="popoQuit" align="center" width="180" scope="cols">회원 차단여부</th>
 		
-		<th class="th11" id="boardViews" align="center" width="180" scope="cols">회원 차단여부</th>
+		<th class="th11" id="popoBan" align="center" width="180" scope="cols">회원 탈퇴여부</th>
 	</tr>
 
 	<tbody>
@@ -62,12 +62,58 @@
 						<td align="center" scope="row">${popo.popoTel}</td>
 						<td align="center" scope="row">${popo.popoEmail}</td>
 						<td align="center" scope="row">${popo.popoNickname}</td>
-						<td align="center" scope="row">${popo.popoMain}</td>
-						<td align="center" scope="row">${popo.popoSub}</td>
+						<td align="center" scope="row">
+							<c:choose>
+								<c:when test="${popo.popoMain == 1}">탑</c:when>
+								<c:when test="${popo.popoMain == 2}">정글</c:when>
+								<c:when test="${popo.popoMain == 3}">미드</c:when>
+								<c:when test="${popo.popoMain == 4}">바텀</c:when>
+								<c:otherwise>서포터</c:otherwise>
+							</c:choose>
+						</td>
+						<td align="center" scope="row">
+							<c:choose>
+								<c:when test="${popo.popoSub == 1}">탑</c:when>
+								<c:when test="${popo.popoSub == 2}">정글</c:when>
+								<c:when test="${popo.popoSub == 3}">미드</c:when>
+								<c:when test="${popo.popoSub == 4}">바텀</c:when>
+								<c:otherwise>서포터</c:otherwise>
+							</c:choose>
+						</td>
 						<td align="center" scope="row">
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${popo.popoDate}" /></td>
-						<td align="center" scope="row">${popo.popoQuit }</td>
-						<td align="center" scope="row">${popo.popoBan }</td>
+						<td align="center" scope="row">	
+    						<c:choose>
+    							<c:when test="${popo.popoBan == 0 }">
+    								<form action="popoBan" method="post">
+    								<input type="hidden" name="popoNum" value="${popo.popoNum}">
+    								<input type="hidden" name="popoBan" value="${popo.popoBan}">
+    								<input type="hidden" name="page" value="${pages.page}">
+    								<input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
+  	  								<input type="submit" value="차단하기">
+  	  								</form>
+    							</c:when>
+    							<c:otherwise>
+    								<form action="popoBan" method="post">
+    								<input type="hidden" name="popoNum" value="${popo.popoNum}">
+    								<input type="hidden" name="popoBan" value="${popo.popoBan}">
+    								<input type="hidden" name="page" value="${pages.page}">
+    								<input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
+    								<input type="submit" value="차단해제하기">
+    								</form>
+    							</c:otherwise>
+    						</c:choose>
+						</td>
+						<td align="center" scope="row">
+							<c:choose>
+								<c:when test="${popo.popoQuit == 0}">
+									일반회원
+								</c:when>
+								<c:otherwise>
+									탈퇴회원
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -79,17 +125,17 @@
 
 <div class="pag" align="center">
     <c:if test="${pagination.prev}">
-        <a href="/listUsers${pagination.makeQuery(pre)}">&laquo;</a>
+        <a href="/admin/popoList${pagination.makeQuery(pre)}">&laquo;</a>
     </c:if>
 
     <c:forEach begin="${pagination.startPage }"
         end="${pagination.endPage }" var="idx">
 
-        <a href="/listUsers${pagination.makeQuery(idx)}">${idx}</a>
+        <a href="/admin/popoList${pagination.makeQuery(idx)}">${idx}</a>
     </c:forEach>
 
     <c:if test="${pagination.next && pagination.endPage > 0}">
-        <a href="/listUsers${pagination.makeQuery(next)}">&raquo;</a>
+        <a href="/admin/popoList${pagination.makeQuery(next)}">&raquo;</a>
     </c:if>
 </div>
 

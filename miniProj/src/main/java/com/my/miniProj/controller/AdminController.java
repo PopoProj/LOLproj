@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.my.miniProj.model.Board;
 import com.my.miniProj.model.Pages;
@@ -63,6 +64,23 @@ public class AdminController {
 	}
 	
 	// 회원 관리 차단 기능
-	
+	@RequestMapping(value = "/popoBan", method = RequestMethod.POST)
+	public String popoBan(@ModelAttribute("pages") Pages pages, int popoNum, int popoBan, RedirectAttributes rttr) throws Exception {
+		
+		if (popoBan == 0) {
+		// 차단하기 popoBan이 0이면 1로 변경
+		popoUserService.popoBan(popoNum);
+		} else {
+		// 차단해제하기 popoBan이 1이면 0으로 변경
+		popoUserService.popoUnban(popoNum);
+		}
+		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달
+		rttr.addAttribute("page", pages.getPage());
+		rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		System.out.println("회원 차단처리");
+		
+		return "redirect:/admin/popoList";
+	}
 	
 }

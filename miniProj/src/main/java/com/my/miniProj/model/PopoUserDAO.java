@@ -22,7 +22,13 @@ public interface PopoUserDAO {
 	   
 	    public int countUsers();
 	    public PopoUserDTO getUserDetails(int num);
-	    public void banUser(int num);
+	    
+	    // 회원 차단
+	    public void banUser(int popoNum);
+	    
+	    // 회원 차단해제
+	    public void unbanUser(int popoNum);
+	    
 	    public List<PopoUserDTO> listBanned();
 	    public List<PopoUserDTO> listQuit();
 		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);

@@ -1,6 +1,8 @@
 package com.my.miniProj.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,8 @@ public class BoardServiceImpl {
 	private BoardDao boardDao;
 
 	// 게시글 등록 처리
-	public void register(Board board) throws Exception {
-		boardDao.create(board);
+	public void register(Board board, String popoId) throws Exception {
+		boardDao.create(board, popoId);
 	}
 
 	// 게시글 목록 페이지
@@ -60,10 +62,21 @@ public class BoardServiceImpl {
 		}
 		
 	// 내가 쓴 게시글 목록
-		public Board listMyBoard(Pages pages, Integer popoNum) throws Exception {
+		public List<Board> listMyBoard(Pages pages, Integer popoNum) throws Exception {
 			System.out.println("내가 쓴 게시글 목록 서비스");
-			Board board = boardDao.listMyBoard(popoNum);
+			Map<String, Object> map = new HashMap<>();
+			map.put("page", pages.getPage());
+			map.put("sizePerPage", pages.getSizePerPage());
+			map.put("popoNum", popoNum);
+			List<Board> board = boardDao.listMyBoard(map);
 			return board;
+		}
+		
+	// 내가 쓴 게시글 건수 반환
+		public int myCount(Integer popoNum) throws Exception {
+			int result = boardDao.myCount(popoNum);
+			System.out.println("내가 쓴 게시글 개수 : "+result);
+			return result;
 		}
 
 }

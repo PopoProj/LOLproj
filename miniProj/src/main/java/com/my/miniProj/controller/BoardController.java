@@ -9,7 +9,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,21 +31,21 @@ public class BoardController {
 	@RequestMapping(value = "/boardRegister", method = RequestMethod.GET)
 	public void registerForm(Model model) throws Exception {
 		System.out.println("게시글 등록");
+		
 		Board board = new Board();
-		
-		// 로그인 popoUser 가져와서 boardWriter 채우기
-		// session.setAttribute("loginDto", popouser) 하면 loginDto.어쩌구 사용할 수 있음
-		
-		String tempWriter = "임시작성자";
-		model.addAttribute("tempWriter", tempWriter);
-		
+
 		model.addAttribute(board);
 	}
 
 	// 게시글 등록 처리
 	@RequestMapping(value = "/boardRegister", method = RequestMethod.POST)
-	public String register(Board board, RedirectAttributes rttr) throws Exception {
-		boardService.register(board);
+	public String register(HttpServletRequest request, Board board, RedirectAttributes rttr) throws Exception {
+		
+		HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		String popoId = loginMember.getPopoId();
+		
+		boardService.register(board, popoId);
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		System.out.println("게시글 등록 처리");
@@ -58,20 +57,20 @@ public class BoardController {
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String list(@ModelAttribute("pages") Pages pages, Model model) throws Exception {
 		System.out.println("게시글 목록 컨트롤러");
-		
+
 		String url = "boardList";
-		
+
 		List<Board> boardList = boardService.list(pages);
 		System.out.println(boardList.toString());
 		model.addAttribute("boardList", boardList);
-		
+
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
 		Pagination pagination = new Pagination();
 		pagination.setPages(pages);
 		pagination.setTotalCount(boardService.count());
 		model.addAttribute("pagination", pagination);
 		System.out.println(model.toString());
-		
+
 		return url;
 	}
 
@@ -79,12 +78,12 @@ public class BoardController {
 	@RequestMapping(value = "/boardRead", method = RequestMethod.GET)
 	public String read(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 상세 컨트롤러");
-		
+
 		String url = "boardRead";
-		
+
 		Board board = boardService.read(boardNum);
 		model.addAttribute(board);
-		
+
 		// 게시글 조회수 증가
 		boardService.views(boardNum);
 		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
@@ -97,7 +96,7 @@ public class BoardController {
 	@RequestMapping(value = "/boardModify", method = RequestMethod.GET)
 	public void modifyForm(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 수정 컨트롤러");
-		
+
 		// 조회한 게시글 상세 정보를 뷰에 전달한다.
 		model.addAttribute(boardService.read(boardNum));
 	}
@@ -106,14 +105,14 @@ public class BoardController {
 	@RequestMapping(value = "/boardModify", method = RequestMethod.POST)
 	public String modify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
 		System.out.println("게시글 수정처리 컨트롤러");
-		
+
 		boardService.modify(board);
 
 		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
 		rttr.addAttribute("page", pages.getPage());
 		rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		
+
 		return "redirect:/boardList";
 	}
 
@@ -130,13 +129,83 @@ public class BoardController {
 
 		return "redirect:/board" + "" + "List";
 	}
+
+	// 마이페이지 내가 쓴 게시글 목록
+	@RequestMapping(value = "/boardMyList", method = RequestMethod.GET)
+	public String toMyBoard(HttpServletRequest request, @ModelAttribute("pages") Pages pages, Model model) throws Exception {
+		HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+
+		List<Board> myList = boardService.listMyBoard(pages, loginMember.getPopoNum());
+		System.out.println(myList.toString());
+		model.addAttribute("myList", myList);
+
+		// 페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		pagination.setPages(pages);
+		pagination.setTotalCount(boardService.myCount(loginMember.getPopoNum()));
+		model.addAttribute("pagination", pagination);
+		System.out.println(model.toString());
+
+		return "viewMyBoard";
+	}
 	
-//	@GetMapping("/toMyBoard")
-//	public String toMyBoard(HttpServletRequest request, Pages pages) throws Exception {
-//		HttpSession session = request.getSession(false);
-//		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
-//		List<Board> myList = boardService.listMyBoard(pages, loginMember.getPopoNum());
-//		return "viewMyBoard";
-//	}
+	// 마이페이지 내가 쓴 게시글 상세보기
+	// value는 jsp 파일에서 href=에 붙는 이름
+	@RequestMapping(value = "/myBoardRead", method = RequestMethod.GET)
+	public String myRead(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+		System.out.println("게시글 상세 컨트롤러");
+
+		String url = "viewMyBoardRead";
+
+		Board board = boardService.read(boardNum);
+		model.addAttribute(board);
+
+		// 게시글 조회수 증가
+		boardService.views(boardNum);
+		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
+
+		return url;
+	}
 	
+	// 마이페이지 내가 쓴 게시글 수정 페이지
+	@RequestMapping(value = "/myBoardModify", method = RequestMethod.GET)
+	public String myModify1(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+		System.out.println("게시글 수정 컨트롤러");
+		
+		Board board = boardService.read(boardNum);
+		model.addAttribute("board", board);
+		
+		return "viewMyBoardModify";
+	}
+
+		// 게시글 수정 처리
+		@RequestMapping(value = "/myBoardModify", method = RequestMethod.POST)
+		public String myModify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
+			System.out.println("게시글 수정처리 컨트롤러");
+
+			boardService.modify(board);
+
+			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+			rttr.addAttribute("page", pages.getPage());
+			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+			return "myBoardRead";
+		}
+		
+		// 내 게시글 삭제 처리
+		@RequestMapping(value = "/myBoardRemove", method = RequestMethod.POST)
+		public String myRemove(@ModelAttribute("pages") Pages pages, int boardNum, RedirectAttributes rttr) throws Exception {
+			boardService.remove(boardNum);
+
+			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+			rttr.addAttribute("page", pages.getPage());
+			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+			rttr.addFlashAttribute("msg", "SUCCESS");
+			System.out.println("게시글 삭제처리");
+
+			return "redirect:/boardMyList";
+		}
+
 }
