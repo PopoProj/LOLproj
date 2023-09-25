@@ -9,7 +9,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,21 +31,21 @@ public class BoardController {
 	@RequestMapping(value = "/boardRegister", method = RequestMethod.GET)
 	public void registerForm(Model model) throws Exception {
 		System.out.println("게시글 등록");
+		
 		Board board = new Board();
-
-		// 로그인 popoUser 가져와서 boardWriter 채우기
-		// session.setAttribute("loginDto", popouser) 하면 loginDto.어쩌구 사용할 수 있음
-
-		String tempWriter = "임시작성자";
-		model.addAttribute("tempWriter", tempWriter);
 
 		model.addAttribute(board);
 	}
 
 	// 게시글 등록 처리
 	@RequestMapping(value = "/boardRegister", method = RequestMethod.POST)
-	public String register(Board board, RedirectAttributes rttr) throws Exception {
-		boardService.register(board);
+	public String register(HttpServletRequest request, Board board, RedirectAttributes rttr) throws Exception {
+		
+		HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		String popoId = loginMember.getPopoId();
+		
+		boardService.register(board, popoId);
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		System.out.println("게시글 등록 처리");

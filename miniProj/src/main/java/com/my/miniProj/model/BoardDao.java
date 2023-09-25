@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BoardDao {
 	// 게시글 등록 처리
-		public void create(Board board) throws Exception;
+		public void create(Board board, String popoId) throws Exception;
 
 		// 게시글 목록 페이지
 		public List<Board> list(Pages pages) throws Exception;

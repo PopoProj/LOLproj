@@ -45,10 +45,10 @@
 		VALUES
 		(
 		board_seq.NEXTVAL,
-		#{boardTitle},
-		#{boardContent},
+		#{board.boardTitle},
+		#{board.boardContent},
 		sysdate,
-		'임시글쓴이',
+		#{popoId},
 		0,
 		0
 		)

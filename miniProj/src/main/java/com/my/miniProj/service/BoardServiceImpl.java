@@ -18,8 +18,8 @@ public class BoardServiceImpl {
 	private BoardDao boardDao;
 
 	// 게시글 등록 처리
-	public void register(Board board) throws Exception {
-		boardDao.create(board);
+	public void register(Board board, String popoId) throws Exception {
+		boardDao.create(board, popoId);
 	}
 
 	// 게시글 목록 페이지
