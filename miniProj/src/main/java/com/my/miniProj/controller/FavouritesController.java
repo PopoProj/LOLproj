@@ -38,7 +38,16 @@ public class FavouritesController {
 	@GetMapping("/addFav")
 	public String add(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "needLogin";
+		}
+		
 		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		
+		if (loginMember == null) {
+			return "needLogin";
+		}
+					
 		int popoNum = loginMember.getPopoNum();
 		String sumName = request.getParameter("sumName");
 		System.out.println("This is sumName: " + sumName);

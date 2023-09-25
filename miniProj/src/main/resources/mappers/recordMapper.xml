@@ -16,7 +16,7 @@
 	</select>
 	
 	<delete id = "deleteRec" parameterType="com.my.miniProj.model.RecordDTO">
-	DELETE * FROM record WHERE (sum_name = #{sumName} AND popo_num = #{popoNum})
+	DELETE FROM record WHERE (sum_name = #{sumName} AND popo_num = #{popoNum})
 	</delete>
 	
 	<insert id="addRec" parameterType="com.my.miniProj.model.RecordDTO">
@@ -24,7 +24,7 @@
 	</insert>
 	
 	<delete id = "deleteOldRec" parameterType = "int">
-	DELETE * FROM record WHERE popo_num = #{popoNum} AND search_date = (SELECT MIN(search_date) FROM record)
+	DELETE FROM record WHERE popo_num = #{popoNum} AND search_date = (SELECT MIN(search_date) FROM record)
 	</delete>	
 	
 	<select id = "countRec" parameterType = "int" resultType="int">
@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id = "listRec" parameterType = "int" resultMap="recMap">
-		SELECT * FROM record WHERE popo_num = #{popoNum}
+		SELECT * FROM record WHERE popo_num = #{popoNum} ORDER BY search_date ASC
 	</select>
 	
 </mapper>

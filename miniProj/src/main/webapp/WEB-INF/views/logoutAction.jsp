@@ -8,11 +8,8 @@
 </head>
 <body>
 	<script>
-		function logout(){
-			alert("로그아웃되었습니다. 로그인페이지로 이동합니다.");
-			location.href = "/";
-		}
-		logout();
+		alert("로그아웃되었습니다. 메인으로 이동합니다.");
+		location.href = "/";
 	</script>
 </body>
 </html>

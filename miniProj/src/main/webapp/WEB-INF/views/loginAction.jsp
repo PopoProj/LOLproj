@@ -10,22 +10,20 @@
 <body>
 <%
 	boolean isLogin = (null == (PopoUserDTO) request.getAttribute("result"))? false:true;
+	String prevPage = (String) session.getAttribute("prevPage");
+
 %>
 
-
-
 <script>
-	function proceed(){
-		
-		if (<%= !isLogin %>){
-			alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
-			history.back();
-		}
-		else{
-			location.href = "/";
-		}	
+
+	if (<%= !isLogin %>){
+		alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
+		history.back();
 	}
-	proceed();
+	else{
+		history.go(-2);
+	}	
+
 </script>
 
 </body>

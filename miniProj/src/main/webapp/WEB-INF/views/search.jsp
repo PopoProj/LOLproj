@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.servlet.mvc.support.RedirectAttributes"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,41 +6,61 @@
 <head>
    
 <meta charset="UTF-8">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-  * {
-    box-sizing: border-box; /* 길이 계산을 편하게 하기위함. box-sizing에 관한 설명은 아래 링크를 참고해주세요 */
-  }
-  body {
-    margin: 0; /* body의 기본마진을 없애줍니다(선택사항) */
-    font-family: sans-serif;
-  }
-  a {
-    text-decoration: none; /* 기본 밑줄을 제거합니다 */
-    color: #888;
-  }
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.searchForm input[type=text] {
+  padding: 10px;
+  font-size: 30px;
+  border: 6px solid #44BE79;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.searchForm button {
+  float: left;
+  width: 20%;
+  padding: 20px;
+  background: #2D7D4E;
+  color: white;
+  font-size: 20px;
+  border: 1px solid #2D7D4E;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.searchForm button:hover {
+  background: #2D7D4E;
+}
+
+/* Clear floats */
+form.searchForm::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
   a:hover {
     text-decoration: underline; /* 마우스 커서가 올라갔을 때 밑줄을 생성합니다*/
   }
   header {
     margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
-    width: 1080px;
+    width: 100%;
     height: 215px;
     display: flex;
     align-items: center; /* 하위 요소들 수직 가운데정렬 */
     position: relative;
-  }
-  fieldset {
-    border: none; /* 기본 border 없애기(이 코드를 지우고 기본 border를 확인해보세요) */
-  }
-  .visually-hidden { /* legend 안보이게 설정. 이렇게하면 접근성을 준수하면서 디자인을 해치지 않습니다. */
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px 1px 1px 1px);
-    clip: rect(1px, 1px, 1px, 1px);
-    white-space: nowrap;
   }
   .links { /* 링크들을 상단 우측에 위치시킵니다. */
     position: absolute;
@@ -47,51 +68,60 @@
     right: 0;
   }
   .link_text {
-    font-size: 10px;
-    margin-left: 5px;
+    font-size: 30px;
+    margin-left: 20px;
   }
 
-  .search_box {
-    width: 520px;
-    height: 50px;
-    border: 2px solid #03cf5d;
-    display: flex;
-    align-items: center;
-  }
-  .search_box input {
-    flex: 9; /* search-box내부에서 9만큼의 크기를 차지(비율) */
-    height: 46px;
-    padding-left: 12px;
-    padding-right: 12px;
-    border: none;
-    outline: none;
-    font-size: 18px;
-  }
-  .searchBox button {
-    flex: 1; /* search-box내부에서 1만큼의 크기를 차지(비율) */
-    height: 46px;
-    margin: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-    background: #03cf5d;
-    color: #ffffff;
-  }
-  /* nav */
-  header > nav {
-    width: 100%;
-    height: 45px;
-    position: absolute;
-    bottom: 0;
-  }
   main {
-    background: #f2f4f7;
+    background: #FFFFFF;
     min-height: 700px;
   }
   footer {
     background: darkgray;
-    height: 310px;
+    height: 100px;
   }
+    
+	  .homeBtn {
+	  width: 50%;
+	  background-color: #ffffff;
+	  overflow: auto;
+	}
+	  
+
+	/* Style the navigation menu */
+	.topnav {
+	  width: 50%;
+	  background-color: #555;
+	  overflow: auto;
+	}
+	
+	/* Navigation links */
+	.topnav a {
+	  float: left;
+	  padding: 12px;
+	  color: white;
+	  text-decoration: none;
+	  font-size: 17px;
+	  width: 33%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+	  text-align: center; /* If you want the text to be centered */
+	}
+	
+	/* Add a background color on mouse-over */
+	.topnav a.active:hover {
+	  background-color: #04AA6D;
+	}
+	
+	
+	/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+	@media screen and (max-width: 500px) {
+	  .topnav a {
+	    float: none;
+	    display: block;
+	    width: 100%;
+	    text-align: left; /* If you want the text to be left-aligned on small screens */
+	  }
+	}
+
 
 </style>
 <title>Search Page</title>
@@ -100,20 +130,53 @@
 </head>
 	
 <body>
-    <header>
-    	상단
-    	<div class = "links">
-	          <a href="/">메인으로 가는 버튼</a>
-	    	  <a href="toMyPage">마이페이지</a>
-    	</div>
+
+<script type="text/javascript">
+
+window.addEventListener("pageshow", (event) => {
+	  if (event.persisted) {
+	    location.reload();
+	  } 
+	});
+</script>
+
+<%
+
+	session = request.getSession(false);
+	String aStr;
+	if (session.getAttribute("userSessionID") != null) {
+		aStr = "<a class = 'active' href = 'logout'> 로그아웃 </a>";
+	}
+	//boolean isSignedIn = (boolean) request.getAttribute("isSignedIn");
+	else{
+		aStr = "<a class = 'active' href = 'toLogin'> 로그인 </a>";
+	}
+
+%>
 	
+
+	
+    <header>
+    
+	    <div class = "homeBtn">
+		  <a href= "/">
+		      <img class="popoHome" src="../../images/popo.png" width = "256px" height = "144px"/>
+		  </a>
+ 		</div>	
+ 		
+    	<div class="topnav">
+	    	  <a class = "active" href="toMyPage"> 마이페이지</a>
+	    	  <a class = "active" href="toBoard"> 게시판 </a>
+	    	  <%=aStr %>
+	    	
+    	</div>
+
     </header>
     <main>
-    	메인
    		<div class = "searchBox">
-			<form action="searchResult" name="myForm" onsubmit="return checkBlank(myForm)">
-				<input type="text" name="sumName" id = "sumName" placeholder="소환사 이름을 입력하세요!"/>
-				<input type="submit" value="검색"/>  
+			<form class = "searchForm" action="searchResult" name="myForm" onsubmit="return checkBlank(myForm)" style="margin:auto;max-width:1000px">
+				<input type="text" tabindex="1" name="sumName" id = "sumName" placeholder="소환사 이름을 입력하세요!"/>
+				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
 		</div>
 
@@ -125,7 +188,6 @@
 	        }else{
 				alert("값을 입력해주세요.");
 				return false;
-				//location.href = "search";
 	        }
 	    }
 	    

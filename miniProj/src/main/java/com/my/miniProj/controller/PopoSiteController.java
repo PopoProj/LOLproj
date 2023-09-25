@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.my.miniProj.model.PopoUserDTO;
 import com.my.miniProj.model.RecordDTO;
@@ -26,24 +27,30 @@ import leagueAPI.Summoner;
 @Controller
 public class PopoSiteController {
 
-    
-    @GetMapping("/search")
-    public String search() {  	 
+	
+	@GetMapping("/toLogin")
+	public String toLogin() {
+		return "toLogin";
+	}
+    	
+    @GetMapping("/")
+    public String search(HttpServletRequest request) {  	
+    	HttpSession session = request.getSession(false);
+			if (session == null || session.getAttribute("userSessionID") == null) {
+				request.setAttribute("isSignedIn", false);
+			}else {
+				request.setAttribute("isSignedIn", true);
+			}
+
 		return "search";  	
     }
     
     @GetMapping("/searchResult")
     public String searchResult(HttpServletRequest request) {
     	HttpSession session = request.getSession(false);
-		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
-		int popoNum = loginMember.getPopoNum();
-    	String name = request.getParameter("sumName");
-    	String summonerName = name.replace(" ", "");
-    	
-    	RecordDTO newRecord = new RecordDTO();
-    	newRecord.setPopoNum(popoNum);
-    	newRecord.setSumName(summonerName);	
-    	
+		String name = request.getParameter("sumName");
+		String summonerName = name.replace(" ", "");
+
     	SearchEngine engine = SearchEngine.getInstance();
     	Summoner searched = engine.searchSummoner(summonerName);
     	List<String> matchIDs = engine.searchMatches(searched.getPuuid());
@@ -110,27 +117,48 @@ public class PopoSiteController {
     	
     	request.setAttribute("searched", searched);
     	request.setAttribute("matchData", recentMatchData);
-    	request.setAttribute("popoNum", popoNum);
+	    	
+  
+		if (session == null) {
+			request.setAttribute("isSignedIn", false);
+			return "searchResult";
+		}
+		
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		
+		if (loginMember == null) {
+			request.setAttribute("isSignedIn", false);
+			return "searchResult";
+		}
+			
+		request.setAttribute("isSignedIn", true);
+    	RecordDTO newRecord = new RecordDTO();
+    	int popoNum = loginMember.getPopoNum();
+    	newRecord.setPopoNum(popoNum);
+    	newRecord.setSumName(summonerName);	
 
     	int count = recordService.countRec(popoNum);
 		int dupCount = recordService.checkDupRec(newRecord);
 		
 		if (dupCount == 0) {
 			if (count >= 10) {
-				recordService.deleteOldRec();
+				recordService.deleteOldRec(popoNum);
 			}
 			recordService.addRec(newRecord);
 		}
 		return "searchResult";
     }
-    
-	
+
+
 	@Autowired
 	private RecordService recordService;
     
     @GetMapping("/matchDetails")
     public String matchDetails(HttpServletRequest request) {
+    	HttpSession session = request.getSession(false);
     	String id = request.getParameter("matchId");
+    
+    	
     	SearchEngine engine = SearchEngine.getInstance();
     	Map<String, Object> matchData = engine.searchMatchesData(id);
     	List<InstSummoner> participants = (List<InstSummoner>) matchData.get("participants");
@@ -182,6 +210,14 @@ public class PopoSiteController {
     	newMap.put("defeat", defeatMap);
     	
     	request.setAttribute("participants", newMap);
+    	request.setAttribute("matchId", id);
+    
+		if (session == null || session.getAttribute("userSessionID") == null) {
+			request.setAttribute("isSignedIn", false);
+		}else {
+			request.setAttribute("isSignedIn", true);
+		}
+		
     	return "matchDetails";
     }
 
