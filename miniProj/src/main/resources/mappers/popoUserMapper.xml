@@ -42,13 +42,13 @@
 		WHERE POPO_NAME = #{name} and POPO_EMAIL = #{email}
 	</select>
 	
-	<!-- 회원 비밀번호 업데이트 -->
+	<!-- 회원 비밀번호 업데이트
 	<update id="updatePassword" parameterType="com.my.miniProj.model.PopoUserDTO">
 		UPDATE POPOUSER SET POPO_PW = #{popoPw}
 		WHERE POPO_ID = #{popoId} and POPO_EMAIL = #{popoEmail}
-	</update>
+	</update> -->
 
-	<!-- 아이디 읽어오기(로그인) 	-->
+	<!-- 아이디 읽어오기(로그인)
 	<select id="readByUserId" resultType="com.my.miniProj.model.PopoUserDTO" parameterType="String">
 		SELECT popo.POPO_NUM,
 		popo.POPO_ID, popo.*,
@@ -57,7 +57,7 @@
 		POPOUSER popo LEFT OUTER JOIN POPO_AUTH auth ON
 		popo.POPO_NUM = auth.POPO_NUM
 		WHERE popo.POPO_ID = #{popoId}
-	</select>
+	</select> -->
 	
 	<!-- 회원가입 -->
 	<select id="checkDuplicate" resultType="int" parameterType="String">
@@ -97,7 +97,7 @@
 		)
 	</insert>
 	
-	<!-- 회원가입 시 권한 부여 -->
+	<!-- 회원가입 시 권한 부여
 	<insert id="createAuth">
 		INSERT INTO POPO_AUTH
 		(
@@ -109,9 +109,9 @@
 		POPOUSER_SEQ.CURRVAL,
 		ROLE_POPO
 		)
-	</insert>
+	</insert> -->
 	
-	<!-- 마이페이지 회원정보 -->
+	<!-- 마이페이지 회원정보
 	<select id="getUserById" parameterType = "String" resultMap = "popoMap">
 		SELECT POPO_NUM,
 		POPO_ID,
@@ -127,7 +127,7 @@
 		POPO_BAN
 		FROM POPOUSER
 		WHERE POPO_ID = #{popoId}
-	</select>
+	</select> -->
 
 	<!-- 마이페이지 회원수정 -->
 	<update id="updateInfo" parameterType = "com.my.miniProj.model.PopoUserDTO">
@@ -212,7 +212,7 @@ FROM (
 		WHERE POPO_NUM = #{popoNum}
 	</update>
 
-	<!-- 차단 회원 목록 -->
+	<!-- 차단 회원 목록
 	<select id="listBanned" resultType="com.my.miniProj.model.PopoUserDTO">
 		<![CDATA[
 	 		SELECT POPO_NUM,
@@ -232,9 +232,9 @@ FROM (
 			)
 	where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 ]]>
-	</select>
+	</select> -->
 	
-	<!-- 탈퇴 회원 목록 -->
+	<!-- 탈퇴 회원 목록
 	<select id="listQuit" resultType="com.my.miniProj.model.PopoUserDTO">
 <![CDATA[
 	 		SELECT POPO_NUM,
@@ -254,6 +254,6 @@ FROM (
 			)
 	where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 ]]>
-	</select>
+	</select> -->
 	
 </mapper>

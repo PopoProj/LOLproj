@@ -9,12 +9,12 @@ import org.apache.ibatis.annotations.Param;
 public interface PopoUserDAO {
 
 	    public String findId(@Param("name") String name, @Param("email") String email);
-	    public void updatePassword(PopoUserDTO popo);
-	    public PopoUserDTO readByUserId(String id);
+//	    public void updatePassword(PopoUserDTO popo);
+//	    public PopoUserDTO readByUserId(String id);
 	    public int checkDuplicate(String id);
 	    public void registerUser(PopoUserDTO popo);
-	    public void createAuth();
-	    public PopoUserDTO getUserById(String id);
+//	    public void createAuth();
+//	    public PopoUserDTO getUserById(String id);
 	    
 	    // 회원 정보 수정
 	    public void updateInfo(PopoUserDTO popo);
@@ -30,8 +30,8 @@ public interface PopoUserDAO {
 	    // 회원 차단해제
 	    public void unbanUser(int popoNum);
 	    
-	    public List<PopoUserDTO> listBanned();
-	    public List<PopoUserDTO> listQuit();
+//	    public List<PopoUserDTO> listBanned();
+//	    public List<PopoUserDTO> listQuit();
 		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);
 }
 

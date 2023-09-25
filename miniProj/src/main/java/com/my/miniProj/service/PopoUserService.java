@@ -18,24 +18,24 @@ public class PopoUserService{
     public String findId(String name, String email) {
     	return popoUserDAO.findId(name, email);
     }
-    public void updatePassword(PopoUserDTO popo) {
-    	popoUserDAO.updatePassword(popo);
-	}
-    public PopoUserDTO readByUserId(String id) {
-    	return popoUserDAO.readByUserId(id);
-    }
+//    public void updatePassword(PopoUserDTO popo) {
+//    	popoUserDAO.updatePassword(popo);
+//	}
+//    public PopoUserDTO readByUserId(String id) {
+//    	return popoUserDAO.readByUserId(id);
+//    }
     public int checkDuplicate(String id) {
     	return popoUserDAO.checkDuplicate(id);
     }
     public void registerUser(PopoUserDTO popo) {
     	popoUserDAO.registerUser(popo);
     }
-    public void createAuth() {
-    	popoUserDAO.createAuth();
-    }
-    public PopoUserDTO getUserById(String id) {
-    	return popoUserDAO.getUserById(id);
-    }
+//    public void createAuth() {
+//    	popoUserDAO.createAuth();
+//    }
+//    public PopoUserDTO getUserById(String id) {
+//    	return popoUserDAO.getUserById(id);
+//    }
     
     // 회원 정보 수정
     public void updateInfo(PopoUserDTO popo) {
