@@ -190,11 +190,11 @@ public class PopoUserController {
     	return "getUserDetails";
     }
     
-    @GetMapping("banUser")
-    public String banUser(int num) {
-    	popoUserService.banUser(num);
-    	return "banUser";
-    }
+//    @GetMapping("banUser")
+//    public String banUser(int num) {
+//    	popoUserService.banUser(num);
+//    	return "banUser";
+//    }
     
     @GetMapping("listBanned")
     public String listBanned() {

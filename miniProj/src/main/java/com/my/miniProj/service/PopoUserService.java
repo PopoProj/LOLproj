@@ -53,9 +53,17 @@ public class PopoUserService{
     public PopoUserDTO getUserDetails(int num) {
     	return popoUserDAO.getUserDetails(num);
     }
-    public void banUser(int num) {
-    	popoUserDAO.banUser(num);
+    
+    // popoUser 차단
+    public void popoBan(int popoNum) {
+    	popoUserDAO.banUser(popoNum);
     }
+    
+    // popoUser 차단해제
+    public void popoUnban(int popoNum) {
+    	popoUserDAO.unbanUser(popoNum);
+	}
+    
     public List<PopoUserDTO> listBanned(){
     	return popoUserDAO.listBanned();
     }

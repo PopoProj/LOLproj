@@ -212,10 +212,16 @@ FROM (
 	</select>
 
 	<!-- 회원 차단 -->
-	<update id="banUser"
-		parameterType="int">
+	<update id="banUser" parameterType="int">
 		UPDATE POPOUSER
 		SET POPO_BAN = 1
+		WHERE POPO_NUM = #{popoNum}
+	</update>
+	
+	<!-- 회원 차단해제 -->
+	<update id="unbanUser" parameterType="int">
+		UPDATE POPOUSER
+		SET POPO_BAN = 0
 		WHERE POPO_NUM = #{popoNum}
 	</update>
 
