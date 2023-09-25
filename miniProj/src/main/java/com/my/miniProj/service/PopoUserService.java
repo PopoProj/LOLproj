@@ -71,6 +71,4 @@ public class PopoUserService{
 		return popoUserDAO.loginAction(id, pw);
 		
 	}
-    
-
 }

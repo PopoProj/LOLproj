@@ -66,8 +66,7 @@
 		WHERE POPO_ID = #{popoId}
 	</select>
 
-	<insert id="registerUser"
-		parameterType = "com.my.miniProj.model.PopoUserDTO">
+	<insert id="registerUser" parameterType = "com.my.miniProj.model.PopoUserDTO">
 		INSERT INTO POPOUSER (
 		POPO_NUM,
 		POPO_ID,
@@ -113,8 +112,19 @@
 	</insert>
 	
 	<!-- 마이페이지 회원정보 -->
-	<select id="getUserById" resultType = "com.my.miniProj.model.PopoUserDTO">
-		SELECT *
+	<select id="getUserById" parameterType = "String" resultMap = "popoMap">
+		SELECT POPO_NUM,
+		POPO_ID,
+		POPO_PW,
+		POPO_NAME,
+		POPO_TEL,
+		POPO_EMAIL,
+		POPO_NICKNAME,
+		POPO_MAIN,
+		POPO_SUB,
+		POPO_DATE,
+		POPO_QUIT,
+		POPO_BAN
 		FROM POPOUSER
 		WHERE POPO_ID = #{popoId}
 	</select>
