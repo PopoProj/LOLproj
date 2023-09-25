@@ -62,8 +62,24 @@
 						<td align="center" scope="row">${popo.popoTel}</td>
 						<td align="center" scope="row">${popo.popoEmail}</td>
 						<td align="center" scope="row">${popo.popoNickname}</td>
-						<td align="center" scope="row">${popo.popoMain}</td>
-						<td align="center" scope="row">${popo.popoSub}</td>
+						<td align="center" scope="row">
+							<c:choose>
+								<c:when test="${popo.popoMain == 1}">탑</c:when>
+								<c:when test="${popo.popoMain == 2}">정글</c:when>
+								<c:when test="${popo.popoMain == 3}">미드</c:when>
+								<c:when test="${popo.popoMain == 4}">바텀</c:when>
+								<c:otherwise>서포터</c:otherwise>
+							</c:choose>
+						</td>
+						<td align="center" scope="row">
+							<c:choose>
+								<c:when test="${popo.popoSub == 1}">탑</c:when>
+								<c:when test="${popo.popoSub == 2}">정글</c:when>
+								<c:when test="${popo.popoSub == 3}">미드</c:when>
+								<c:when test="${popo.popoSub == 4}">바텀</c:when>
+								<c:otherwise>서포터</c:otherwise>
+							</c:choose>
+						</td>
 						<td align="center" scope="row">
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${popo.popoDate}" /></td>
 						<td align="center" scope="row">	
@@ -89,7 +105,14 @@
     						</c:choose>
 						</td>
 						<td align="center" scope="row">
-							${popo.popoQuit }
+							<c:choose>
+								<c:when test="${popo.popoQuit == 0}">
+									일반회원
+								</c:when>
+								<c:otherwise>
+									탈퇴회원
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</c:forEach>
