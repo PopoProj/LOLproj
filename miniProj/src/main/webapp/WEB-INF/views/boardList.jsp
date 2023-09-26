@@ -60,8 +60,12 @@
 	</tbody>
 </table>
 
-<!-- 페이징 네비게이션 -->
+<!-- 게시글 등록하기 버튼 -->
+<form action="boardRegisterForm" method="get">
+    <input type="submit" value="게시글 등록하기">
+</form>
 
+<!-- 페이징 네비게이션 -->
 <div class="pag" align="center">
     <c:if test="${pagination.prev}">
         <a href="/boardList${pagination.makeQuery(pre)}">&laquo;</a>

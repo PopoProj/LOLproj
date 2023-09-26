@@ -2,14 +2,18 @@
 <%@page import="com.my.miniProj.model.FavouritesDTO"%>
 <%@page import="com.my.miniProj.model.PopoUserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "leagueAPI.SearchEngine" import = "leagueAPI.InstSummoner" import = "leagueAPI.Summoner" import = "java.util.LinkedList" import = "java.util.HashMap" import = "java.util.List" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="leagueAPI.SearchEngine" import="leagueAPI.InstSummoner"
+	import="leagueAPI.Summoner" import="java.util.LinkedList"
+	import="java.util.HashMap" import="java.util.List"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
 <meta charset="UTF-8">
+
     <style>
 	
 	  header {
@@ -25,9 +29,7 @@
 	      width: 70%;
     	margin: 0 auto;
 	  }
-	  
-	  
-	  
+	
 	  .homeBtn {
 	  width: 50%;
 	  background-color: #ffffff;
@@ -42,16 +44,15 @@
 	}
 	
 	/* Navigation links */
+
 	.topnav a {
-	  float: left;
-	  padding: 12px;
-	  color: white;
-	  text-decoration: none;
-	  font-size: 17px;
-	  width: 33%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
-	  text-align: center; /* If you want the text to be centered */
+		float: none;
+		display: block;
+		width: 100%;
+		text-align: left;
+		/* If you want the text to be left-aligned on small screens */
 	}
-	
+}
 
 	/* Add a background color on mouse-over */
 	.topnav a.active:hover {
@@ -68,7 +69,6 @@
 	  }
 	}
  
-  	
       div.left {	
         width: 50%;
         display:flex;
@@ -130,36 +130,29 @@
         float: right;
         box-sizing: border-box;
       }
-
 	
     </style>
+
 <title>Search Result</title>
 </head>
 <body>
 
-
-
-
-
-<%
-	
+	<%
 	Summoner searched = (Summoner) request.getAttribute("searched");
 	List<InstSummoner> recentMatchData = (List<InstSummoner>) request.getAttribute("matchData");
-
 
 	int topRate = searched.getLaneMap().get("TOP").get("winrate");
 	int jgRate = searched.getLaneMap().get("JUNGLE").get("winrate");
 	int midRate = searched.getLaneMap().get("MIDDLE").get("winrate");
 	int botRate = searched.getLaneMap().get("BOTTOM").get("winrate");
 	int supRate = searched.getLaneMap().get("UTILITY").get("winrate");
-	
+
 	double topPick = (double)(searched.getLaneMap().get("TOP").get("win") + searched.getLaneMap().get("TOP").get("defeat"))/10;
 	double jgPick = (double)(searched.getLaneMap().get("JUNGLE").get("win") + searched.getLaneMap().get("JUNGLE").get("defeat"))/10;
 	double midPick = (double)(searched.getLaneMap().get("MIDDLE").get("win") + searched.getLaneMap().get("MIDDLE").get("defeat"))/10;
 	double botPick = (double)(searched.getLaneMap().get("BOTTOM").get("win") + searched.getLaneMap().get("BOTTOM").get("defeat"))/10;
 	double supPick = (double)(searched.getLaneMap().get("UTILITY").get("win") + searched.getLaneMap().get("UTILITY").get("defeat"))/10;
 %>
-
 
  <header>
  		  <div class = "homeBtn">
@@ -184,25 +177,32 @@
   			<div class = "leftTop">
 				<div class = "infoLeft" style = "height:300px" >
 					<img src="../../images/profileicon/<%=searched.getProfileIconId()%>.png" alt="profileIcon" width = '150' height = '150' />
+
 					<div>
-						<Strong><%=searched.getName() %></Strong> 
-						레벨: <%=searched.getSummonerLevel()%>
-						 <div OnClick = "location.href = '/addFav?sumName=<%=searched.getName() %>'" style = "cursor:pointer;">
-				        	[즐겨찾기에 추가하기]
-				        </div>
+						<Strong><%=searched.getName()%></Strong> 레벨:
+						<%=searched.getSummonerLevel()%>
+						<div
+							OnClick="location.href = '/addFav?sumName=<%=searched.getName()%>'"
+							style="cursor: pointer;">[즐겨찾기에 추가하기]</div>
 					</div>
-				</div>	
-				<div class = "infoRight" style = "height:300px" >
-					<div class = "rankLeft">
-						솔로랭크 <br>					
-						<img src="../../images/regalia/<%=searched.getRANKED_SOLO_5x5().get("tier")%>.png" alt="tier" width = '150' height = '150' /><br>
-						<%=searched.getRANKED_SOLO_5x5().get("tier")%> <%= searched.getRANKED_SOLO_5x5().get("rank") %> <%= searched.getRANKED_SOLO_5x5().get("leaguePoints") %>
+				</div>
+				<div class="infoRight" style="height: 300px">
+					<div class="rankLeft">
+						솔로랭크 <br> <img
+							src="../../images/regalia/<%=searched.getRANKED_SOLO_5x5().get("tier")%>.png"
+							alt="tier" width='150' height='150' /><br>
+						<%=searched.getRANKED_SOLO_5x5().get("tier")%>
+						<%=searched.getRANKED_SOLO_5x5().get("rank")%>
+						<%=searched.getRANKED_SOLO_5x5().get("leaguePoints")%>
 					</div>
-					
-					<div class = "rankRight">
+
+					<div class="rankRight">
 						자유랭크<br>
-						<%=searched.getRANKED_FLEX_SR().get("tier")%> <%= searched.getRANKED_FLEX_SR().get("rank") %> <%= searched.getRANKED_FLEX_SR().get("leaguePoints") %>
+						<%=searched.getRANKED_FLEX_SR().get("tier")%>
+						<%=searched.getRANKED_FLEX_SR().get("rank")%>
+						<%=searched.getRANKED_FLEX_SR().get("leaguePoints")%>
 					</div>
+
 		        </div>
 		    
 	   </div>
@@ -233,25 +233,42 @@
 				<div class = 'matchLeft' style='background-color: <%=colour%>'>
 					<img src="../../images/champion/<%=temp.getChampionName()%>.png" alt="champImg" width = '80' height = '80' />
 					Lv. <%= temp.getChampLevel()%> 
+
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<%=temp.getKills()%> / <%=temp.getDeaths()%> / <%=temp.getAssists()%> 	
+					<%=temp.getKills()%>
+					/
+					<%=temp.getDeaths()%>
+					/
+					<%=temp.getAssists()%>
 				</div>
-				
-				<div class = 'matchRight'  style='background-color: <%=colour%>'>
-					
-					<img src="../../images/item/<%=temp.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
-					<img src="../../images/item/<%=temp.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-					<img src="../../images/item/<%=temp.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-					<br>
-					<img src="../../images/item/<%=temp.getItem3()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-					<img src="../../images/item/<%=temp.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-					<img src="../../images/item/<%=temp.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+
+				<div class='matchRight' style='background-color: <%=colour%>'>
+
+					<img src="../../images/item/<%=temp.getItem0()%>.png"
+						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+						alt="item1" width='40' height='40' /> <img
+						src="../../images/item/<%=temp.getItem1()%>.png"
+						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+						width='40' height='40' /> <img
+						src="../../images/item/<%=temp.getItem2()%>.png"
+						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+						width='40' height='40' /> <br> <img
+						src="../../images/item/<%=temp.getItem3()%>.png"
+						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+						width='40' height='40' /> <img
+						src="../../images/item/<%=temp.getItem4()%>.png"
+						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+						width='40' height='40' /> <img
+						src="../../images/item/<%=temp.getItem5()%>.png"
+						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+						width='40' height='40' />
 				</div>
-		
+        
 			</div>
 			<%
-				}
+			}
 			%>
+
 	</div>
 
 </main>
@@ -323,6 +340,7 @@
 		        chart.draw(data, options);
 		      }
 	    </script>
+
 
 </body>
 </html>

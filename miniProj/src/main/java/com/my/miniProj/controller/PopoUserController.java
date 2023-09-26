@@ -1,35 +1,25 @@
 package com.my.miniProj.controller;
 
-
-import java.util.List;
-
-
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.my.miniProj.model.PopoUserDAO;
 import com.my.miniProj.model.PopoUserDTO;
-import com.my.miniProj.service.FavouritesService;
 import com.my.miniProj.service.PopoUserService;
-import com.my.miniProj.service.RecordService;
 
 @Controller
 public class PopoUserController {
 
-	
 	@Autowired
     private PopoUserService popoUserService;
 
-	
 	@GetMapping("/login")
 	public String login(HttpServletRequest request) {
 
@@ -63,8 +53,6 @@ public class PopoUserController {
 		return "logoutAction";
 	}
 	
-
-	
 	@GetMapping("/toMyPage")
 	public String toMyPage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -85,9 +73,6 @@ public class PopoUserController {
 		return "myPage";
 	}
 	
-	
-	
-	
 	@GetMapping("/inputForId")
 	public String inputForId() {
 		return "inputForId";
@@ -102,17 +87,17 @@ public class PopoUserController {
 		return "findId";
     }
     
-    @GetMapping("/updatePassword")
-    public String updatePassword(PopoUserDTO popo) {
-    	popoUserService.updatePassword(popo);
-    	return "updatePassword";
-    }
+//    @GetMapping("/updatePassword")
+//    public String updatePassword(PopoUserDTO popo) {
+//    	popoUserService.updatePassword(popo);
+//    	return "updatePassword";
+//    }
     
-    @GetMapping("/readByUserId")
-    public String readByUserId(String id) {
-    	PopoUserDTO selUser = popoUserService.readByUserId(id);
-    	return "readByUserId";
-    }
+//    @GetMapping("/readByUserId")
+//    public String readByUserId(String id) {
+//    	PopoUserDTO selUser = popoUserService.readByUserId(id);
+//    	return "readByUserId";
+//    }
     
     @GetMapping("/checkDuplicate")
     public String checkDuplicate(HttpServletRequest request) {
@@ -123,7 +108,7 @@ public class PopoUserController {
     	request.setAttribute("id", id);
     	return "checkDuplicate";
     }
-
+  
     @GetMapping("/checkDuplicateEmail")
     public String checkDuplicateEmail(HttpServletRequest request) {
     	String email = request.getParameter("email");
@@ -133,8 +118,6 @@ public class PopoUserController {
     	return "checkDuplicateEmail";
     }
 
-    
-	
 	@GetMapping("/inputForRegister")
 	public String inputForRegister() {
 		return "inputForRegister";
@@ -165,60 +148,50 @@ public class PopoUserController {
     	return "registerUser";
     }
 
-    @GetMapping("createAuth")
-    public String createAuth() {
-    	popoUserService.createAuth();
-    	return "createAuth";
-    }
-    
-    @GetMapping("getUserById")
-    public String getUserById(String id) {
-    	PopoUserDTO selUser = popoUserService.getUserById(id);
-    	return "getUserById";
-    }
-    
-    @GetMapping("updateInfo")
-    public String updateInfo(PopoUserDTO popo) {
-    	popoUserService.updateInfo(popo);
-    	return "updateInfo";
-    }
-//    
-//    @GetMapping("listUsers")
-//    public String listUsers() {
-//    	List<PopoUserDTO> selUser = popoUserService.listUsers();
-//    	return "listUsers";
+//    @GetMapping("createAuth")
+//    public String createAuth() {
+//    	popoUserService.createAuth();
+//    	return "createAuth";
 //    }
     
-    @GetMapping("countUsers")
-    public String countUsers() {
-    	int count = popoUserService.countUsers();
-    	return "countUsers";
+    // 내 정보 보기
+    @GetMapping("/toMyInfo")
+    public String toMyInfo(HttpServletRequest request, Model model) throws Exception {
+    	System.out.println("내 정보 보기 컨트롤러");
+    	
+    	HttpSession session = request.getSession(false);
+    	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+    	
+    	model.addAttribute("myInfo", loginMember);
+    	
+    	return "myInfo";
     }
     
-    @GetMapping("getUserDetails")
-    public String getUserDetails(int num) {
-    	PopoUserDTO selUser = popoUserService.getUserDetails(num);
-    	return "getUserDetails";
+    // 내 정보 수정 페이지
+    @GetMapping("myInfoEditForm")
+    public String myInfoEditForm (HttpServletRequest request, Model model) throws Exception {
+    	System.out.println("내 정보 수정 페이지 컨트롤러");
+    	
+    	HttpSession session = request.getSession(false);
+    	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+ 
+    	model.addAttribute(model.addAttribute("myInfo", loginMember));
+    	
+    	return "myInfoEdit";
     }
     
-//    @GetMapping("banUser")
-//    public String banUser(int num) {
-//    	popoUserService.banUser(num);
-//    	return "banUser";
-//    }
-    
-    @GetMapping("listBanned")
-    public String listBanned() {
-    	List<PopoUserDTO> bannedUsers = popoUserService.listBanned();
-    	return "listBanned";
-    }
-    
-    @GetMapping("listQuit")
-    public String listQuit() {
-    	List<PopoUserDTO> quitUsers = popoUserService.listQuit();
-    	return "listQuit";
-    }
-    
+
+    // 내 정보 수정
+    @RequestMapping(value = "/myInfoEdit", method = RequestMethod.POST)
+	public String modify(PopoUserDTO popo) throws Exception {
+		System.out.println("내 정보 수정처리 컨트롤러");
+
+		popoUserService.updateInfo(popo);
+
+		return "redirect:/toMyInfo";
+	}
+
+
     @GetMapping("/quitUser")
     public String quitUser(HttpServletRequest request) {
     	HttpSession session = request.getSession(false);
@@ -227,4 +200,5 @@ public class PopoUserController {
     	session.invalidate();
     	return "quitComplete";
     }
+
 }

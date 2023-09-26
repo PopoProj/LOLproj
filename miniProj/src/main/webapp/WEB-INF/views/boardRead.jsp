@@ -46,7 +46,8 @@
 	</table>
 
 	<!-- 수정하기 버튼 -->
-<form action="boardModify" method="get">
+	<c:if test="${session.popoId == board.boardWriter }">
+<form action="boardModifyForm" method="get">
     <input type="hidden" name="boardNum" value="${board.boardNum}">
     <input type="hidden" name="page" value="${pages.page}">
     <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
@@ -60,6 +61,7 @@
 	<input type="hidden" name="page" value="${pages.page}">
     <input type="submit" value="삭제하기">
 </form>
+</c:if>
 
 <!-- 목록으로 돌아가기 버튼 -->
 <form action="boardList" method="get">

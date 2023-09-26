@@ -18,24 +18,26 @@ public class PopoUserService{
     public String findId(String name, String email) {
     	return popoUserDAO.findId(name, email);
     }
-    public void updatePassword(PopoUserDTO popo) {
-    	popoUserDAO.updatePassword(popo);
-	}
-    public PopoUserDTO readByUserId(String id) {
-    	return popoUserDAO.readByUserId(id);
-    }
+//    public void updatePassword(PopoUserDTO popo) {
+//    	popoUserDAO.updatePassword(popo);
+//	}
+//    public PopoUserDTO readByUserId(String id) {
+//    	return popoUserDAO.readByUserId(id);
+//    }
     public int checkDuplicate(String id) {
     	return popoUserDAO.checkDuplicate(id);
     }
     public void registerUser(PopoUserDTO popo) {
     	popoUserDAO.registerUser(popo);
     }
-    public void createAuth() {
-    	popoUserDAO.createAuth();
-    }
-    public PopoUserDTO getUserById(String id) {
-    	return popoUserDAO.getUserById(id);
-    }
+//    public void createAuth() {
+//    	popoUserDAO.createAuth();
+//    }
+//    public PopoUserDTO getUserById(String id) {
+//    	return popoUserDAO.getUserById(id);
+//    }
+    
+    // 회원 정보 수정
     public void updateInfo(PopoUserDTO popo) {
     	popoUserDAO.updateInfo(popo);
     }
@@ -49,9 +51,6 @@ public class PopoUserService{
     
     public int countUsers() {
     	return popoUserDAO.countUsers();
-    }
-    public PopoUserDTO getUserDetails(int num) {
-    	return popoUserDAO.getUserDetails(num);
     }
     
     // popoUser 차단
@@ -68,25 +67,17 @@ public class PopoUserService{
     	return popoUserDAO.checkBan(id);
 
     }
-    
-    public List<PopoUserDTO> listBanned(){
-    	return popoUserDAO.listBanned();
-    }
-    public List<PopoUserDTO> listQuit(){
-    	return popoUserDAO.listQuit();
-    }
+  
 	public PopoUserDTO loginAction(String id, String pw) {
-		return popoUserDAO.loginAction(id, pw);
-		
+		return popoUserDAO.loginAction(id, pw);		
 	}
+
 	public void quitUser(PopoUserDTO popo) {
-		popoUserDAO.quitUser(popo);
-		
+		popoUserDAO.quitUser(popo);		
 	}
 	
 	public int checkDuplicateEmail(String email) {
 		return popoUserDAO.checkDuplicateEmail(email);
 	}
-    
-
+ 
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.my.miniProj.model.Board;
 import com.my.miniProj.model.Pages;
 import com.my.miniProj.model.Pagination;
 import com.my.miniProj.model.PopoUserDTO;
@@ -82,5 +81,17 @@ public class AdminController {
 		
 		return "redirect:/admin/popoList";
 	}
+	
+//    @GetMapping("listBanned")
+//    public String listBanned() {
+//    	List<PopoUserDTO> bannedUsers = popoUserService.listBanned();
+//    	return "listBanned";
+//    }
+//    
+//    @GetMapping("listQuit")
+//    public String listQuit() {
+//    	List<PopoUserDTO> quitUsers = popoUserService.listQuit();
+//    	return "listQuit";
+//    }
 	
 }

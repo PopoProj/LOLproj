@@ -9,19 +9,20 @@ import org.apache.ibatis.annotations.Param;
 public interface PopoUserDAO {
 
 	    public String findId(@Param("name") String name, @Param("email") String email);
-	    public void updatePassword(PopoUserDTO popo);
-	    public PopoUserDTO readByUserId(String id);
+//	    public void updatePassword(PopoUserDTO popo);
+//	    public PopoUserDTO readByUserId(String id);
 	    public int checkDuplicate(String id);
 	    public void registerUser(PopoUserDTO popo);
-	    public void createAuth();
-	    public PopoUserDTO getUserById(String id);
+//	    public void createAuth();
+//	    public PopoUserDTO getUserById(String id);
+	    
+	    // 회원 정보 수정
 	    public void updateInfo(PopoUserDTO popo);
 	    
 	    // 회원 관리 목록
 	    public List<PopoUserDTO> popoList(Pages pages) throws Exception;
 	   
 	    public int countUsers();
-	    public PopoUserDTO getUserDetails(int num);
 	    
 	    // 회원 차단
 	    public void banUser(int popoNum);
@@ -30,9 +31,7 @@ public interface PopoUserDAO {
 	    public void unbanUser(int popoNum);
 	    
 	    public int checkBan(String popoId);
-	    
-	    public List<PopoUserDTO> listBanned();
-	    public List<PopoUserDTO> listQuit();
+
 		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);
 		public void quitUser(PopoUserDTO popo);
 		public int checkDuplicateEmail(String email);
