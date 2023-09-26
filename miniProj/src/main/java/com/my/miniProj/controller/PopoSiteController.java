@@ -15,9 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.my.miniProj.model.Board;
 import com.my.miniProj.model.PopoUserDTO;
 import com.my.miniProj.model.RecordDTO;
+import com.my.miniProj.model.SearchCountDTO;
+import com.my.miniProj.service.BoardServiceImpl;
 import com.my.miniProj.service.RecordService;
+import com.my.miniProj.service.SearchCountService;
 
 import leagueAPI.InstSummoner;
 import leagueAPI.SearchEngine;
@@ -27,6 +31,15 @@ import leagueAPI.Summoner;
 @Controller
 public class PopoSiteController {
 
+	@Autowired
+	private RecordService recordService;
+	
+	@Autowired
+	private SearchCountService searchCountService;
+	
+	@Autowired
+	private BoardServiceImpl boardService;
+    
 	
 	@GetMapping("/toLogin")
 	public String toLogin() {
@@ -34,14 +47,26 @@ public class PopoSiteController {
 	}
     	
     @GetMapping("/")
-    public String search(HttpServletRequest request) {  	
-    	HttpSession session = request.getSession(false);
-			if (session == null || session.getAttribute("userSessionID") == null) {
-				request.setAttribute("isSignedIn", false);
-			}else {
-				request.setAttribute("isSignedIn", true);
+    public String search(HttpServletRequest request) throws Exception {  	
+			if(searchCountService.checkIfEmpty() == 0) {
+				System.out.println("checkpoint1");
+				request.setAttribute("ranking", null);
 			}
-
+			else {
+				System.out.println("checkpoint2");
+				List<SearchCountDTO> ranking = searchCountService.getMostSearched();
+				request.setAttribute("ranking", ranking);
+			}
+			
+			if(boardService.count() == 0) {
+				System.out.println("b.checkpoint1");
+				request.setAttribute("articles", null);
+			}
+			else {
+				System.out.println("b.checkpoint2");
+				List<Board> articles = boardService.getRecentArt();
+				request.setAttribute("articles", articles);
+			}
 		return "search";  	
     }
     
@@ -50,6 +75,12 @@ public class PopoSiteController {
     	HttpSession session = request.getSession(false);
 		String name = request.getParameter("sumName");
 		String summonerName = name.replace(" ", "");
+	
+		if (searchCountService.checkExist(summonerName) >= 1) {
+			searchCountService.addCount(summonerName);
+		}else {
+			searchCountService.addNewCount(summonerName);
+		}
 
     	SearchEngine engine = SearchEngine.getInstance();
     	Summoner searched = engine.searchSummoner(summonerName);
@@ -149,10 +180,6 @@ public class PopoSiteController {
 		return "searchResult";
     }
 
-
-	@Autowired
-	private RecordService recordService;
-    
     @GetMapping("/matchDetails")
     public String matchDetails(HttpServletRequest request) {
     	HttpSession session = request.getSession(false);

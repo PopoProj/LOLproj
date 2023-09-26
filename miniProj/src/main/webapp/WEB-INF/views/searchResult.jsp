@@ -21,6 +21,12 @@
     position: relative;
 	  }
 	  
+	  main{
+	      width: 70%;
+    	margin: 0 auto;
+	  }
+	  
+	  
 	  
 	  .homeBtn {
 	  width: 50%;
@@ -79,7 +85,7 @@
         div.leftBottom {
         width: 100%;
         display:flex;
-        flex-direction:row;
+        flex-direction:column;
         box-sizing: border-box;
       }
       
@@ -164,7 +170,7 @@
  		
     	<div class="topnav">
 	    	  <a class = "active" href = "toMyPage"> 마이페이지</a>
-	    	  <a class = "active" href = "toBoard"> 게시판 </a>
+	    	  <a class = "active" href = "boardList"> 게시판 </a>
 	    	    <% if (session.getAttribute("userSessionID") != null) {%>
 				<a class = "active" href = 'logout'> 로그아웃 </a>
 			<%} %>
@@ -215,13 +221,13 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			K/D/A
 			<% 
-				for (InstSummoner temp : recentMatchData){
-					String colour;
-					if (temp.isWin()){
-						colour = "#AED6F1"; 
-					}else{
-						colour = "#F5B7B1";
-					}
+			for (InstSummoner temp : recentMatchData){
+				String colour;
+				if (temp.isWin()){
+					colour = "#819FF7"; 
+				}else{
+					colour = "#F78181";
+				}
 			%>
 			<div OnClick="location.href ='/matchDetails?matchId=<%=temp.getMatchId()%>'" style="cursor:pointer;" >
 				<div class = 'matchLeft' style='background-color: <%=colour%>'>
@@ -242,10 +248,10 @@
 					<img src="../../images/item/<%=temp.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 				</div>
 		
+			</div>
 			<%
 				}
 			%>
-		</div>
 	</div>
 
 </main>

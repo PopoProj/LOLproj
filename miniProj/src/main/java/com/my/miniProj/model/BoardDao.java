@@ -33,4 +33,6 @@ public interface BoardDao {
 
 		// 내가 쓴 게시글 건수 반환
 		public int myCount(Integer popoNum) throws Exception;
+
+		public List<Board> getRecentArt();
 }

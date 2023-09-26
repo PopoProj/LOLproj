@@ -7,8 +7,6 @@
 		<id property="popoId" column="POPO_ID" />
 		<result property="sumName" column="SUM_NAME" />
 		<result property="searchDate" column="SEARCH_DATE" />
-
-		
 	</resultMap>
 	
 	<select id = "checkDupRec" parameterType="com.my.miniProj.model.RecordDTO" resultType="int">

@@ -1,6 +1,7 @@
-<%@page import="org.springframework.web.servlet.mvc.support.RedirectAttributes"%>
+<%@page import = "com.my.miniProj.model.SearchCountDTO" import = "java.util.List" import = "com.my.miniProj.model.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,8 +75,45 @@ form.searchForm::after {
 
   main {
     background: #FFFFFF;
+    width: 80%;
     min-height: 700px;
+    margin: 0 auto;
+
   }
+  
+   div.searchBox{
+	  width: 80%;
+	  height: 30%;
+	  margin: auto;
+	}
+	  div.bottom{
+	display: flex;
+	  flex-direction: row;
+	  width: 100%;
+	  height: 50%;
+	    margin: auto;
+	 padding: 60px;
+	}
+	
+	
+  div.summContainer{
+  
+	  display: flex;
+	  flex-direction: column;
+	  width: 50%;
+	  text-align: center;
+	  height: 100%;
+	  }
+  
+   div.boardContainer{
+	display: flex;
+	  flex-direction: column;
+	  text-align: center;
+	  width: 50%;
+	  height: 100%;
+	  }
+  
+  
   footer {
     background: darkgray;
     height: 100px;
@@ -86,7 +124,7 @@ form.searchForm::after {
 	  background-color: #ffffff;
 	  overflow: auto;
 	}
-	  
+
 
 	/* Style the navigation menu */
 	.topnav {
@@ -151,7 +189,10 @@ window.addEventListener("pageshow", (event) => {
 	else{
 		aStr = "<a class = 'active' href = 'toLogin'> 로그인 </a>";
 	}
-
+	
+	List<SearchCountDTO> ranking = (List<SearchCountDTO>) request.getAttribute("ranking");
+	List<Board> articles = (List<Board>) request.getAttribute("articles");
+	
 %>
 	
 
@@ -166,7 +207,7 @@ window.addEventListener("pageshow", (event) => {
  		
     	<div class="topnav">
 	    	  <a class = "active" href="toMyPage"> 마이페이지</a>
-	    	  <a class = "active" href="toBoard"> 게시판 </a>
+	    	  <a class = "active" href="boardList"> 게시판 </a>
 	    	  <%=aStr %>
 	    	
     	</div>
@@ -174,12 +215,47 @@ window.addEventListener("pageshow", (event) => {
     </header>
     <main>
    		<div class = "searchBox">
-			<form class = "searchForm" action="searchResult" name="myForm" onsubmit="return checkBlank(myForm)" style="margin:auto;max-width:1000px">
+			<form class = "searchForm" action="searchResult" name="myForm" onsubmit="return checkBlank(myForm)">
 				<input type="text" tabindex="1" name="sumName" id = "sumName" placeholder="소환사 이름을 입력하세요!"/>
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
 		</div>
-
+	
+	
+		<div class = bottom>	
+			<div class = "summContainer"> 오늘 최다검색된 소환사
+				  <%
+				  if (ranking == null){
+					  out.print("<br>정보없음");
+				  }else{
+					  for (int i =0 ; i < ranking.size() ; i++){
+					  String name = ranking.get(i).getSumName();
+					  %>
+					    <div class = "summItem">
+					      <%= i+1 %>. <a href = "searchResult?sumName=<%= name%>"> <%= name%> </a>
+					    </div>
+					  <% } 
+				  }%>
+			</div>
+			
+		
+			<div class = "boardContainer"> 최근 올라온 게시글
+				  <%
+				  if (articles == null){
+					  out.print("<br>정보없음");
+				  }else{
+					  for (int i =0 ; i < articles.size() ; i++){
+					  String title = articles.get(i).getBoardTitle();
+					  %>
+					    <div class = "boardItem">
+					      <%= i+1 %>. <a href = "/boardList"> <%=title %></a>
+					    </div>
+					  <% } 
+				  }%>
+			</div>
+		</div>
+		
+		
 	<script type="text/javascript">
 	    function checkBlank(formObj) {
 	        if (document.getElementById('sumName').value) {

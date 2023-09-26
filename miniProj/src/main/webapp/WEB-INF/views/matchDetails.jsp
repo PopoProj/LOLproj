@@ -16,7 +16,11 @@
     align-items: center; /* 하위 요소들 수직 가운데정렬 */
     position: relative;
   }
-    
+   main{
+	      width: 90%;
+    	margin: 0 auto;
+	  }
+	  
       div.left {
         width: 45%;	
        float:left;
@@ -37,20 +41,42 @@
         background: #F78181;
       }
       
+
+      	
+      	div.container{
+      		display: flex;
+ 			flex-direction: column;
+ 		
+      	}
+      	
       div.item1{
+      	float: right;
+      	height: 100px;
+      	
+      	
+      	}
+      	
+      	   div.item2{
       	float: left;
-      	width: 500px;
       	height: 100px;
       	
       	}
 
-	  div.item2{
+	  div.itemImagesLeft{
       	display: inline-block;
-      	width: 200px;
+      	width: 140px;
       	height: 100px;	
-      	margin-left: 10px;
-      	
+      	float:left;
       	}
+      	
+      div.itemImagesRight{
+      	display: inline-block;
+      	width: 140px;
+      	height: 100px;	
+      	float:right;
+      	}
+      	
+      	
 
   .homeBtn {
 	  width: 50%;
@@ -97,14 +123,23 @@
 </head>
 <body>
 
-
-
-
-
 <%
+
+
+	session = request.getSession(false);
+	String aStr;
+	if (session.getAttribute("userSessionID") != null) {
+		aStr = "<a href = 'logout'> 로그아웃 </a>";
+	}
+
+	else{
+		aStr = "<a href = 'toLogin'> 로그인 </a>";
+	}
+	
 	Map<String, Map<String, InstSummoner>> participants = (Map<String, Map<String, InstSummoner>>) request.getAttribute("participants");
 	String matchId = (String) request.getAttribute("matchId");
 	List<InstSummoner> playersListed = new ArrayList<>();
+	
 	playersListed.add(participants.get("win").get("TOP"));
 	playersListed.add(participants.get("win").get("JUNGLE"));
 	playersListed.add(participants.get("win").get("MIDDLE"));
@@ -116,31 +151,21 @@
 	playersListed.add(participants.get("defeat").get("BOTTOM"));
 	playersListed.add(participants.get("defeat").get("UTILITY"));
 
-	session = request.getSession(false);
-	String aStr;
-	if (session.getAttribute("userSessionID") != null) {
-		aStr = "<a href = 'logout'> 로그아웃 </a>";
-	}
-	//boolean isSignedIn = (boolean) request.getAttribute("isSignedIn");
-	else{
-		aStr = "<a href = 'toLogin'> 로그인 </a>";
-	}
 %>
  <header>
-		  <div class = "homeBtn">
-		  <a href= "/">
-		      <img class="popoHome" src="../../images/popo.png" width = "256px" height = "144px"/>
-		  </a>
- 		</div>
- 		
-    	<div class="topnav">
-	    	  <a class = "active" href = "toMyPage"> 마이페이지</a>
-	    	  <a class = "active" href = "toBoard"> 게시판 </a>
-	    	  <% if (session.getAttribute("userSessionID") != null) {%>
-				<a class = "active" href = 'logout'> 로그아웃 </a>
-			<%} %>
-	
-    	</div>
+	<div class = "homeBtn">
+	  <a href= "/">
+	      <img class="popoHome" src="../../images/popo.png" width = "256px" height = "144px"/>
+	  </a>
+	</div>
+		
+   	<div class="topnav">
+    	  <a class = "active" href = "toMyPage"> 마이페이지</a>
+    	  <a class = "active" href = "boardList"> 게시판 </a>
+    	  <% if (session.getAttribute("userSessionID") != null) {%>
+			<a class = "active" href = 'logout'> 로그아웃 </a>
+		  <%} %>
+   	</div>
 </header>
 <main>
 	
@@ -148,18 +173,19 @@
      	 <div class = "container">
 		   <% 
 		       	for (int i = 0; i < 5; i++){
+		     
 					InstSummoner player = playersListed.get(i);
 	     	%>
 	     		<div OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName().replaceAll(" ", "")%>'" style="cursor:pointer;" >
-					<div class = "item1">
-						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' />
-						Lv. <%= player.getChampLevel()%> 
+					<div class = "item1" >
+						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
 						<%=player.getSummonerName()%>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
+						Lv. <%= player.getChampLevel()%> 
+						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "right"/>
 					</div>
-					<div class = "item2">
+					<div class = "itemImagesLeft">
 						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
@@ -192,16 +218,18 @@
 				InstSummoner player = playersListed.get(i);
 		%>
 	     		<div OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName().replaceAll(" ", "")%>'" style="cursor:pointer;" >
-					<div class = "item1">
-						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' />
+					
+					<div class = "item2">
+						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "left"/>
 						Lv. <%= player.getChampLevel()%> 
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
 						<%=player.getSummonerName()%>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
 					</div>
-					<div class = "item2">
-						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
+					
+					<div class = "itemImagesRight">
+						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<br>
@@ -209,6 +237,8 @@
 						<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 					</div>
+					
+					
 				</div>
 	      <%
 	      		} 

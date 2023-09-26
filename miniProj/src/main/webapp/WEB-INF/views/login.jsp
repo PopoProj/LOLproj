@@ -16,7 +16,7 @@
 		<input type = "text" name = "id" placeholder = "id">
 	</div>
 	<div>
-		<input type = "text" name = "pw" placeholder = "password">
+		<input type = "password" name = "pw" placeholder = "password">
 	</div>
 	<div>
 		<input type = "submit" value = "로그인">
