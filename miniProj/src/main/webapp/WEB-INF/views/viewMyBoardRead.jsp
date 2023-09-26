@@ -46,7 +46,7 @@
 	</table>
 
 	<!-- 수정하기 버튼 -->
-<form action="myBoardModify" method="get">
+<form action="myBoardModifyForm" method="get">
     <input type="hidden" name="boardNum" value="${board.boardNum}">
     <input type="hidden" name="page" value="${pages.page}">
     <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">

@@ -183,7 +183,7 @@ public class BoardController {
 	}
 	
 	// 마이페이지 내가 쓴 게시글 수정 페이지
-	@RequestMapping(value = "/myBoardModify", method = RequestMethod.GET)
+	@RequestMapping(value = "/myBoardModifyForm", method = RequestMethod.GET)
 	public String myModify1(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 수정 컨트롤러");
 		
@@ -205,7 +205,7 @@ public class BoardController {
 			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 			rttr.addFlashAttribute("msg", "SUCCESS");
 
-			return "myBoardRead";
+			return "viewMyBoardRead";
 		}
 		
 		// 내 게시글 삭제 처리
