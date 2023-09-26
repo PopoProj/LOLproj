@@ -88,7 +88,7 @@ public class BoardController {
 
 	// 게시글 상세 페이지
 	@RequestMapping(value = "/boardRead", method = RequestMethod.GET)
-	public String read(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+	public String read(HttpServletRequest request, @ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 상세 컨트롤러");
 
 		String url = "boardRead";
@@ -100,6 +100,11 @@ public class BoardController {
 		boardService.views(boardNum);
 		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
 
+		// 로그인 계정과 게시글 글쓴이가 같은지 판별
+		HttpSession session = request.getSession(false);
+		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+		model.addAttribute("session", loginMember);
+				
 		return url;
 
 	}
