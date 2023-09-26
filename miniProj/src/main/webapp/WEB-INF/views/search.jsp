@@ -8,14 +8,22 @@
    
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <style>
 
-
-
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
 
 * {
+font-family: 'SUITE-Regular';
   box-sizing: border-box;
-}
+  }
+
 
 /* Style the search field */
 form.searchForm input[type=text] {
@@ -58,7 +66,7 @@ form.searchForm::after {
   header {
     margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
     width: 100%;
-    height: 215px;
+    height: 230px;
     display: flex;
     align-items: center; /* 하위 요소들 수직 가운데정렬 */
     position: relative;
@@ -92,26 +100,40 @@ form.searchForm::after {
 	  width: 100%;
 	  height: 50%;
 	    margin: auto;
-	 padding: 60px;
+	 padding: 100px;
 	}
 	
 	
   div.summContainer{
-  
+  	 font-size: 22px;
 	  display: flex;
 	  flex-direction: column;
 	  width: 50%;
 	  text-align: center;
-	  height: 100%;
+	  height: 500px;
+	  border: 6px solid #44BE79;
+	   border-radius: 25px;
+	  margin-right: 80px;
+	   margin-left: 80px;
 	  }
   
    div.boardContainer{
+   
+    font-size: 22px;
 	display: flex;
 	  flex-direction: column;
 	  text-align: center;
 	  width: 50%;
-	  height: 100%;
+	  height: 500px;
+	 border: 6px solid #44BE79;
+	  border-radius: 25px;
+	 margin-right: 80px;
+	  margin-left: 80px;
 	  }
+	  
+	  div.item{
+	
+		}
   
   
   footer {
@@ -140,7 +162,7 @@ form.searchForm::after {
 	  color: white;
 	  text-decoration: none;
 	  font-size: 17px;
-	  width: 33%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+	  width: 33%; /* 3 equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
 	  text-align: center; /* If you want the text to be centered */
 	}
 	
@@ -159,11 +181,11 @@ form.searchForm::after {
 	    text-align: left; /* If you want the text to be left-aligned on small screens */
 	  }
 	}
+	
 
 
 </style>
 <title>Search Page</title>
-
 
 </head>
 	
@@ -201,7 +223,7 @@ window.addEventListener("pageshow", (event) => {
     
 	    <div class = "homeBtn">
 		  <a href= "/">
-		      <img class="popoHome" src="../../images/popo.png" width = "256px" height = "144px"/>
+		      <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
 		  </a>
  		</div>	
  		
@@ -223,7 +245,7 @@ window.addEventListener("pageshow", (event) => {
 	
 	
 		<div class = bottom>	
-			<div class = "summContainer"> 오늘 최다검색된 소환사
+			<div class = "summContainer"> 오늘 최다검색된 소환사<br>
 				  <%
 				  if (ranking == null){
 					  out.print("<br>정보없음");
@@ -231,25 +253,30 @@ window.addEventListener("pageshow", (event) => {
 					  for (int i =0 ; i < ranking.size() ; i++){
 					  String name = ranking.get(i).getSumName();
 					  %>
-					    <div class = "summItem">
+					  <br>
+					    <div class = "item">
 					      <%= i+1 %>. <a href = "searchResult?sumName=<%= name%>"> <%= name%> </a>
 					    </div>
+					
 					  <% } 
 				  }%>
 			</div>
 			
 		
-			<div class = "boardContainer"> 최근 올라온 게시글
+			<div class = "boardContainer"> 최근 올라온 게시글<br>
 				  <%
 				  if (articles == null){
 					  out.print("<br>정보없음");
 				  }else{
 					  for (int i =0 ; i < articles.size() ; i++){
 					  String title = articles.get(i).getBoardTitle();
+					  int boardNum = articles.get(i).getBoardNum();
 					  %>
-					    <div class = "boardItem">
-					      <%= i+1 %>. <a href = "/boardList"> <%=title %></a>
+					  <br>
+					    <div class = "item">
+					      <%= i+1 %>. <a href = "/boardRead?boardNum=<%=boardNum%>"> <%=title %></a>
 					    </div>
+					    
 					  <% } 
 				  }%>
 			</div>

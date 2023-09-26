@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,7 +27,7 @@ public class PopoUserController {
 		return "login";
 	}
 	
-	@GetMapping("/loginAction")
+	@PostMapping(value = "/loginAction")
 	public String loginAction(HttpServletRequest request) {
 
 		String id = request.getParameter("id");
@@ -191,6 +192,11 @@ public class PopoUserController {
 		return "redirect:/toMyInfo";
 	}
 
+    @GetMapping("/confirmQuit")
+	public String confirmQuit() {
+
+		return "confirmQuit";
+	}
 
     @GetMapping("/quitUser")
     public String quitUser(HttpServletRequest request) {

@@ -9,7 +9,89 @@
 <style>
 
 * {box-sizing: border-box}
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
 
+* {
+font-family: 'SUITE-Regular';
+  box-sizing: border-box;
+  }
+
+header {
+    margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
+    width: 100%;
+    height: 230px;
+    display: flex;
+    align-items: center; /* 하위 요소들 수직 가운데정렬 */
+    position: relative;
+  }
+  .links { /* 링크들을 상단 우측에 위치시킵니다. */
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .link_text {
+    font-size: 30px;
+    margin-left: 20px;
+  }
+
+  main {
+    background: #FFFFFF;
+    width: 60%;
+    min-height: 700px;
+    margin: 0 auto;
+
+  }
+   footer {
+    background: darkgray;
+    height: 100px;
+  }
+    
+	  .homeBtn {
+	  width: 50%;
+	  background-color: #ffffff;
+	  overflow: auto;
+	}
+
+
+	/* Style the navigation menu */
+	.topnav {
+	  width: 50%;
+	  background-color: #555;
+	  overflow: auto;
+	}
+	
+	/* Navigation links */
+	.topnav a {
+	  float: left;
+	  padding: 12px;
+	  color: white;
+	  text-decoration: none;
+	  font-size: 17px;
+	  width: 33%; /* 3 equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+	  text-align: center; /* If you want the text to be centered */
+	}
+	
+	/* Add a background color on mouse-over */
+	.topnav a.active:hover {
+	  background-color: #04AA6D;
+	}
+	
+	
+	/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+	@media screen and (max-width: 500px) {
+	  .topnav a {
+	    float: none;
+	    display: block;
+	    width: 100%;
+	    text-align: left; /* If you want the text to be left-aligned on small screens */
+	  }
+	}
+	
 /* Full-width input fields */
   input[type=text], input[type=password], input[type=tel], input[type=email], select {
   width: 100%;
@@ -115,55 +197,72 @@ button:hover {
 
 <body>
 
-<form name="myInfoEditForm" action="myInfoEdit" method="post" onsubmit="checkInput(registerForm)" style="border:1px solid #ccc">
-  <input type="hidden" name="popoId" value="${myInfo.popoId}">
-  <div class="container">
-    <h1>회원 정보 수정</h1>
-    <p>회원 정보 수정을 위해 정보를 입력해주세요.</p>
-    <hr>
-		
-		<label for="pw"><b>비밀번호</b></label>
-		<input type="text" name="popoPw" value="${myInfo.popoPw}" required>
+ <header>
+ 
+	  <div class = "homeBtn">
+	 <a href= "/">
+	     <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
+	 </a>
+	</div>	
 
-		<label for="name"><b>이름</b></label>
-		<input type = "text" name="popoName" value="${myInfo.popoName}" required>
+ 	<div class="topnav">
+  	  <a class = "active" href="toMyPage"> 마이페이지</a>
+  	  <a class = "active" href="boardList"> 게시판 </a>
+  	  <a class = "active" href="logout"> 로그아웃</a>
+  	
+ 	</div>
 
-		<label for="tel"><b>전화번호</b></label>
-		<input type = "tel" name = "popoTel" value="${myInfo.popoTel}" required>
-		<br>
-
-		<label for="email"><b>이메일</b></label>
-		<input type="email" name="popoEmail" value="${myInfo.popoEmail}" required>
-		<br>
-		<br>
-
-		 <label for="nickName"><b>닉네임</b></label>
-		 <input type = "text" name = "popoNickname" value="${myInfo.popoNickname}" required>
-
-		<label for="popoMain"><b>롤 주포지션</b></label>
-		<c:choose>
-			<c:when test="${myInfo.popoMain == 1}">탑</c:when>
-			<c:when test="${myInfo.popoMain == 2}">정글</c:when>
-			<c:when test="${myInfo.popoMain == 3}">미드</c:when>
-			<c:when test="${myInfo.popoMain == 4}">바텀</c:when>
-			<c:otherwise>서포터</c:otherwise>
-		</c:choose>
-
-		<br><br>
-		<label for="popoSub"><b>롤 부포지션</b></label>
-		<c:choose>
-			<c:when test="${myInfo.popoSub == 1}">탑</c:when>
-			<c:when test="${myInfo.popoSub == 2}">정글</c:when>
-			<c:when test="${myInfo.popoSub == 3}">미드</c:when>
-			<c:when test="${myInfo.popoSub == 4}">바텀</c:when>
-			<c:otherwise>서포터</c:otherwise>
-		</c:choose>
-
-	   <div class="clearfix">
-      <button type="button" class="cancelbtn" onclick = "location.href = 'toMyInfo' ">취소</button>
-      <button type="submit" class="signupbtn">수정하기</button>
-    </div>
-</form>
-
+ </header>
+<main>
+	<form name="myInfoEditForm" action="myInfoEdit" method="post" onsubmit="checkInput(registerForm)" style="border:1px solid #ccc">
+	  <input type="hidden" name="popoId" value="${myInfo.popoId}">
+	  <div class="container">
+	    <h1>회원 정보 수정</h1>
+	    <p>회원 정보 수정을 위해 정보를 입력해주세요.</p>
+	    <hr>
+			
+			<label for="pw"><b>비밀번호</b></label>
+			<input type="text" name="popoPw" value="${myInfo.popoPw}" required>
+	
+			<label for="name"><b>이름</b></label>
+			<input type = "text" name="popoName" value="${myInfo.popoName}" required>
+	
+			<label for="tel"><b>전화번호</b></label>
+			<input type = "tel" name = "popoTel" value="${myInfo.popoTel}" required>
+			<br>
+	
+			<label for="email"><b>이메일</b></label>
+			<input type="email" name="popoEmail" value="${myInfo.popoEmail}" required>
+			<br>
+			<br>
+	
+			 <label for="nickName"><b>닉네임</b></label>
+			 <input type = "text" name = "popoNickname" value="${myInfo.popoNickname}" required>
+	
+			<label for="popoMain"><b>롤 주포지션</b></label>
+			<c:choose>
+				<c:when test="${myInfo.popoMain == 1}">탑</c:when>
+				<c:when test="${myInfo.popoMain == 2}">정글</c:when>
+				<c:when test="${myInfo.popoMain == 3}">미드</c:when>
+				<c:when test="${myInfo.popoMain == 4}">바텀</c:when>
+				<c:otherwise>서포터</c:otherwise>
+			</c:choose>
+	
+			<br><br>
+			<label for="popoSub"><b>롤 부포지션</b></label>
+			<c:choose>
+				<c:when test="${myInfo.popoSub == 1}">탑</c:when>
+				<c:when test="${myInfo.popoSub == 2}">정글</c:when>
+				<c:when test="${myInfo.popoSub == 3}">미드</c:when>
+				<c:when test="${myInfo.popoSub == 4}">바텀</c:when>
+				<c:otherwise>서포터</c:otherwise>
+			</c:choose>
+	
+		   <div class="clearfix">
+	      <button type="button" class="cancelbtn" onclick = "location.href = 'toMyInfo' ">취소</button>
+	      <button type="submit" class="signupbtn">수정하기</button>
+	    </div>
+	</form>
+</main>
 </body>
 </html>
