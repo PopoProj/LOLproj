@@ -105,12 +105,14 @@ public class BoardController {
 	}
 
 	// 게시글 수정 페이지
-	@RequestMapping(value = "/boardModify", method = RequestMethod.GET)
-	public void modifyForm(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+	@RequestMapping(value = "/boardModifyForm", method = RequestMethod.GET)
+	public String modifyForm(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 수정 컨트롤러");
 
 		// 조회한 게시글 상세 정보를 뷰에 전달한다.
 		model.addAttribute(boardService.read(boardNum));
+		
+		return "/boardModify";
 	}
 
 	// 게시글 수정 처리
@@ -119,13 +121,15 @@ public class BoardController {
 		System.out.println("게시글 수정처리 컨트롤러");
 
 		boardService.modify(board);
+		
+		rttr.addAttribute("boardNum", board.getBoardNum());
 
 		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
 		rttr.addAttribute("page", pages.getPage());
 		rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/boardList";
+		return "redirect:/boardRead";
 	}
 
 	// 게시글 삭제 처리
@@ -168,8 +172,6 @@ public class BoardController {
 	public String myRead(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
 		System.out.println("게시글 상세 컨트롤러");
 
-		String url = "viewMyBoardRead";
-
 		Board board = boardService.read(boardNum);
 		model.addAttribute(board);
 
@@ -177,7 +179,7 @@ public class BoardController {
 		boardService.views(boardNum);
 		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
 
-		return url;
+		return "viewMyBoardRead";
 	}
 	
 	// 마이페이지 내가 쓴 게시글 수정 페이지

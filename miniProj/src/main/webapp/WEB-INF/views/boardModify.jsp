@@ -27,7 +27,7 @@
 </form>
 
 <!-- 게시글 상세 페이지로 이동 -->
-<a href="myBoardRead?boardNum=${board.boardNum}&page=${pages.page}&sizePerPage=${pages.sizePerPage}">취소</a>
+<a href="boardRead?boardNum=${board.boardNum}&page=${pages.page}&sizePerPage=${pages.sizePerPage}">취소</a>
 
 </body>
 </html>
