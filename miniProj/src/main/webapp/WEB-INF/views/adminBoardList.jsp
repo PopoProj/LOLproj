@@ -11,11 +11,11 @@
 
 <html>
 <head>
-    <title>게시글 목록</title>
+    <title>관리자 게시글 목록</title>
 </head>
 <body>
 <h2>
-	<a href="/"> POPO 홈</a>
+	<a href="/admin"> admin 홈</a>
 </h2>
 <table class="table table-hover">
 	<tr>
@@ -44,7 +44,7 @@
 						
 						<!-- 게시글 상세보기 할 때 페이징 요청 정보를 매개변수로 전달 -->
 						<td align="center" scope="row">
-							<a href="/boardRead${pagination.makeQuery(pagination.pages.page)}&boardNum=${board.boardNum}">${board.boardTitle}</a>
+							<a href="/admin/adminBoardRead${pagination.makeQuery(pagination.pages.page)}&boardNum=${board.boardNum}">${board.boardTitle}</a>
 						</td>
 						<td align="center" scope="row">
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.boardDate}" /></td>
@@ -55,11 +55,6 @@
 		</c:choose>
 	</tbody>
 </table>
-
-<!-- 게시글 등록하기 버튼 -->
-<form action="boardRegisterForm" method="get">
-    <input type="submit" value="게시글 등록하기">
-</form>
 
 <!-- 페이징 네비게이션 -->
 <div class="pag" align="center">

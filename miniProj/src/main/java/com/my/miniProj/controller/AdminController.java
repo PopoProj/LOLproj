@@ -2,6 +2,9 @@ package com.my.miniProj.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.my.miniProj.model.Board;
 import com.my.miniProj.model.Pages;
 import com.my.miniProj.model.Pagination;
 import com.my.miniProj.model.PopoUserDTO;
@@ -35,11 +39,78 @@ public class AdminController {
 		return "admin";
 	}
 	
-	// 게시글 관리 페이지
-	@RequestMapping(value = "/boardList")
-	public String adminBoard() throws Exception {
-		return "boardList";
+	// 게시글 관리 목록 페이지
+	@RequestMapping(value = "/adminBoardList")
+	public String adminBoard(@ModelAttribute("pages") Pages pages, Model model) throws Exception {
+		
+		System.out.println("관리자 게시글 목록 컨트롤러");
+
+		List<Board> boardList = boardService.list(pages);
+		System.out.println(boardList.toString());
+		model.addAttribute("boardList", boardList);
+
+		// 페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		pagination.setPages(pages);
+		pagination.setTotalCount(boardService.count());
+		model.addAttribute("pagination", pagination);
+		System.out.println(model.toString());
+		
+		return "adminBoardList";
 	}
+	
+	// 게시글 관리 상세 페이지
+	@RequestMapping(value = "/adminBoardRead", method = RequestMethod.GET)
+	public String adminRead(HttpServletRequest request, @ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+		System.out.println("관리자 게시글 상세 컨트롤러");
+
+		Board board = boardService.read(boardNum);
+		model.addAttribute(board);
+				
+		return "adminBoardRead";
+	}
+	
+	// 게시글 수정 페이지
+		@RequestMapping(value = "/adminBoardModifyForm", method = RequestMethod.GET)
+		public String adminModifyForm(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
+			System.out.println("게시글 수정 컨트롤러");
+
+			// 조회한 게시글 상세 정보를 뷰에 전달한다.
+			model.addAttribute(boardService.read(boardNum));
+			
+			return "/adminBoardModifyForm";
+		}
+		
+		// 게시글 수정 처리
+		@RequestMapping(value = "/adminBoardModify", method = RequestMethod.POST)
+		public String adminModify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
+			System.out.println("게시글 수정처리 컨트롤러");
+
+			boardService.modify(board);
+			
+			rttr.addAttribute("boardNum", board.getBoardNum());
+
+			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+			rttr.addAttribute("page", pages.getPage());
+			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+			return "redirect:/admin/adminBoardRead";
+		}
+		
+		// 게시글 삭제 처리
+		@RequestMapping(value = "/adminBoardRemove", method = RequestMethod.POST)
+		public String remove(@ModelAttribute("pages") Pages pages, int boardNum, RedirectAttributes rttr) throws Exception {
+			boardService.remove(boardNum);
+
+			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+			rttr.addAttribute("page", pages.getPage());
+			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
+			rttr.addFlashAttribute("msg", "SUCCESS");
+			System.out.println("게시글 삭제처리");
+
+			return "redirect:/admin/adminBoard" + "" + "List";
+		}
 	
 	// 회원 관리 목록 페이지
 	@RequestMapping(value = "/popoList", method = RequestMethod.GET)
