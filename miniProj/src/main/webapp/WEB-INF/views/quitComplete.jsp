@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>registerAction</title>
+<title>Insert title here</title>
 </head>
 <body>
-회원가입이 완료되었습니다.
-<a href = "/">메인으로 가기</a>
+	<script type="text/javascript">
+		alert("회원탈퇴가 완료되었습니다.");
+		location.href = "/";
+	</script>
 </body>
 </html>

@@ -18,6 +18,7 @@
 		<a href = "/boardMyList"> 내가 쓴 글</a>
 		<a href = "/toMyInfo"> 내 정보 수정</a>
 		<a href = "/logout"> 로그아웃하기</a>
+		<a href = "/quitUser">회원탈퇴</a>
 	</div>
 </body>
 </html>

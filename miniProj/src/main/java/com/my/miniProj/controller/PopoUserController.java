@@ -36,10 +36,12 @@ public class PopoUserController {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("userSessionID", popo);
-		
-		System.out.println("login successful");
-		System.out.println(popo);
+		int isBanned = popoUserService.checkBan(id);
+		if(isBanned == 1) {
+			return "bannedUser";
+		}else {
 		return "loginAction";
+		}
 	}
 	
 	@GetMapping("/logout")
@@ -106,6 +108,15 @@ public class PopoUserController {
     	request.setAttribute("id", id);
     	return "checkDuplicate";
     }
+  
+    @GetMapping("/checkDuplicateEmail")
+    public String checkDuplicateEmail(HttpServletRequest request) {
+    	String email = request.getParameter("email");
+    	int duplCount = popoUserService.checkDuplicateEmail(email);
+    	request.setAttribute("duplCount", duplCount);
+    	request.setAttribute("email", email);
+    	return "checkDuplicateEmail";
+    }
 
 	@GetMapping("/inputForRegister")
 	public String inputForRegister() {
@@ -169,6 +180,7 @@ public class PopoUserController {
     	return "myInfoEdit";
     }
     
+
     // 내 정보 수정
     @RequestMapping(value = "/myInfoEdit", method = RequestMethod.POST)
 	public String modify(PopoUserDTO popo) throws Exception {
@@ -178,5 +190,15 @@ public class PopoUserController {
 
 		return "redirect:/toMyInfo";
 	}
+
+
+    @GetMapping("/quitUser")
+    public String quitUser(HttpServletRequest request) {
+    	HttpSession session = request.getSession(false);
+    	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+    	popoUserService.quitUser(loginMember);
+    	session.invalidate();
+    	return "quitComplete";
+    }
 
 }

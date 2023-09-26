@@ -63,12 +63,21 @@ public class PopoUserService{
     	popoUserDAO.unbanUser(popoNum);
 	}
     
-	/*
-	 * public List<PopoUserDTO> listBanned(){ return popoUserDAO.listBanned(); }
-	 * public List<PopoUserDTO> listQuit(){ return popoUserDAO.listQuit(); }
-	 */
+    public int checkBan(String id) {
+    	return popoUserDAO.checkBan(id);
+
+    }
+  
 	public PopoUserDTO loginAction(String id, String pw) {
-		return popoUserDAO.loginAction(id, pw);
-		
+		return popoUserDAO.loginAction(id, pw);		
 	}
+
+	public void quitUser(PopoUserDTO popo) {
+		popoUserDAO.quitUser(popo);		
+	}
+	
+	public int checkDuplicateEmail(String email) {
+		return popoUserDAO.checkDuplicateEmail(email);
+	}
+ 
 }
