@@ -29,8 +29,12 @@ public interface PopoUserDAO {
 	    // 회원 차단해제
 	    public void unbanUser(int popoNum);
 	    
+	    public int checkBan(String popoId);
+	    
 	    public List<PopoUserDTO> listBanned();
 	    public List<PopoUserDTO> listQuit();
 		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);
+		public void quitUser(PopoUserDTO popo);
+		public int checkDuplicateEmail(String email);
 }
 

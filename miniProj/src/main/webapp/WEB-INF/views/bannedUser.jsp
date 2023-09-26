@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>registerAction</title>
+<title>정지유저</title>
 </head>
 <body>
-회원가입이 완료되었습니다.
-<a href = "/">메인으로 가기</a>
+	정지된 아이디입니다. 
+	자세한 사항은 관리자에게 문의바랍니다.
+	
+	<a href = "/">메인으로 돌아가기</a>
 </body>
 </html>

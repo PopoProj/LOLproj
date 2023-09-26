@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.miniProj.model.SearchCountDAO">
+	<resultMap
+		type="com.my.miniProj.model.SearchCountDTO" id="ctMap">
+		<id property="sumName" column="sum_name" />
+		<result property="count" column="count" />
+	</resultMap>
+	
+<update id="addCount" parameterType="String">
+	UPDATE search_count SET count = count + 1 WHERE sum_name = #{sumName}
+</update>
+
+<insert id = "addNewCount" parameterType="String">
+	INSERT INTO search_count(sum_name, count) VALUES (#{sumName}, 1)
+</insert>
+
+<delete id = "emptyCount">
+	DELETE FROM search_count
+</delete>
+
+<select id = "checkExist" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM search_count WHERE sum_name = #{sumName}
+</select>
+
+<select id = "checkIfEmpty" resultType="int">
+	SELECT COUNT(*) FROM search_count
+</select>
+
+<select id = "getMostSearched" resultMap = "ctMap">
+	<![CDATA[	
+     SELECT ct.* FROM (SELECT * FROM search_count ORDER BY count DESC) ct WHERE rownum <= 5 
+ 	 ]]>
+  </select>
+  
+
+</mapper>

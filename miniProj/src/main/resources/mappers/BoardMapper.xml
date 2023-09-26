@@ -175,5 +175,11 @@
 		)
     ]]>
     </select>
+    
+    <select id = "getRecentArt" resultMap = "board">
+    	<![CDATA[	
+    	 SELECT dt.* FROM (SELECT * FROM board ORDER BY board_date DESC) dt WHERE rownum <= 5 
+ 	 ]]>
+    </select>
 
 </mapper>

@@ -109,6 +109,11 @@ button:hover {
 	 	new_window = window.open("checkDuplicate?id="+form.id.value, "아이디 중복 확인",
 		 						"toolbar=no,width=250,height=400,directories=no,status=no,scrollbars=yes,resize=no")
 	}
+	 
+	 function openEmailCheckWindow(form) {
+		 	new_window = window.open("checkDuplicateEmail?email="+form.email.value, "이메일 사용 확인",
+			 						"toolbar=no,width=250,height=400,directories=no,status=no,scrollbars=yes,resize=no")
+		}
  
 
 </script>
@@ -143,7 +148,7 @@ button:hover {
 		<br>
 
 		<label for="email"><b>이메일</b></label>
-		<input type="email" name="email">
+		<input type="email" name="email" onclick="openEmailCheckWindow(this.form)" >
 		<br>
 		<br>
 

@@ -9,27 +9,27 @@
 </head>
 <body>
 	<div style="text-align: center"></div>
-	<h3>* 아이디 중복 확인 결과 *</h3>
+	<h3>* 이메일 중복 확인 결과 *</h3>
 <%
     //1) 사용가능한 아이디일 경우, 아이디 입력 폼에 넣기 위함
-    String id = (String) request.getAttribute("id");
+    String email = (String) request.getAttribute("email");
     int duplCount = (int) request.getAttribute("duplCount");
-    out.println("입력 ID : <strong>" + id + "</strong>");
+    out.println("입력 이메일 : <strong>" + email + "</strong>");
     if(duplCount ==0){
     	out.println("<p>사용 가능한 아이디입니다.</p>");
 %>
 
 	<script>
-    	function apply(id){
+    	function apply(email){
             //2) 중복확인 id를 부모창에 적용
             //부모창 opener
-            opener.document.regForm.id.value=id;
+            opener.document.regForm.email.value=id;
             window.close(); //창닫기
         }//apply () end
     </script>
  <%
  	}else{
-    	out.println("<p style='color: red'>해당 아이디는 사용하실 수 없습니다.</p>");
+    	out.println("<p style='color: red'>사용중인 이메일입니다.</p>");
     }//if end
  %>
  <hr>

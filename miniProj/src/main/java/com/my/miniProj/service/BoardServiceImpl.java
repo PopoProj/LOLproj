@@ -79,4 +79,8 @@ public class BoardServiceImpl {
 			return result;
 		}
 
+		public List<Board> getRecentArt() {
+			return boardDao.getRecentArt();
+		}
+
 }
