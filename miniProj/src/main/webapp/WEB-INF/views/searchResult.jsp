@@ -15,11 +15,24 @@
 <meta charset="UTF-8">
 
     <style>
+    
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+font-family: 'SUITE-Regular';
+  box-sizing: border-box;
+  }
+    
 	
 	  header {
     margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
     width: 100%;
-    height: 215px;
+    height: 230px;
     display: flex;
     align-items: center; /* 하위 요소들 수직 가운데정렬 */
     position: relative;
@@ -29,12 +42,13 @@
 	      width: 70%;
     	margin: 0 auto;
 	  }
-	
-	  .homeBtn {
+	  
+	 .homeBtn {
 	  width: 50%;
 	  background-color: #ffffff;
 	  overflow: auto;
 	}
+
 	  
 	/* Style the navigation menu */
 	.topnav {
@@ -46,13 +60,14 @@
 	/* Navigation links */
 
 	.topnav a {
-		float: none;
-		display: block;
-		width: 100%;
-		text-align: left;
-		/* If you want the text to be left-aligned on small screens */
+	  float: left;
+	  padding: 12px;
+	  color: white;
+	  text-decoration: none;
+	  font-size: 17px;
+	  width: 33%; /* 3 equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+	  text-align: center; /* If you want the text to be centered */
 	}
-}
 
 	/* Add a background color on mouse-over */
 	.topnav a.active:hover {
@@ -157,7 +172,7 @@
  <header>
  		  <div class = "homeBtn">
 		  <a href= "/">
-		   	<img class="popoHome" src="../../images/popo.png" width = "256px" height = "144px"/>
+		   	 <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
 		  </a>
  		</div>
  		
@@ -191,16 +206,19 @@
 						솔로랭크 <br> <img
 							src="../../images/regalia/<%=searched.getRANKED_SOLO_5x5().get("tier")%>.png"
 							alt="tier" width='150' height='150' /><br>
-						<%=searched.getRANKED_SOLO_5x5().get("tier")%>
-						<%=searched.getRANKED_SOLO_5x5().get("rank")%>
-						<%=searched.getRANKED_SOLO_5x5().get("leaguePoints")%>
+						<%=searched.getRANKED_SOLO_5x5().get("tier")%> 
+						<%=searched.getRANKED_SOLO_5x5().get("rank")%> 
+						<%=searched.getRANKED_SOLO_5x5().get("leaguePoints")%>점
 					</div>
 
 					<div class="rankRight">
 						자유랭크<br>
-						<%=searched.getRANKED_FLEX_SR().get("tier")%>
-						<%=searched.getRANKED_FLEX_SR().get("rank")%>
-						<%=searched.getRANKED_FLEX_SR().get("leaguePoints")%>
+						<img
+							src="../../images/regalia/<%=searched.getRANKED_FLEX_SR().get("tier")%>.png"
+							alt="tier" width='150' height='150' /><br>
+						<%=searched.getRANKED_FLEX_SR().get("tier")%> 
+						<%=searched.getRANKED_FLEX_SR().get("rank")%> 
+						<%=searched.getRANKED_FLEX_SR().get("leaguePoints")%>점
 					</div>
 
 		        </div>

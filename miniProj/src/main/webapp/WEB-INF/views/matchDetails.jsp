@@ -8,10 +8,22 @@
 <meta charset="UTF-8">
     <style>
     
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+font-family: 'SUITE-Regular';
+  box-sizing: border-box;
+  }
+    
      header {
     margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
     width: 100%;
-    height: 200px;
+    height: 230px;
     display: flex;
     align-items: center; /* 하위 요소들 수직 가운데정렬 */
     position: relative;
@@ -155,7 +167,7 @@
  <header>
 	<div class = "homeBtn">
 	  <a href= "/">
-	      <img class="popoHome" src="../../images/popo.png" width = "256px" height = "144px"/>
+	       <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
 	  </a>
 	</div>
 		
