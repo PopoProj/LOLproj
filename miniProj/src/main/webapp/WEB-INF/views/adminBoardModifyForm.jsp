@@ -8,13 +8,11 @@
 
 <html>
 <head>
-    <title>게시글 수정</title>
+    <title>관리자 게시글 수정</title>
 </head>
 <body>
-<h2>
-	<a href="/"> POPO 홈</a>
-</h2>
-<form action="boardModify" method="post">
+
+<form action="adminBoardModify" method="post">
     <input type="hidden" name="boardNum" value="${board.boardNum}">
     <input type="hidden" name="page" value="${pages.page}">
     <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
@@ -29,7 +27,7 @@
 </form>
 
 <!-- 게시글 상세 페이지로 이동 -->
-<a href="boardRead?boardNum=${board.boardNum}&page=${pages.page}&sizePerPage=${pages.sizePerPage}">취소</a>
+<a href="adminBoardRead?boardNum=${board.boardNum}&page=${pages.page}&sizePerPage=${pages.sizePerPage}">취소</a>
 
 </body>
 </html>

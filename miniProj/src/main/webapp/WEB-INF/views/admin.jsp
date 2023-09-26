@@ -13,9 +13,11 @@
     <title>관리자 홈</title>
 </head>
 <body>
-</div>
 <h2>
-	<a href="/boardList" /> 게시판 관리
+	<a href="/admin"> admin 홈</a>
+</h2>
+<h2>
+	<a href="/admin/adminBoardList" /> 게시판 관리
 </h2>
 <h2>
 	<a href="/admin/popoList" /> 회원 관리

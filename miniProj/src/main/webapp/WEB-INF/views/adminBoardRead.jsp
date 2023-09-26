@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -9,11 +8,11 @@
 
 <html>
 <head>
-    <title>게시글 상세보기</title>
+    <title>관리자 게시글 상세보기</title>
 </head>
 <body>
 <h2>
-	<a href="/"> POPO 홈</a>
+	<a href="/admin"> admin 홈</a>
 </h2>
 	<table>
 		<tr>
@@ -48,8 +47,8 @@
 	</table>
 
 	<!-- 수정하기 버튼 -->
-	<c:if test="${session.popoId == board.boardWriter }">
-<form action="boardModifyForm" method="get">
+	
+<form action="adminBoardModifyForm" method="get">
     <input type="hidden" name="boardNum" value="${board.boardNum}">
     <input type="hidden" name="page" value="${pages.page}">
     <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
@@ -58,15 +57,14 @@
 
 <!-- 삭제하기 버튼 -->
 <!-- 해당 페이지의 유일한 게시글을 삭제할 경우 해당 페이지보다 1 작은 페이지로 넘어가게 구현해야 함 -->
-<form action="boardRemove" method="post">
+<form action="adminBoardRemove" method="post">
 	<input type="hidden" name="boardNum" value="${board.boardNum}">
 	<input type="hidden" name="page" value="${pages.page}">
     <input type="submit" value="삭제하기">
 </form>
-</c:if>
 
 <!-- 목록으로 돌아가기 버튼 -->
-<form action="boardList" method="get">
+<form action="adminBoardList" method="get">
 <input type="hidden" name="page" value="${pages.page}">
     <input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
     <input type="submit" value="목록으로 돌아가기">

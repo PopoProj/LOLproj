@@ -12,6 +12,9 @@
     <title>게시글 등록</title>
 </head>
 <body>
+<h2>
+	<a href="/"> POPO 홈</a>
+</h2>
 <form action="boardRegister" method="post">
     <label for="boardTitle">제목:</label>
     <input type="text" id="boardTitle" name="boardTitle" required><br>

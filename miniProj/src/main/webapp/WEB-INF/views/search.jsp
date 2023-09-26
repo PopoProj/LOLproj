@@ -273,6 +273,7 @@ window.addEventListener("pageshow", (event) => {
     </main>
     <footer>
    	 	하단
+   	 	<a href="/admin">관리자</a>
     </footer>
 </body>
 </html>
