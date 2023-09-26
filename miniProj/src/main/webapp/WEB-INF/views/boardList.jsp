@@ -16,7 +16,7 @@
 <body>
 </div>
 <h2>
-	<a href="/search" /> POPO 홈</a>
+	<a href="/" /> POPO 홈</a>
 </h2>
 <h2>
 	<a href="/admin" /> admin 홈</a>
