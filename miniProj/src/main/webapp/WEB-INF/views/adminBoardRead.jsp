@@ -9,11 +9,51 @@
 <html>
 <head>
     <title>관리자 게시글 상세보기</title>
+    <style>
+        /* 테이블 스타일 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        
+        /* 버튼 스타일 */
+        form[action="adminBoardModifyForm"] {
+            margin-top: 10px;
+        }
+        
+        form[action="adminBoardRemove"] {
+            margin-top: 10px;
+        }
+        
+        form[action="adminBoardList"] {
+            margin-top: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background: #8FAADC;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #487de0;
+        }
+    </style>
 </head>
 <body>
-<h2>
-	<a href="/admin"> admin 홈</a>
-</h2>
+<div class = "homeBtn">
+		  <a href= "/admin">
+		      <img class="adminHome" src="../../images/popoadmin.png" width = "384px" height = "216px"/>
+		  </a>
+ 		</div>
 	<table>
 		<tr>
 			<td>게시글 제목</td>
