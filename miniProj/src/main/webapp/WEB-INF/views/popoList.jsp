@@ -42,7 +42,7 @@
         .pag a {
             margin: 0 5px;
             text-decoration: none;
-            color: #2D7D4E;
+            color: #8FAADC;
         }
 
         .pag a:hover {
