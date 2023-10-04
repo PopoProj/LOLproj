@@ -12,13 +12,70 @@
 <html>
 <head>
     <title>회원 관리 목록</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* 게시글 목록 테이블 스타일 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .th1, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9, .th10, .th11 {
+            font-weight: bold;
+        }
+
+        .th1, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9, .th10, .th11, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .th1, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9, .th10, .th11 {
+            text-align: center;
+        }
+
+        /* 페이징 네비게이션 스타일 */
+        .pag {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .pag a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #2D7D4E;
+        }
+
+        .pag a:hover {
+            text-decoration: underline;
+        }
+
+        /* 회원 차단/차단해제 버튼 스타일 */
+        form[action="popoBan"] {
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background: #8FAADC;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #487de0;
+        }
+	</style>
 </head>
 <body>
 </div>
 
-<h2>
-	<a href="/admin" /> admin 홈</a>
-</h2>
+<div class = "homeBtn">
+		  <a href= "/admin">
+		      <img class="adminHome" src="../../images/popoadmin.png" width = "384px" height = "216px"/>
+		  </a>
+ 		</div>
 <table class="table table-hover">
 	<tr>
 		<th class="th1" id="popoNum" align="center" width="80" scope="cols">회원 번호</th>
@@ -83,26 +140,22 @@
 						<td align="center" scope="row">
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${popo.popoDate}" /></td>
 						<td align="center" scope="row">	
-    						<c:choose>
+    						
+    							<form action="popoBan" method="post">
+    							<input type="hidden" name="popoNum" value="${popo.popoNum}">
+    							<input type="hidden" name="popoBan" value="${popo.popoBan}">
+    							<input type="hidden" name="page" value="${pages.page}">
+    							<input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
+    							<c:choose>
     							<c:when test="${popo.popoBan == 0 }">
-    								<form action="popoBan" method="post">
-    								<input type="hidden" name="popoNum" value="${popo.popoNum}">
-    								<input type="hidden" name="popoBan" value="${popo.popoBan}">
-    								<input type="hidden" name="page" value="${pages.page}">
-    								<input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
   	  								<input type="submit" value="차단하기">
-  	  								</form>
-    							</c:when>
-    							<c:otherwise>
-    								<form action="popoBan" method="post">
-    								<input type="hidden" name="popoNum" value="${popo.popoNum}">
-    								<input type="hidden" name="popoBan" value="${popo.popoBan}">
-    								<input type="hidden" name="page" value="${pages.page}">
-    								<input type="hidden" name="sizePerPage" value="${pages.sizePerPage}">
-    								<input type="submit" value="차단해제하기">
-    								</form>
-    							</c:otherwise>
-    						</c:choose>
+  	  							</c:when>
+  	  							<c:otherwise>
+  	  								<input type="submit" value="차단해제하기">
+  	  							</c:otherwise>
+  	  							</c:choose>
+  	  							</form>	
+    						
 						</td>
 						<td align="center" scope="row">
 							<c:choose>

@@ -10,6 +10,53 @@
 <html>
 <head>
     <title>게시글 상세보기</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h2 a {
+            text-decoration: none;
+            color: #2D7D4E;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background: #2D7D4E;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #44BE79;
+        }
+    </style>
 </head>
 <body>
 <h2>

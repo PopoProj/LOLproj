@@ -12,11 +12,78 @@
 <html>
 <head>
     <title>관리자 게시글 목록</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* 게시글 목록 테이블 스타일 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .th1, .th2, .th3, .th4 {
+            font-weight: bold;
+        }
+
+        .th1, .th2, .th3, .th4, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .th1, .th2, .th3, .th4 {
+            text-align: center;
+        }
+
+        /* 게시글 제목 링크 스타일 */
+        a {
+            color: #8FAADC;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* 페이징 네비게이션 스타일 */
+        .pag {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .pag a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #8FAADC;
+        }
+
+        .pag a:hover {
+            text-decoration: underline;
+        }
+
+        /* 게시글 등록하기 버튼 스타일 */
+        form[action="boardRegisterForm"] {
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background: #8FAADC;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #487de0;
+        }
+    </style>
 </head>
 <body>
-<h2>
-	<a href="/admin"> admin 홈</a>
-</h2>
+<div class = "homeBtn">
+		  <a href= "/admin">
+		      <img class="adminHome" src="../../images/popoadmin.png" width = "384px" height = "216px"/>
+		  </a>
+ 		</div>
 <table class="table table-hover">
 	<tr>
 		<th class="th1" id="boardlist" align="center" width="80" scope="cols">게시글 번호</th>
@@ -59,17 +126,17 @@
 <!-- 페이징 네비게이션 -->
 <div class="pag" align="center">
     <c:if test="${pagination.prev}">
-        <a href="/boardList${pagination.makeQuery(pre)}">&laquo;</a>
+        <a href="/admin/adminBoardList${pagination.makeQuery(pre)}">&laquo;</a>
     </c:if>
 
     <c:forEach begin="${pagination.startPage }"
         end="${pagination.endPage }" var="idx">
 
-        <a href="/boardList${pagination.makeQuery(idx)}">${idx}</a>
+        <a href="/admin/adminBoardList${pagination.makeQuery(idx)}">${idx}</a>
     </c:forEach>
 
     <c:if test="${pagination.next && pagination.endPage > 0}">
-        <a href="/boardList${pagination.makeQuery(next)}">&raquo;</a>
+        <a href="/admin/adminBoardList${pagination.makeQuery(next)}">&raquo;</a>
     </c:if>
 </div>
 

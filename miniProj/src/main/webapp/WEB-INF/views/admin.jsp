@@ -13,9 +13,11 @@
     <title>관리자 홈</title>
 </head>
 <body>
-<h2>
-	<a href="/admin"> admin 홈</a>
-</h2>
+<div class = "homeBtn">
+		  <a href= "/admin">
+		      <img class="adminHome" src="../../images/popoadmin.png" width = "384px" height = "216px"/>
+		  </a>
+ 		</div>
 <h2>
 	<a href="/admin/adminBoardList" /> 게시판 관리
 </h2>
