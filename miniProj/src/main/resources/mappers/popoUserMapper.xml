@@ -229,5 +229,9 @@ FROM (
 	<update id="quitUser" parameterType="com.my.miniProj.model.PopoUserDTO">
 		UPDATE popouser SET popo_quit = 1 WHERE popo_num = #{popoNum}
 	</update>
-
+	
+	<!-- id로 포포 가져오기 -->
+	<select id="getPopo" parameterType = "String" resultMap="popoMap">
+		SELECT * FROM POPOUSER WHERE POPO_ID=#{popoId}
+	</select>
 </mapper>

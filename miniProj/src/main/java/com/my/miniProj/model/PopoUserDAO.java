@@ -35,5 +35,8 @@ public interface PopoUserDAO {
 		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);
 		public void quitUser(PopoUserDTO popo);
 		public int checkDuplicateEmail(String email);
+		
+		// id로 포포 가져오기
+		public PopoUserDTO getPopo(String id);
 }
 
