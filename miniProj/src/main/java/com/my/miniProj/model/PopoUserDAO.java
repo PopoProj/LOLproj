@@ -37,6 +37,6 @@ public interface PopoUserDAO {
 		public int checkDuplicateEmail(String email);
 		
 		// id로 포포 가져오기
-		public PopoUserDTO getPopo(String id);
+		public PopoUserDTO getPopoById(String id);
 }
 

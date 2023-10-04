@@ -166,9 +166,8 @@ public class PopoUserController {
     	String id = loginMember.getPopoId();
     	
     	// id로 db에서 popo 객체 생성하기
-    	PopoUserDTO popouser = popoUserService.getPopo(id);
-    	
-    	model.addAttribute("myInfo", loginMember);
+    	PopoUserDTO popouser = popoUserService.getPopoById(id);
+    	model.addAttribute("myInfo", popouser);
     	
     	return "myInfo";
     }

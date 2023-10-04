@@ -246,7 +246,7 @@ button:hover {
 						<option value = "1" selected> 탑 
 						<option value = "2"> 정글 
 						<option value = "3"> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -255,7 +255,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2" selected> 정글 
 						<option value = "3"> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -264,7 +264,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2"> 정글 
 						<option value = "3" selected> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -273,7 +273,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2"> 정글 
 						<option value = "3"> 미드
-						<option value = "4" selected> 원딜
+						<option value = "4" selected> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -282,7 +282,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2"> 정글 
 						<option value = "3"> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5" selected> 서폿
 					</select>
 				</c:otherwise>
@@ -296,7 +296,7 @@ button:hover {
 						<option value = "1" selected> 탑 
 						<option value = "2"> 정글 
 						<option value = "3"> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -305,7 +305,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2" selected> 정글 
 						<option value = "3"> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -314,7 +314,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2"> 정글 
 						<option value = "3" selected> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -323,7 +323,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2"> 정글 
 						<option value = "3"> 미드
-						<option value = "4" selected> 원딜
+						<option value = "4" selected> 바텀
 						<option value = "5"> 서폿
 					</select>
 				</c:when>
@@ -332,7 +332,7 @@ button:hover {
 						<option value = "1"> 탑 
 						<option value = "2"> 정글 
 						<option value = "3"> 미드
-						<option value = "4"> 원딜
+						<option value = "4"> 바텀
 						<option value = "5" selected> 서폿
 					</select>
 				</c:otherwise>

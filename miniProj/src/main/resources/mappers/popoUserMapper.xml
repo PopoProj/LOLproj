@@ -231,7 +231,7 @@ FROM (
 	</update>
 	
 	<!-- id로 포포 가져오기 -->
-	<select id="getPopo" parameterType = "String" resultMap="popoMap">
+	<select id="getPopoById" parameterType = "String" resultMap="popoMap">
 		SELECT * FROM POPOUSER WHERE POPO_ID=#{popoId}
 	</select>
 </mapper>

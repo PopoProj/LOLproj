@@ -79,8 +79,8 @@ public class PopoUserService{
 	public int checkDuplicateEmail(String email) {
 		return popoUserDAO.checkDuplicateEmail(email);
 	}
-	public PopoUserDTO getPopo(String id) {
-		return popoUserDAO.getPopo(id);
+	public PopoUserDTO getPopoById(String id) {
+		return popoUserDAO.getPopoById(id);
 	}
  
 }
