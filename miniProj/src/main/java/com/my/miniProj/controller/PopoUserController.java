@@ -162,6 +162,7 @@ public class PopoUserController {
     	
     	HttpSession session = request.getSession(false);
     	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+    	String id = loginMember.getPopoId();
     	
     	model.addAttribute("myInfo", loginMember);
     	
@@ -184,11 +185,14 @@ public class PopoUserController {
 
     // 내 정보 수정
     @RequestMapping(value = "/myInfoEdit", method = RequestMethod.POST)
-	public String modify(PopoUserDTO popo) throws Exception {
+	public String modify(HttpServletRequest request, PopoUserDTO popo) throws Exception {
 		System.out.println("내 정보 수정처리 컨트롤러");
 
 		popoUserService.updateInfo(popo);
-
+		
+		HttpSession session = request.getSession(false);
+		session.setAttribute("userSessionID", popo);
+		
 		return "redirect:/toMyInfo";
 	}
 
