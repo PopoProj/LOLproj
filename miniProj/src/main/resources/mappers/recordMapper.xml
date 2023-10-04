@@ -22,7 +22,7 @@
 	</insert>
 	
 	<delete id = "deleteOldRec" parameterType = "int">
-	DELETE FROM record WHERE popo_num = #{popoNum} AND search_date = (SELECT MIN(search_date) FROM record)
+	DELETE FROM record WHERE popo_num = #{popoNum} AND search_date = (SELECT MIN(search_date) FROM record WHERE popo_num = #{popoNum})
 	</delete>	
 	
 	<select id = "countRec" parameterType = "int" resultType="int">

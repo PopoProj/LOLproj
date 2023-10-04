@@ -33,8 +33,7 @@
     }//if end
  %>
  <hr>
- <a href="javascript:history.back()">[다시시도]</a>
- &nbsp; &nbsp;
+
  <a href="javascript:window.close()">[창닫기]</a>
  
  </body>

@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.List" import = "com.my.miniProj.model.RecordDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <style>
 
 @font-face {
@@ -19,7 +21,46 @@ font-family: 'SUITE-Regular';
   box-sizing: border-box;
   }
 
-header {
+
+/* Style the search field */
+form.searchForm input[type=text] {
+  padding: 10px;
+  font-size: 29px;
+  border: 5px solid #44BE79;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.searchForm button {
+  float: left;
+  width: 20%;
+  padding: 20px;
+  background: #2D7D4E;
+  color: white;
+  font-size: 20px;
+  border: 1px solid #2D7D4E;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.searchForm button:hover {
+  background: #2D7D4E;
+}
+
+/* Clear floats */
+form.searchForm::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+  a:hover {
+    text-decoration: underline; /* 마우스 커서가 올라갔을 때 밑줄을 생성합니다*/
+  }
+  header {
     margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
     width: 100%;
     height: 230px;
@@ -44,7 +85,11 @@ header {
     margin: 0 auto;
 
   }
-   footer {
+  
+
+	
+	
+  footer {
     background: darkgray;
     height: 100px;
   }
@@ -90,69 +135,34 @@ header {
 	  }
 	}
 	
-	  div.container{
-  	 font-size: 22px;
-	  display: flex;
-	  flex-direction: row;
-	   flex-wrap: wrap;
-	  width: 100%;
-	  text-align: center;
-	  height: 20%;
-	  margin-right: 80px;
-	   margin-left: 80px;
-	  }
-	  
-	  div.item{
-	  font-size: 22px;
-	    width: 17%;
-	     text-align: center;
-	     height: 30px;
-	     border: 2px solid black;
-	       border-radius: 2px; 
-	        margin:3px;
-	  }
-  
-	
+
+
 </style>
-<title>viewRecord</title>
+<title>404 error</title>
+
 </head>
 <body>
 
- <header>
- 
-	  <div class = "homeBtn">
-	 <a href= "/">
-	     <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
-	 </a>
-	</div>	
 
- 	<div class="topnav">
-  	  <a class = "active" href="toMyPage"> 마이페이지</a>
-  	  <a class = "active" href="boardList"> 게시판 </a>
-  	  <a class = "active" href="logout"> 로그아웃</a>
-  	
- 	</div>
+    <header>
+    
+	    <div class = "homeBtn">
+		  <a href= "/">
+		      <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
+		  </a>
+ 		</div>	
+ 		
+    	<div class="topnav">
+	    	  <a class = "active" href="toMyPage"> 마이페이지</a>
+	    	  <a class = "active" href="boardList"> 게시판 </a>
+    	</div>
 
- </header>
- <main>
-	<div style="font-size:40px; margin-top: 40px; text-align: center;"> 최근검색기록</div>
-	<div class = "container" style="margin-top: 40px;">
-		<%
-			List<RecordDTO> recList = (List<RecordDTO>) request.getAttribute("recordList");
-			for (RecordDTO userRec : recList){
-				String summonerName = userRec.getSumName();
-		
-		%>
-			<div class = "item" OnClick = "location.href = '/searchResult?sumName=<%=summonerName %>'" style = "cursor:pointer;">
-	        	<%=summonerName %> 
-	        </div>
-	        <br>
-		<% 
-			}
-		%>
-	</div>
-	<div style="font-size:20px; margin-top: 100px; text-align: right;"><a href = "/toMyPage"> 마이페이지로 돌아가기</a></div><br><br>
-</main>
-	
+    </header>
+    
+    <main>
+    	  <img class="angryBee" src="../../images/angryBee.png" width = "256px" height = "256px"/>
+    	검색결과를 찾을수 없습니다. 다시 시도해주세요.
+    </main>
+
 </body>
 </html>

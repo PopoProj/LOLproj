@@ -28,68 +28,6 @@ font-family: 'SUITE-Regular';
     align-items: center; /* 하위 요소들 수직 가운데정렬 */
     position: relative;
   }
-   main{
-	      width: 90%;
-    	margin: 0 auto;
-	  }
-	  
-      div.left {
-        width: 45%;	
-       float:left;
-        display: flex;
-  		flex-direction: column;
-       background: #819FF7;
-      }
-      div.middle{
-      	width: 10%;
-      	float:left;
-      }
-      
-      div.right {
-        width: 45%;
-      	float:right;
-      	 display: flex;
- 		 flex-direction: column;
-        background: #F78181;
-      }
-      
-
-      	
-      	div.container{
-      		display: flex;
- 			flex-direction: column;
- 		
-      	}
-      	
-      div.item1{
-      	float: right;
-      	height: 100px;
-      	
-      	
-      	}
-      	
-      	   div.item2{
-      	float: left;
-      	height: 100px;
-      	
-      	}
-
-	  div.itemImagesLeft{
-      	display: inline-block;
-      	width: 140px;
-      	height: 100px;	
-      	float:left;
-      	}
-      	
-      div.itemImagesRight{
-      	display: inline-block;
-      	width: 140px;
-      	height: 100px;	
-      	float:right;
-      	}
-      	
-      	
-
   .homeBtn {
 	  width: 50%;
 	  background-color: #ffffff;
@@ -129,6 +67,54 @@ font-family: 'SUITE-Regular';
 	    text-align: left; /* If you want the text to be left-aligned on small screens */
 	  }
 	}
+	   main{
+	    width: 90%;
+    	margin: 0 auto;
+    	display: flex;
+  		flex-direction: row;
+  		justify-content: center;
+  		text-align: center;
+	  }
+	  
+      div.left {
+        width: 40%;	
+        display: flex;
+  		flex-direction: column;
+       background: #819FF7;
+      justify-content: space-between;
+      
+      }
+      
+      div.middle{
+      	width: 100px;
+      	 display: flex;
+  		flex-direction: column;
+  		justify-content: center;
+  		text-align: center;
+      }
+      
+      div.right {
+        width: 40%;	
+      	 display: flex;
+ 		 flex-direction: column;
+        background: #F78181;
+        justify-content: space-between;
+      }
+ 	
+     	div.row{
+		   	display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			border: solid 3px white;
+
+     	}
+     	
+    div.item{
+    width: 20%;
+      	text-align: center;
+      	align-content: center;
+      }
       
     </style>
 <title>Insert title here</title>
@@ -182,21 +168,12 @@ font-family: 'SUITE-Regular';
 <main>
 	
       <div class="left">
-     	 <div class = "container">
 		   <% 
 		       	for (int i = 0; i < 5; i++){
 		     
 					InstSummoner player = playersListed.get(i);
 	     	%>
-	     		<div OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName().replaceAll(" ", "")%>'" style="cursor:pointer;" >
-					<div class = "item1" >
-						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
-						<%=player.getSummonerName()%>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						Lv. <%= player.getChampLevel()%> 
-						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "right"/>
-					</div>
+	     		<div class = "row" OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
 					<div class = "itemImagesLeft">
 						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
@@ -206,15 +183,26 @@ font-family: 'SUITE-Regular';
 						<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 					</div>
+					<div class = "item" >
+						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
+					</div>
+					<div class = "item" >
+						<%=player.getSummonerName()%>
+					</div>
+					<div class = "item" >
+						Lv. <%= player.getChampLevel()%> 
+					</div>
+					<div class = "item" >
+						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "right"/>
+					</div>
 				</div>
 	      <%
 	      		} 
 	      %>
-     	 </div>
       </div>
       
       
-      <div class = "middle" style = "text-align: center;">
+      <div class = "middle">
       	<img src="../../images/lanes/TOP.png" alt="champImg" width = '100' height = '100' />
       	<img src="../../images/lanes/JUNGLE.png" alt="champImg"  width = '100' height = '100' />
       	<img src="../../images/lanes/MIDDLE.png" alt="champImg"  width = '100' height = '100' />
@@ -224,38 +212,40 @@ font-family: 'SUITE-Regular';
       </div>
       
       <div class="right">
-      	<div class = "container">
 		<% 
 			for (int i = 5; i < 10; i++){
 				InstSummoner player = playersListed.get(i);
 		%>
-	     		<div OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName().replaceAll(" ", "")%>'" style="cursor:pointer;" >
-					
-					<div class = "item2">
-						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "left"/>
-						Lv. <%= player.getChampLevel()%> 
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
-						<%=player.getSummonerName()%>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
-					</div>
-					
-					<div class = "itemImagesRight">
-						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-						<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-						<img src="../../images/item/<%=player.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-						<br>
-						<img src="../../images/item/<%=player.getItem3()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-						<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-						<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-					</div>
-					
-					
+     		<div class = "row" OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
+				<div>
+					<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "right"/>
 				</div>
+				
+				<div class = "item" >
+					Lv. <%= player.getChampLevel()%> 
+				</div>
+				
+				<div class = "item" >
+					<%=player.getSummonerName()%>
+				</div>
+				
+				<div class = "item" >
+					<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
+				</div>
+				
+						<div class = "itemImagesRight">
+							<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
+							<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+							<img src="../../images/item/<%=player.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+							<br>
+							<img src="../../images/item/<%=player.getItem3()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+							<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+							<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+						</div>
+					</div>
 	      <%
 	      		} 
 	      %>
-     	 </div>
       </div>
 </main>
 

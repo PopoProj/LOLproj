@@ -7,7 +7,9 @@
 <title>registerAction</title>
 </head>
 <body>
-회원가입이 완료되었습니다.
-<a href = "/">메인화면으로</a>
+	<script>
+		alert("회원가입이 완료되었습니다.");
+		location.href = "/";
+	</script>
 </body>
 </html>

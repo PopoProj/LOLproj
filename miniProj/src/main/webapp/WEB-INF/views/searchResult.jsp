@@ -4,8 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="leagueAPI.SearchEngine" import="leagueAPI.InstSummoner"
-	import="leagueAPI.Summoner" import="java.util.LinkedList"
-	import="java.util.HashMap" import="java.util.List"%>
+	import="leagueAPI.Summoner" import="java.util.Map" import="java.util.Date"
+	import="java.util.HashMap" import="java.util.List" import = "java.text.SimpleDateFormat"%>
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ font-family: 'SUITE-Regular';
 	  }
 	  
 	  main{
-	      width: 70%;
+	      width: 80%;
     	margin: 0 auto;
 	  }
 	  
@@ -134,27 +134,33 @@ font-family: 'SUITE-Regular';
         box-sizing: border-box;
       }
       
-      div.matchLeft {
-        width: 75%;
-        float: left;
+      div.row {
+        width: 100%;
+        display:flex;
+        flex-direction:row;
+        justify-content: space-between;
+        margin-top: 5px;
         box-sizing: border-box;
+        flex-wrap: nowrap;
+        align-items: center;
         /*text-align: center;*/
       }
-      div.matchRight {
-        width: 25%;
-        float: right;
-        box-sizing: border-box;
+      
+      div.item{
+      width:10%;
+      	text-align: center;
+      	align-content: center;
       }
-	
     </style>
 
 <title>Search Result</title>
+
 </head>
 <body>
 
 	<%
 	Summoner searched = (Summoner) request.getAttribute("searched");
-	List<InstSummoner> recentMatchData = (List<InstSummoner>) request.getAttribute("matchData");
+	List<Map<String, Object>> recentMatchData = (List<Map<String, Object>>) request.getAttribute("matchData");
 
 	int topRate = searched.getLaneMap().get("TOP").get("winrate");
 	int jgRate = searched.getLaneMap().get("JUNGLE").get("winrate");
@@ -203,22 +209,32 @@ font-family: 'SUITE-Regular';
 				</div>
 				<div class="infoRight" style="height: 300px">
 					<div class="rankLeft">
-						솔로랭크 <br> <img
-							src="../../images/regalia/<%=searched.getRANKED_SOLO_5x5().get("tier")%>.png"
-							alt="tier" width='150' height='150' /><br>
-						<%=searched.getRANKED_SOLO_5x5().get("tier")%> 
-						<%=searched.getRANKED_SOLO_5x5().get("rank")%> 
-						<%=searched.getRANKED_SOLO_5x5().get("leaguePoints")%>점
+						솔로랭크 <br> 
+						
+						<%if (searched.getRANKED_SOLO_5x5().get("tier") == null){
+							out.print("정보없음");
+						}else{%>						
+							<img
+								src="../../images/regalia/<%=searched.getRANKED_SOLO_5x5().get("tier")%>.png"
+								alt="tier" width='150' height='150' /><br>
+							<%=searched.getRANKED_SOLO_5x5().get("tier")%> 
+							<%=searched.getRANKED_SOLO_5x5().get("rank")%> 
+							<%=searched.getRANKED_SOLO_5x5().get("leaguePoints")%>점
+						<%} %>
 					</div>
 
 					<div class="rankRight">
 						자유랭크<br>
+						<%if (searched.getRANKED_FLEX_SR().get("tier") == null){
+							out.print("정보없음");
+						}else{%>	
 						<img
 							src="../../images/regalia/<%=searched.getRANKED_FLEX_SR().get("tier")%>.png"
 							alt="tier" width='150' height='150' /><br>
 						<%=searched.getRANKED_FLEX_SR().get("tier")%> 
 						<%=searched.getRANKED_FLEX_SR().get("rank")%> 
 						<%=searched.getRANKED_FLEX_SR().get("leaguePoints")%>점
+						<%} %>
 					</div>
 
 		        </div>
@@ -233,53 +249,102 @@ font-family: 'SUITE-Regular';
 	
 	 <div class="right" style="float: right;">
 		
-		 	챔피언
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
-			레벨
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			K/D/A
 			<% 
-			for (InstSummoner temp : recentMatchData){
+			for (Map<String, Object> metaData : recentMatchData){
+				InstSummoner temp = (InstSummoner) metaData.get("summonerData");
+				long gameCreation = (long) metaData.get("gameCreation");
+				long gameDuration = (long) metaData.get("gameDuration");
+				long queueId = (long) metaData.get("queueId");	
 				String colour;
+				
+				Date date = new Date(gameCreation);
+				
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd"); 
+	        	String dateStr = simpleDateFormat.format(date); 
+
+				
+				int min = Integer.parseInt(String.valueOf(gameDuration)) / 60;
+				int sec = Integer.parseInt(String.valueOf(gameDuration)) % 60;
+				String gameType;
+				if (queueId == 430){
+					gameType = "일반";
+				}
+				else if (queueId == 420){
+					gameType = "솔로랭크";
+				}
+				else if (queueId == 440){
+					gameType = "자유랭크";
+				}
+				else if (queueId == 450){
+					gameType = "칼바람";
+				}else{
+					gameType = "기타";}
+				
+				
 				if (temp.isWin()){
 					colour = "#819FF7"; 
 				}else{
 					colour = "#F78181";
-				}
+				}				
 			%>
+			
 			<div OnClick="location.href ='/matchDetails?matchId=<%=temp.getMatchId()%>'" style="cursor:pointer;" >
-				<div class = 'matchLeft' style='background-color: <%=colour%>'>
-					<img src="../../images/champion/<%=temp.getChampionName()%>.png" alt="champImg" width = '80' height = '80' />
-					Lv. <%= temp.getChampLevel()%> 
+				<div class = "row" style='background-color: <%=colour%>'>
+					<div>
+						<img src="../../images/champion/<%=temp.getChampionName()%>.png" alt="champImg" width = '80' height = '80' />
+					</div>
+					
+					<div class = "item">
+						Lv.<%= temp.getChampLevel()%> 
+					</div>
+					
+					<div class = "item">
+						<%=temp.getKills()%>
+						/
+						<%=temp.getDeaths()%>
+						/
+						<%=temp.getAssists()%>
+					</div>
+					
+					<div class = "item">
+						<%=gameType %>
+					</div>
+					
+					<div class = "item">
+						<%=min %> : <%=sec %>
+					</div>
+					
+					<div class = "item" style = "text-align: right">
+						<%=dateStr %>
+					</div>
+			
 
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<%=temp.getKills()%>
-					/
-					<%=temp.getDeaths()%>
-					/
-					<%=temp.getAssists()%>
-				</div>
-
-				<div class='matchRight' style='background-color: <%=colour%>'>
-
-					<img src="../../images/item/<%=temp.getItem0()%>.png"
-						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
-						alt="item1" width='40' height='40' /> <img
-						src="../../images/item/<%=temp.getItem1()%>.png"
-						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
-						width='40' height='40' /> <img
-						src="../../images/item/<%=temp.getItem2()%>.png"
-						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
-						width='40' height='40' /> <br> <img
-						src="../../images/item/<%=temp.getItem3()%>.png"
-						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
-						width='40' height='40' /> <img
-						src="../../images/item/<%=temp.getItem4()%>.png"
-						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
-						width='40' height='40' /> <img
-						src="../../images/item/<%=temp.getItem5()%>.png"
-						onerror="this.onerror=null; this.src='../../images/item/7050.png';"
-						width='40' height='40' />
+					<div class="itemImages" style='background-color: <%=colour%>'>
+	
+						<img src="../../images/item/<%=temp.getItem0()%>.png"
+							onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+							alt="item1" width='40' height='40' /> 
+							<img
+							src="../../images/item/<%=temp.getItem1()%>.png"
+							onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+							width='40' height='40' /> 
+							<img
+							src="../../images/item/<%=temp.getItem2()%>.png"
+							onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+							width='40' height='40' /> <br> 
+							<img
+							src="../../images/item/<%=temp.getItem3()%>.png"
+							onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+							width='40' height='40' /> 
+							<img
+							src="../../images/item/<%=temp.getItem4()%>.png"
+							onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+							width='40' height='40' /> 
+							<img
+							src="../../images/item/<%=temp.getItem5()%>.png"
+							onerror="this.onerror=null; this.src='../../images/item/7050.png';"
+							width='40' height='40' />
+					</div>
 				</div>
         
 			</div>
