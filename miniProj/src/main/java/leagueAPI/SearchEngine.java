@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SearchEngine {
 	private static SearchEngine instance;
-	private static String apiKey = "RGAPI-9f9d6473-fc42-401a-88aa-ccf3a7efd96c";
+	private static String apiKey = "RGAPI-d5870dd6-5b21-4047-b1d9-df3c34f3398f";
 	
 	private SearchEngine(String apiKey) {}
 	
@@ -99,9 +99,11 @@ public class SearchEngine {
 	            = objectMapper.readValue(participants, new TypeReference<List<InstSummoner>>() {});
 
 	    	data.put("matchId", matchID);
-			data.put("gameDuration", tempdict.get("gameDuration"));
+	    	data.put("queueId", tempdict.get("queueId"));
 			data.put("gameMode", tempdict.get("gameMode"));
 			data.put("gameType", tempdict.get("gameType"));
+			data.put("gameCreation", tempdict.get("gameCreation"));
+			data.put("gameDuration", tempdict.get("gameDuration"));
 			data.put("participants", instSummonersList);
 	        return data;
 	        
@@ -114,7 +116,7 @@ public class SearchEngine {
 	
 
 	
-	public InstSummoner searchPlayerMatchResult(String matchID, String puuid) {
+	public Map<String, Object> searchPlayerMatchResult(String matchID, String puuid) {
 		String apiURL = "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchID +"?api_key=" + apiKey;
 		String result = "";
 		JSONParser jsonParser = new JSONParser();
@@ -122,18 +124,26 @@ public class SearchEngine {
 		
 		try{
 			URL url = new URL(apiURL);
+			Map<String, Object> data = new HashMap<String, Object>();
 			BufferedReader bf;
 			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 			result = bf.readLine();
 			JSONObject summonerJsonObject = (JSONObject)jsonParser.parse(result);
 			JSONObject tempdict = (JSONObject) summonerJsonObject.get("info");
 			JSONArray participantsDicts = (JSONArray) tempdict.get("participants");
+			data.put("queueId", tempdict.get("queueId"));
+			data.put("gameMode", tempdict.get("gameMode"));
+			data.put("gameType", tempdict.get("gameType"));
+			data.put("gameCreation", tempdict.get("gameCreation"));
+			data.put("gameDuration", tempdict.get("gameDuration"));
+			
 			for (int i = 0; i < participantsDicts.size(); i++) {
 			    JSONObject tempJson = (JSONObject) participantsDicts.get(i);
 			    if (tempJson.get("puuid").equals(puuid)) {
 			    	InstSummoner selSummoner = objectMapper.readValue(tempJson.toString(), InstSummoner.class);
 			    	selSummoner.setMatchId(matchID);
-			    	return selSummoner;
+					data.put("summonerData", selSummoner);
+			    	return data;
 			    }
 			}
        

@@ -28,8 +28,8 @@ font-family: 'SUITE-Regular';
 /* Style the search field */
 form.searchForm input[type=text] {
   padding: 10px;
-  font-size: 30px;
-  border: 6px solid #44BE79;
+  font-size: 29px;
+  border: 5px solid #44BE79;
   float: left;
   width: 80%;
   background: #f1f1f1;
@@ -111,7 +111,7 @@ form.searchForm::after {
 	  width: 50%;
 	  text-align: center;
 	  height: 500px;
-	  border: 6px solid #44BE79;
+	  border: 5px solid #44BE79;
 	   border-radius: 25px;
 	  margin-right: 80px;
 	   margin-left: 80px;
@@ -125,7 +125,7 @@ form.searchForm::after {
 	  text-align: center;
 	  width: 50%;
 	  height: 500px;
-	 border: 6px solid #44BE79;
+	 border: 5px solid #44BE79;
 	  border-radius: 25px;
 	 margin-right: 80px;
 	  margin-left: 80px;
@@ -281,9 +281,14 @@ window.addEventListener("pageshow", (event) => {
 				  }%>
 			</div>
 		</div>
-		
-		
-	<script type="text/javascript">
+	  </main>	
+  
+    <footer>
+   	 	하단
+   	 	<a href="/admin">관리자</a>
+    </footer>
+    
+    <script type="text/javascript">
 	    function checkBlank(formObj) {
 	        if (document.getElementById('sumName').value) {
 	            return true;
@@ -292,15 +297,7 @@ window.addEventListener("pageshow", (event) => {
 				alert("값을 입력해주세요.");
 				return false;
 	        }
-	    }
-	    
-	    
-	    
+	    }    
 	</script>
-    </main>
-    <footer>
-   	 	하단
-   	 	<a href="/admin">관리자</a>
-    </footer>
 </body>
 </html>

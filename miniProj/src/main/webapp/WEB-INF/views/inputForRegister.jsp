@@ -206,7 +206,7 @@ button:hover {
 			<br><br>
 	
 			<label for="pw"><b>비밀번호</b></label>
-			<input type="text" name="pw">
+			<input type="password" name="pw">
 	
 			<label for="name"><b>이름</b></label>
 			<input type = "text" name="name">
@@ -216,7 +216,8 @@ button:hover {
 			<br>
 	
 			<label for="email"><b>이메일</b></label>
-			<input type="email" name="email" onclick="openEmailCheckWindow(this.form)" >
+			<input type="email" name="email"  >
+			<input type="button" value = "이메일 중복확인" onclick="openEmailCheckWindow(this.form)">
 			<br>
 			<br>
 	
