@@ -216,48 +216,126 @@ button:hover {
 <main>
 	<form name="myInfoEditForm" action="myInfoEdit" method="post" onsubmit="checkInput(registerForm)" style="border:1px solid #ccc">
 	  <input type="hidden" name="popoId" value="${myInfo.popoId}">
-	  <div class="container">
 	    <h1>회원 정보 수정</h1>
 	    <p>회원 정보 수정을 위해 정보를 입력해주세요.</p>
 	    <hr>
 			
-			<label for="pw"><b>비밀번호</b></label>
+			<label for="popoPw"><b>비밀번호</b></label>
 			<input type="text" name="popoPw" value="${myInfo.popoPw}" required>
 	
-			<label for="name"><b>이름</b></label>
+			<label for="popoName"><b>이름</b></label>
 			<input type = "text" name="popoName" value="${myInfo.popoName}" required>
 	
-			<label for="tel"><b>전화번호</b></label>
+			<label for="popoTel"><b>전화번호</b></label>
 			<input type = "tel" name = "popoTel" value="${myInfo.popoTel}" required>
 			<br>
 	
-			<label for="email"><b>이메일</b></label>
+			<label for="popoEmail"><b>이메일</b></label>
 			<input type="email" name="popoEmail" value="${myInfo.popoEmail}" required>
 			<br>
 			<br>
 	
-			 <label for="nickName"><b>닉네임</b></label>
+			 <label for="popoNickname"><b>닉네임</b></label>
 			 <input type = "text" name = "popoNickname" value="${myInfo.popoNickname}" required>
 	
 			<label for="popoMain"><b>롤 주포지션</b></label>
 			<c:choose>
-				<c:when test="${myInfo.popoMain == 1}">탑</c:when>
-				<c:when test="${myInfo.popoMain == 2}">정글</c:when>
-				<c:when test="${myInfo.popoMain == 3}">미드</c:when>
-				<c:when test="${myInfo.popoMain == 4}">바텀</c:when>
-				<c:otherwise>서포터</c:otherwise>
+				<c:when test="${myInfo.popoMain == 1}">
+					<select name = "popoMain">
+						<option value = "1" selected> 탑 
+						<option value = "2"> 정글 
+						<option value = "3"> 미드
+						<option value = "4"> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:when test="${myInfo.popoMain == 2}">
+					<select name = "popoMain">
+						<option value = "1"> 탑 
+						<option value = "2" selected> 정글 
+						<option value = "3"> 미드
+						<option value = "4"> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:when test="${myInfo.popoMain == 3}">
+					<select name = "popoMain">
+						<option value = "1"> 탑 
+						<option value = "2"> 정글 
+						<option value = "3" selected> 미드
+						<option value = "4"> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:when test="${myInfo.popoMain == 4}">
+					<select name = "popoMain">
+						<option value = "1"> 탑 
+						<option value = "2"> 정글 
+						<option value = "3"> 미드
+						<option value = "4" selected> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:otherwise>
+					<select name = "popoMain">
+						<option value = "1"> 탑 
+						<option value = "2"> 정글 
+						<option value = "3"> 미드
+						<option value = "4"> 바텀
+						<option value = "5" selected> 서폿
+					</select>
+				</c:otherwise>
 			</c:choose>
 	
 			<br><br>
 			<label for="popoSub"><b>롤 부포지션</b></label>
 			<c:choose>
-				<c:when test="${myInfo.popoSub == 1}">탑</c:when>
-				<c:when test="${myInfo.popoSub == 2}">정글</c:when>
-				<c:when test="${myInfo.popoSub == 3}">미드</c:when>
-				<c:when test="${myInfo.popoSub == 4}">바텀</c:when>
-				<c:otherwise>서포터</c:otherwise>
+				<c:when test="${myInfo.popoSub == 1}">
+					<select name = "popoSub">
+						<option value = "1" selected> 탑 
+						<option value = "2"> 정글 
+						<option value = "3"> 미드
+						<option value = "4"> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:when test="${myInfo.popoSub == 2}">
+					<select name = "popoSub">
+						<option value = "1"> 탑 
+						<option value = "2" selected> 정글 
+						<option value = "3"> 미드
+						<option value = "4"> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:when test="${myInfo.popoSub == 3}">
+					<select name = "popoSub">
+						<option value = "1"> 탑 
+						<option value = "2"> 정글 
+						<option value = "3" selected> 미드
+						<option value = "4"> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:when test="${myInfo.popoSub == 4}">
+					<select name = "popoSub">
+						<option value = "1"> 탑 
+						<option value = "2"> 정글 
+						<option value = "3"> 미드
+						<option value = "4" selected> 바텀
+						<option value = "5"> 서폿
+					</select>
+				</c:when>
+				<c:otherwise>
+					<select name = "popoSub">
+						<option value = "1"> 탑 
+						<option value = "2"> 정글 
+						<option value = "3"> 미드
+						<option value = "4"> 바텀
+						<option value = "5" selected> 서폿
+					</select>
+				</c:otherwise>
 			</c:choose>
-	
 		   <div class="clearfix">
 	      <button type="button" class="cancelbtn" onclick = "location.href = 'toMyInfo' ">취소</button>
 	      <button type="submit" class="signupbtn">수정하기</button>

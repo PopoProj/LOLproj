@@ -28,6 +28,13 @@
 		<result property="popoQuit" column="POPO_QUIT" />
 		<result property="popoBan" column="POPO_BAN" />
 	</resultMap>
+	
+		<resultMap
+		type="com.my.miniProj.model.LikeBoardDTO" id="likeBoard">
+		<id property="popoNum" column="POPO_NUM" />
+		<id property="boardNum" column="BOARD_NUM" />	
+	</resultMap>
+
 
 	<!-- 게시글 등록 처리 -->
 	<insert id="create">
@@ -176,10 +183,30 @@
     ]]>
     </select>
     
-    <select id = "getRecentArt" resultMap = "board">
+    <select id="getRecentArt" resultMap="board">
     	<![CDATA[	
     	 SELECT dt.* FROM (SELECT * FROM board ORDER BY board_date DESC) dt WHERE rownum <= 5 
  	 ]]>
+    </select>
+    
+     <!-- 게시글 추천 -->
+    <insert id="like" parameterType = "Map">
+    	INSERT INTO likeboard (popo_num, board_num) values (#{popoNum}, #{boardNum})
+    </insert>
+    
+    <!-- 게시글 추천 취소 -->
+    <insert id="cancel" parameterType = "Map">
+    	DELETE FROM likeboard 
+		WHERE popo_num = #{popoNum} and board_num = #{boardNum}
+    </insert>
+    
+    <!-- 유저의 게시글 추천 여부 -->
+    <select id="likeStatus" parameterType="Map" resultType="int">
+
+		select count(board_num) 
+		from LIKEBOARD 
+		where popo_num=#{popoNum} and board_num=#{boardNum}
+
     </select>
 
 </mapper>
