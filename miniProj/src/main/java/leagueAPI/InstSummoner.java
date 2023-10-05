@@ -2,6 +2,7 @@ package leagueAPI;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -11,7 +12,8 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown =true)
 public class InstSummoner {
 	
-	
+	Map<String, Object> RANKED_FLEX_SR;
+	Map<String, Object> RANKED_SOLO_5x5;
 	int assists	;
 	//int baronKills	;
 	//int bountyLevel	;	

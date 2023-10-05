@@ -40,12 +40,12 @@ public class PopoSiteController {
 	
 	@Autowired
 	private BoardServiceImpl boardService;
-    
 	
 	@GetMapping("/toLogin")
 	public String toLogin() {
 		return "toLogin";
 	}
+	
     	
     @GetMapping("/")
     public String search(HttpServletRequest request) throws Exception {  	
@@ -194,62 +194,79 @@ public class PopoSiteController {
     	SearchEngine engine = SearchEngine.getInstance();
     	Map<String, Object> matchData = engine.searchMatchesData(id);
     	List<InstSummoner> participants = (List<InstSummoner>) matchData.get("participants");
-    	long duration = (long) matchData.get("gameDuration");
+    	String gameMode = (String) matchData.get("gameMode");
+    	boolean isARAM = false;
+    	if (gameMode.equals("ARAM")) {	isARAM = true;	}
     	
     	// map = {win: {top: },{mid:}...., defeat: {top: },....}
     	Map<String, Map<String, InstSummoner>> newMap = new HashMap<String, Map<String, InstSummoner>>(); 
     	Map<String, InstSummoner> winMap = new HashMap<>();   	
     	Map<String, InstSummoner> defeatMap = new HashMap<>();
+    	List<InstSummoner> aramWin = new LinkedList<>();
+    	List<InstSummoner> aramDefeat = new LinkedList<>();
+    	List<InstSummoner> aramList = new LinkedList<>();
     	
-    	for (InstSummoner player : participants) {
-    		if (player.isWin()) {
-    			if (player.getTeamPosition().equals("TOP")) {
-    				winMap.put("TOP", player);
-    			}
-    			else if (player.getTeamPosition().equals("JUNGLE")) {
-    				winMap.put("JUNGLE", player);
-    			}
-    			else if (player.getTeamPosition().equals("MIDDLE")) {
-    				winMap.put("MIDDLE", player);
-    			}
-    			else if (player.getTeamPosition().equals("BOTTOM")) {
-    				winMap.put("BOTTOM", player);
-    			}
-    			else if (player.getTeamPosition().equals("UTILITY")) {
-    				winMap.put("UTILITY", player);
-    			}
+    	
+    	if (isARAM) {
+    		for (InstSummoner player : participants) {
+        		if (player.isWin()) {
+        			aramWin.add(player);
+        		}else {
+        			aramDefeat.add(player);
+        		}
     		}
-    		else {
-    			if (player.getTeamPosition().equals("TOP")) {
-    				defeatMap.put("TOP", player);
-    			}
-    			else if (player.getTeamPosition().equals("JUNGLE")) {
-    				defeatMap.put("JUNGLE", player);
-    			}
-    			else if (player.getTeamPosition().equals("MIDDLE")) {
-    				defeatMap.put("MIDDLE", player);
-    			}
-    			else if (player.getTeamPosition().equals("BOTTOM")) {
-    				defeatMap.put("BOTTOM", player);
-    			}
-    			else if (player.getTeamPosition().equals("UTILITY")) {
-    				defeatMap.put("UTILITY", player);
-    			}
-    		}   		
+    		aramList.addAll(aramWin);
+        	aramList.addAll(aramDefeat);
+    		request.setAttribute("aramList", aramList);
+    	}
+    	else {
+			for (InstSummoner player : participants) {
+				if (player.isWin()) {
+					if (player.getTeamPosition().equals("TOP")) {
+						winMap.put("TOP", player);
+					}
+					else if (player.getTeamPosition().equals("JUNGLE")) {
+						winMap.put("JUNGLE", player);
+					}
+					else if (player.getTeamPosition().equals("MIDDLE")) {
+						winMap.put("MIDDLE", player);
+					}
+					else if (player.getTeamPosition().equals("BOTTOM")) {
+						winMap.put("BOTTOM", player);
+					}
+					else if (player.getTeamPosition().equals("UTILITY")) {
+						winMap.put("UTILITY", player);
+					}	
+				}
+				
+				else {
+					if (player.getTeamPosition().equals("TOP")) {
+						defeatMap.put("TOP", player);
+					}
+					else if (player.getTeamPosition().equals("JUNGLE")) {
+						defeatMap.put("JUNGLE", player);
+					}
+					else if (player.getTeamPosition().equals("MIDDLE")) {
+						defeatMap.put("MIDDLE", player);
+					}
+					else if (player.getTeamPosition().equals("BOTTOM")) {
+						defeatMap.put("BOTTOM", player);
+					}
+					else if (player.getTeamPosition().equals("UTILITY")) {
+						defeatMap.put("UTILITY", player);
+					}
+				}   		
+			} 
+		 	newMap.put("win", winMap);
+	    	newMap.put("defeat", defeatMap);
+			request.setAttribute("participants", newMap);	    	
     	}
     	
-    	newMap.put("win", winMap);
-    	newMap.put("defeat", defeatMap);
-    	
-    	request.setAttribute("participants", newMap);
+   
+    	request.setAttribute("isARAM", isARAM);
     	request.setAttribute("matchId", id);
     
-		if (session == null || session.getAttribute("userSessionID") == null) {
-			request.setAttribute("isSignedIn", false);
-		}else {
-			request.setAttribute("isSignedIn", true);
-		}
-		
+    
     	return "matchDetails";
     }
 

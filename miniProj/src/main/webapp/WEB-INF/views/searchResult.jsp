@@ -10,8 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+
 <meta charset="UTF-8">
 
     <style>
@@ -147,7 +146,7 @@ font-family: 'SUITE-Regular';
       }
       
       div.item{
-      width:10%;
+      width:12%;
       	text-align: center;
       	align-content: center;
       }
@@ -193,6 +192,7 @@ font-family: 'SUITE-Regular';
 </header>
 
 <main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   	<div class="left" style="float: left;">
 		
   			<div class = "leftTop">
@@ -242,8 +242,11 @@ font-family: 'SUITE-Regular';
 	   </div>
 	
 		<div class = "leftBottom">
-			<div id = "chart1"></div>
-			 <div id = "chart2"></div>	
+			
+			<div> 최근 10판 라인별 픽률 </div>
+			<div id = "lanePickRate"></div>
+			<div> 최근 10판 라인별 승률 </div>			
+			<div id="laneWinRate"></div>	
 		</div>	
 	</div>
 	
@@ -282,19 +285,16 @@ font-family: 'SUITE-Regular';
 				
 				
 				if (temp.isWin()){
-					colour = "#819FF7"; 
+					colour = "#9DBAFB"; 
 				}else{
-					colour = "#F78181";
+					colour = "#FBA29D";
 				}				
 			%>
 			
 			<div OnClick="location.href ='/matchDetails?matchId=<%=temp.getMatchId()%>'" style="cursor:pointer;" >
 				<div class = "row" style='background-color: <%=colour%>'>
-					<div>
-						<img src="../../images/champion/<%=temp.getChampionName()%>.png" alt="champImg" width = '80' height = '80' />
-					</div>
-					
-					<div class = "item">
+					<div class = "item" style = " display: flex; flex-direction: row; align-items: flex-end">
+						<img src="../../images/champion/<%=temp.getChampionName()%>.png" alt="champImg" width = '87' height = '87' />
 						Lv.<%= temp.getChampLevel()%> 
 					</div>
 					
@@ -311,7 +311,7 @@ font-family: 'SUITE-Regular';
 					</div>
 					
 					<div class = "item">
-						<%=min %> : <%=sec %>
+						<%=String.format("%02d", min) %> : <%=String.format("%02d", sec) %>
 					</div>
 					
 					<div class = "item" style = "text-align: right">
@@ -353,15 +353,9 @@ font-family: 'SUITE-Regular';
 			%>
 
 	</div>
-
-</main>
-
-<footer>
-</footer>
-
-	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	    <script type="text/javascript">
-
+	    
 
 	    // Load Charts and the corechart package.
 	      google.charts.load('current', {'packages':['corechart']});
@@ -390,39 +384,42 @@ font-family: 'SUITE-Regular';
 	        ]);
 
 	        // Set chart options	
-	        var options = {'title':'최근 10판 라인별 픽률',
-	                       'width':400,
-	                       'height':300};
+	        var options = {'width':400,
+	                       'height':300,
+	                       'colors': ['#D1CB67', '#6AD167', '#D16767', '#67B4D1', '#AF67D1']               
+	        };
 
 	        // Instantiate and draw our chart, passing in some options.
-	        var chart = new google.visualization.PieChart(document.getElementById('chart1'));
+	        var chart = new google.visualization.PieChart(document.getElementById('lanePickRate'));
 	        chart.draw(data, options);
 	      }
-	      
 	      function drawChart2() {
 
-		        // Create the data table.
-		        var data = new google.visualization.DataTable();
-		        data.addColumn('string', 'Topping');
-		        data.addColumn('number', '승률');
-		        data.addRows([
-		          ['탑', <%= topRate%>],
-		          ['정글', <%= jgRate%>],
-		          ['미드', <%= midRate%>],
-		          ['봇', <%= botRate%>],
-		          ['서폿', <%= supRate%>]
-		        ]);
-
+	    	  var data = google.visualization.arrayToDataTable([
+	    	        ['Lane', '승률', { role: 'style' } ],
+	    	        ['탑', <%= topRate%>, "color: #D1CB67"],
+	    	        ['정글', <%= jgRate%>, "color: #6AD167"],
+			        ['미드', <%= midRate%>, "color: #D16767"],
+			        ['봇', <%= botRate%>, "color: #67B4D1"],
+			        ['서폿', <%= supRate%>, "color: #AF67D1"]
+		       	]);
 		        // Set chart options	
-		        var options = {'title':'최근 10판 라인별 승률',
-		                       'width':400,
+		        var options = {'width':400,
 		                       'height':300};
 
 		        // Instantiate and draw our chart, passing in some options.
-		        var chart = new google.visualization.BarChart(document.getElementById('chart2'));
+		        var chart = new google.visualization.ColumnChart(document.getElementById('laneWinRate'));
 		        chart.draw(data, options);
 		      }
+	     
 	    </script>
+
+</main>
+
+<footer>
+</footer>
+
+
 
 
 </body>

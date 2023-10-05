@@ -24,3 +24,7 @@
 <h2>
 	<a href="/admin/popoList" /> 회원 관리
 </h2>
+
+<h2>
+	<a href="/admin/adminLogout" /> 로그아웃
+</h2>

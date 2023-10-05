@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+
+
 @Mapper 
 public interface PopoUserDAO {
 
@@ -35,5 +37,7 @@ public interface PopoUserDAO {
 		public PopoUserDTO loginAction(@Param("id") String id, @Param("pw") String pw);
 		public void quitUser(PopoUserDTO popo);
 		public int checkDuplicateEmail(String email);
+		public AdminDTO adminLoginAction(@Param("id") String id, @Param("pw") String pw);
+	
 }
 

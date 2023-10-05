@@ -284,8 +284,7 @@ window.addEventListener("pageshow", (event) => {
 	  </main>	
   
     <footer>
-   	 	하단
-   	 	<a href="/admin">관리자</a>
+   	 	<a href="/admin/adminLogin">관리자 로그인</a>
     </footer>
     
     <script type="text/javascript">

@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.my.miniProj.model.AdminDTO;
 import com.my.miniProj.model.Board;
 import com.my.miniProj.model.Pages;
 import com.my.miniProj.model.Pagination;
@@ -33,11 +35,47 @@ public class AdminController {
 	@Autowired
 	private PopoUserService popoUserService;
 	
+	
 	// 관리자 로그인시 관리자 메인 페이지로 전환
 	@GetMapping("")
 	public String admin(){
 		return "admin";
 	}
+	
+	@GetMapping("/adminLogin")
+	public String adminLogin(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			if(session.getAttribute("userSessionID") != null) {
+				return "needLogout";
+			}
+			else if (session.getAttribute("adminLogin") != null) {
+				return "redirect:/admin";
+			}
+		}
+		return "adminLogin";
+	}
+	
+	@PostMapping("/adminLoginAction")
+	public String adminLoginAction(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		AdminDTO admin = popoUserService.adminLoginAction(id, pw);
+		request.setAttribute("result", admin);	
+		HttpSession session = request.getSession();
+		session.setAttribute("adminLogin", admin);
+		return "adminLoginAction";
+	}
+	
+	@GetMapping("/adminLogout")
+	public String adminLogout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		return "logoutAction";
+	}
+	
 	
 	// 게시글 관리 목록 페이지
 	@RequestMapping(value = "/adminBoardList")
