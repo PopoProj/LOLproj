@@ -20,6 +20,12 @@
 
 	</resultMap>
 	
+	<resultMap
+		type="com.my.miniProj.model.AdminDTO" id="adminMap">
+		<result property="adminId" column="ADMIN_ID" />
+		<result property="adminPw" column="ADMIN_PW" />
+	</resultMap>
+	
 	<!-- PopoAuth resultmap 정의 
 	<resultMap
 		type="com.my.miniProj.popo.model.PopoAuth" id="authMap">
@@ -34,6 +40,15 @@
 		WHERE popo_id = #{id} AND popo_pw = #{pw} AND popo_quit = 0
 	
 	</select> 
+	
+	
+	<select id = "adminLoginAction" parameterType = "String" resultMap = "adminMap">
+		SELECT *
+		FROM popoadmin
+		WHERE admin_id = #{id} AND admin_pw = #{pw}
+	
+	</select> 
+	
 	
 	<!-- 회원 아이디 찾기 -->
 	<select id="findId" resultType="String" parameterType = "String">

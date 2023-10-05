@@ -91,6 +91,44 @@ header {
 	  }
 	}
 	
+		
+	  div.container{
+  	 font-size: 22px;
+	  display: flex;
+	  flex-direction: row;
+	   flex-wrap: wrap;
+	  width: 100%;
+	  text-align: center;
+	  height: 20%;
+	  margin-right: 80px;
+	   margin-left: 80px;
+	  }
+	  
+	 div.indiv{
+	  display: flex;
+	  flex-direction: row;
+	   flex-wrap: wrap;
+	   width: 17%;
+	   text-align: center;
+	  height: 30px;
+	  border: 2px solid black;
+	   border-radius: 2px; 
+	   margin:3px;
+	  }
+	  
+	  
+	  
+	  div.item{
+	    width: 80%;
+	   text-align: center;
+	  }
+	  
+	   div.delBtn{
+	    width: 20%;
+	   text-align: center;
+	  }
+  
+	
 </style>
 <title>viewFavourites</title>
 </head>
@@ -112,30 +150,31 @@ header {
 
     </header>
     <main>
-	내가 즐겨찾기한 유저 목록
+	<div style="font-size:40px; margin-top: 40px; text-align: center;"> 즐겨찾기</div>
+	<div class = "container" style="margin-top: 40px;">
 	<%
 		List<FavouritesDTO> favList = (List<FavouritesDTO>) request.getAttribute("favouritesList");
 		for (FavouritesDTO favUser : favList){
 			String summonerName = favUser.getSumName();
 	
 	%>
+	<div class = "indiv">
 
-		<div OnClick = "location.href = '/searchResult?sumName=<%=summonerName %>'" style = "cursor:pointer;">
-        	<%=summonerName %> 
-        </div>
+		<div class = "item" OnClick = "location.href = '/searchResult?sumName=<%=summonerName %>'" style = "cursor:pointer;">
+	        	<%=summonerName %> 
+	    </div>
+	    <br>
 		
-       <div OnClick = "location.href = '/deleteFav?sumName=<%=summonerName %>'" style = "cursor:pointer;">
-        	삭제하기
-        </div>
-        <br>
-		
-	
-	
+       <div class = "delBtn" OnClick = "location.href = '/deleteFav?sumName=<%=summonerName %>'" style = "cursor:pointer;">
+        	X
+       </div>
+       <br>
+     </div>	
 	<% 
 		}
 	%>
 	
-	<a href = "/toMyPage"> 마이페이지로 돌아가기</a>
+	<div style="font-size:20px; margin-top: 100px; text-align: right;"><a href = "/toMyPage"> 마이페이지로 돌아가기</a></div><br><br>
 	</main>
 </body>
 </html>

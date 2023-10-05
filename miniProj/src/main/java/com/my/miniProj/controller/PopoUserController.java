@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.my.miniProj.model.AdminDTO;
 import com.my.miniProj.model.PopoUserDAO;
 import com.my.miniProj.model.PopoUserDTO;
 import com.my.miniProj.service.PopoUserService;
@@ -22,8 +23,11 @@ public class PopoUserController {
     private PopoUserService popoUserService;
 
 	@GetMapping("/login")
-	public String login(HttpServletRequest request) {
-
+	public String login(HttpServletRequest request, HttpSession session) {
+		AdminDTO admin = (AdminDTO) session.getAttribute("adminLogin");
+		if (admin != null) {
+			return "needAdminLogout";
+		}
 		return "login";
 	}
 	
@@ -34,14 +38,13 @@ public class PopoUserController {
 		String pw = request.getParameter("pw");
 		PopoUserDTO popo = popoUserService.loginAction(id, pw);
 		request.setAttribute("result", popo);
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("userSessionID", popo);
 		int isBanned = popoUserService.checkBan(id);
 		if(isBanned == 1) {
 			return "bannedUser";
 		}else {
-		return "loginAction";
+			HttpSession session = request.getSession();
+			session.setAttribute("userSessionID", popo);
+			return "loginAction";
 		}
 	}
 	
@@ -57,7 +60,6 @@ public class PopoUserController {
 	@GetMapping("/toMyPage")
 	public String toMyPage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		boolean isSignedIn = false;
 		
 		if (session == null) {
 			return "needLogin";
@@ -67,9 +69,7 @@ public class PopoUserController {
 		if (loginMember == null) {
 			return "needLogin";
 		}
-		
-		isSignedIn = true;
-		request.setAttribute("isSignedIn", isSignedIn);
+
 		request.setAttribute("userNickName", loginMember.getPopoNickname());
 		return "myPage";
 	}

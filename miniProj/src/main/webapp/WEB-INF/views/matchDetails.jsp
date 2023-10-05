@@ -72,17 +72,14 @@ font-family: 'SUITE-Regular';
     	margin: 0 auto;
     	display: flex;
   		flex-direction: row;
-  		justify-content: center;
-  		text-align: center;
+  		height:60%;
 	  }
 	  
       div.left {
-        width: 40%;	
+        width: 50%;	
         display: flex;
   		flex-direction: column;
-       background: #819FF7;
-      justify-content: space-between;
-      
+       background: #9DBAFB;
       }
       
       div.middle{
@@ -94,11 +91,10 @@ font-family: 'SUITE-Regular';
       }
       
       div.right {
-        width: 40%;	
+        width: 50%;	
       	 display: flex;
  		 flex-direction: column;
-        background: #F78181;
-        justify-content: space-between;
+        background: #FBA29D;
       }
  	
      	div.row{
@@ -106,12 +102,14 @@ font-family: 'SUITE-Regular';
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
-			border: solid 3px white;
-
-     	}
+			text-align: center;
+			border: solid 4px white;    
+			height: 20%;	
+			}
      	
     div.item{
-    width: 20%;
+    width: 17%;
+   	 font-size:18px; 
       	text-align: center;
       	align-content: center;
       }
@@ -137,17 +135,22 @@ font-family: 'SUITE-Regular';
 	Map<String, Map<String, InstSummoner>> participants = (Map<String, Map<String, InstSummoner>>) request.getAttribute("participants");
 	String matchId = (String) request.getAttribute("matchId");
 	List<InstSummoner> playersListed = new ArrayList<>();
-	
-	playersListed.add(participants.get("win").get("TOP"));
-	playersListed.add(participants.get("win").get("JUNGLE"));
-	playersListed.add(participants.get("win").get("MIDDLE"));
-	playersListed.add(participants.get("win").get("BOTTOM"));
-	playersListed.add(participants.get("win").get("UTILITY"));
-	playersListed.add(participants.get("defeat").get("TOP"));
-	playersListed.add(participants.get("defeat").get("JUNGLE"));
-	playersListed.add(participants.get("defeat").get("MIDDLE"));
-	playersListed.add(participants.get("defeat").get("BOTTOM"));
-	playersListed.add(participants.get("defeat").get("UTILITY"));
+	boolean isARAM = (boolean) request.getAttribute("isARAM");
+	if (isARAM){
+		playersListed = (List<InstSummoner>) request.getAttribute("aramList");
+	}
+	else{
+		playersListed.add(participants.get("win").get("TOP"));
+		playersListed.add(participants.get("win").get("JUNGLE"));
+		playersListed.add(participants.get("win").get("MIDDLE"));
+		playersListed.add(participants.get("win").get("BOTTOM"));
+		playersListed.add(participants.get("win").get("UTILITY"));
+		playersListed.add(participants.get("defeat").get("TOP"));
+		playersListed.add(participants.get("defeat").get("JUNGLE"));
+		playersListed.add(participants.get("defeat").get("MIDDLE"));
+		playersListed.add(participants.get("defeat").get("BOTTOM"));
+		playersListed.add(participants.get("defeat").get("UTILITY"));
+	}
 
 %>
  <header>
@@ -174,6 +177,7 @@ font-family: 'SUITE-Regular';
 					InstSummoner player = playersListed.get(i);
 	     	%>
 	     		<div class = "row" OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
+					
 					<div class = "itemImagesLeft">
 						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
@@ -183,18 +187,34 @@ font-family: 'SUITE-Regular';
 						<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 						<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
 					</div>
-					<div class = "item" >
-						<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
+					
+					<div class = "item">
+						<strong><%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> </strong>
 					</div>
+					
 					<div class = "item" >
 						<%=player.getSummonerName()%>
 					</div>
-					<div class = "item" >
-						Lv. <%= player.getChampLevel()%> 
+					
+					<div class = "item"  style = "font-size:15px;">
+					<%if (player.getRANKED_SOLO_5x5().get("tier") == null){
+							out.print("Unranked");
+						}else{%>						
+							<img
+								src="../../images/regalia/<%=player.getRANKED_SOLO_5x5().get("tier")%>.png"
+								alt="tier" width='65' height='65' /><br>
+							<%=player.getRANKED_SOLO_5x5().get("tier")%> 
+							<%=player.getRANKED_SOLO_5x5().get("rank")%> 
+						<%} %>
 					</div>
-					<div class = "item" >
-						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "right"/>
+					
+					<div class = "item">
+						Lv.<%= player.getChampLevel()%> 
 					</div>
+					<div>
+						<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95'/>
+					</div>
+					
 				</div>
 	      <%
 	      		} 
@@ -213,16 +233,30 @@ font-family: 'SUITE-Regular';
       
       <div class="right">
 		<% 
-			for (int i = 5; i < 10; i++){
+			for (int 	i = 5; i < 10; i++){
 				InstSummoner player = playersListed.get(i);
 		%>
      		<div class = "row" OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
+     			
 				<div>
-					<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' align = "right"/>
+					<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' />
+				</div>	
+				
+				<div class = "item">
+					Lv.<%= player.getChampLevel()%> 
 				</div>
 				
-				<div class = "item" >
-					Lv. <%= player.getChampLevel()%> 
+				<div class = "item" style = "font-size:15px;">
+				<%if (player.getRANKED_SOLO_5x5().get("tier") == null){
+						out.print("Unranked");
+					}else{%>						
+						<img
+							src="../../images/regalia/<%=player.getRANKED_SOLO_5x5().get("tier")%>.png"
+							alt="tier" width='65' height='65' /><br>
+						<%=player.getRANKED_SOLO_5x5().get("tier")%> 
+						<%=player.getRANKED_SOLO_5x5().get("rank")%> 
+					<%} %>
+				
 				</div>
 				
 				<div class = "item" >
@@ -230,19 +264,20 @@ font-family: 'SUITE-Regular';
 				</div>
 				
 				<div class = "item" >
-					<%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> 
+					<strong><%=player.getKills()%> / <%=player.getDeaths()%> / <%=player.getAssists()%> </strong>
 				</div>
 				
-						<div class = "itemImagesRight">
-							<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
-							<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-							<img src="../../images/item/<%=player.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-							<br>
-							<img src="../../images/item/<%=player.getItem3()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-							<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-							<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
-						</div>
-					</div>
+				<div class = "itemImagesRight">
+					<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
+					<img src="../../images/item/<%=player.getItem1()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+					<img src="../../images/item/<%=player.getItem2()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+					<br>
+					<img src="../../images/item/<%=player.getItem3()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+					<img src="../../images/item/<%=player.getItem4()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+					<img src="../../images/item/<%=player.getItem5()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" width = '40' height = '40' />
+				</div>
+				
+			</div>
 	      <%
 	      		} 
 	      %>

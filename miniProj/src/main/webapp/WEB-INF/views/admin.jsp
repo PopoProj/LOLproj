@@ -54,6 +54,23 @@
     </style>
 </head>
 <body>
+
+<div class = "homeBtn">
+		  <a href= "/admin">
+		      <img class="adminHome" src="../../images/popoadmin.png" width = "384px" height = "216px"/>
+		  </a>
+ 		</div>
+<h2>
+	<a href="/admin/adminBoardList" /> 게시판 관리
+</h2>
+<h2>
+	<a href="/admin/popoList" /> 회원 관리
+</h2>
+
+<h2>
+	<a href="/admin/adminLogout" /> 로그아웃
+</h2>
+
     <div class="video-container">
         <video autoplay loop>
             <source src="videos/adminhome.mp4" type="video/mp4">
@@ -66,3 +83,4 @@
     </div>
 </body>
 </html>
+

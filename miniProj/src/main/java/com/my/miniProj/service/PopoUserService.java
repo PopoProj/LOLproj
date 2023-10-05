@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.my.miniProj.model.AdminDTO;
 import com.my.miniProj.model.Pages;
 import com.my.miniProj.model.PopoUserDAO;
 import com.my.miniProj.model.PopoUserDTO;
@@ -83,4 +84,8 @@ public class PopoUserService{
 		return popoUserDAO.getPopoById(id);
 	}
  
+	public AdminDTO adminLoginAction(String id, String pw) {
+		// TODO Auto-generated method stub
+		return popoUserDAO.adminLoginAction(id, pw);
+	}
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "com.my.miniProj.model.PopoUserDTO" %>
+    pageEncoding="UTF-8" import = "com.my.miniProj.model.AdminDTO" %>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 </head>
 <body>
 <%
-	boolean isLogin = (null == (PopoUserDTO) request.getAttribute("result"))? false:true;
+	boolean isLogin = (null == (AdminDTO) request.getAttribute("result"))? false:true;
 %>
 
 <script>
@@ -19,7 +19,7 @@
 		history.back();
 	}
 	else{
-		history.go(-2);
+		location.href = "/admin";
 	}	
 
 </script>

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SearchEngine {
 	private static SearchEngine instance;
-	private static String apiKey = "RGAPI-d5870dd6-5b21-4047-b1d9-df3c34f3398f";
+	private static String apiKey = "RGAPI-260164de-d989-4d46-930d-123555c07aff";
 	
 	private SearchEngine(String apiKey) {}
 	
@@ -97,7 +97,9 @@ public class SearchEngine {
 
 	        List<InstSummoner> instSummonersList 
 	            = objectMapper.readValue(participants, new TypeReference<List<InstSummoner>>() {});
-
+	        for (InstSummoner instSummoner : instSummonersList) {
+	        	setTier(instSummoner);
+	        }
 	    	data.put("matchId", matchID);
 	    	data.put("queueId", tempdict.get("queueId"));
 			data.put("gameMode", tempdict.get("gameMode"));
@@ -185,9 +187,39 @@ public class SearchEngine {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-	
-
 	}
 
+	public void setTier(InstSummoner instSummoner) {
+		String apiURL = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" + instSummoner.getSummonerId() + "?api_key=" + apiKey;
+		String result = "";
+		JSONParser jsonParser = new JSONParser();
+		
+		try{
+			URL url = new URL(apiURL);
+			BufferedReader bf;
+			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			result = bf.readLine();
+			JSONArray tierInfo = (JSONArray)(jsonParser.parse(result));
+			for (int i = 0; i < tierInfo.size(); i++) {
+				JSONObject tempJson = (JSONObject) tierInfo.get(i);
+				String qType = (String) (tempJson).get("queueType");
+				Map<String, Object>tempdict = new HashMap<>();
+				tempdict.put("tier", (String) tempJson.get("tier"));
+				tempdict.put("rank", (String) tempJson.get("rank"));
+				tempdict.put("leaguePoints", (long) tempJson.get("leaguePoints"));
+				tempdict.put("wins", (long) tempJson.get("wins"));
+				tempdict.put("losses", (long) tempJson.get("losses"));
+				
+				if (qType.equals("RANKED_FLEX_SR")){
+					instSummoner.setRANKED_FLEX_SR(tempdict);
+				}
+				else if (qType.equals("RANKED_SOLO_5x5")){
+					instSummoner.setRANKED_SOLO_5x5(tempdict);
+				}
+			}    
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
