@@ -100,11 +100,11 @@
 	<input type="hidden" name="boardNum" value="${board.boardNum}" >
 		
 		<c:choose>
-			<c:when test="${result == 1}" >
-				<input type="submit" value="추천취소">
+			<c:when test="${result == 0}" >
+				<input type="submit" value="추천">
 			</c:when>
 			<c:otherwise>
-				<input type="submit" value="추천">
+				<input type="submit" value="추천취소">
 			</c:otherwise>
 		</c:choose>
 			

@@ -40,6 +40,9 @@ public interface BoardDao {
 		// 게시글 추천
 		public void like(Map map) throws Exception;
 		
+		// 게시글 추천 취소
+		public void cancel(Map map) throws Exception;
+		
 		// 유저가 게시글을 추천했는지 여부
 		public int likeStatus(Map map) throws Exception;
 }

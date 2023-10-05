@@ -92,6 +92,15 @@ public class BoardServiceImpl {
 			boardDao.like(map);
 		} 
 		
+		// 게시글 추천 취소
+		public void cancel(int popoNum, int boardNum) throws Exception {
+			System.out.println("게시글 추천 서비스");
+			Map<String, Integer> map = new HashMap<>();
+			map.put("popoNum", popoNum);
+			map.put("boardNum", boardNum);
+			boardDao.cancel(map);
+		}
+		
 		// 유저가 게시글을 추천했는지 여부
 		public int likeStatus(int popoNum, int boardNum) throws Exception {
 			System.out.println("회원이 게시글을 추천했는지 여부 서비스");
@@ -101,5 +110,4 @@ public class BoardServiceImpl {
 			int result = boardDao.likeStatus(map);
 			return result;
 		}
-
 }
