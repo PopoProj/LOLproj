@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface BoardDao {
@@ -33,6 +34,12 @@ public interface BoardDao {
 
 		// 내가 쓴 게시글 건수 반환
 		public int myCount(Integer popoNum) throws Exception;
-
+		
 		public List<Board> getRecentArt();
+		
+		// 게시글 추천
+		public void like(Map map) throws Exception;
+		
+		// 유저가 게시글을 추천했는지 여부
+		public int likeStatus(Map map) throws Exception;
 }

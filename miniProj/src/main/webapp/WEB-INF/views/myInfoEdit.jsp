@@ -216,7 +216,6 @@ button:hover {
 <main>
 	<form name="myInfoEditForm" action="myInfoEdit" method="post" onsubmit="checkInput(registerForm)" style="border:1px solid #ccc">
 	  <input type="hidden" name="popoId" value="${myInfo.popoId}">
-	  <div class="container">
 	    <h1>회원 정보 수정</h1>
 	    <p>회원 정보 수정을 위해 정보를 입력해주세요.</p>
 	    <hr>

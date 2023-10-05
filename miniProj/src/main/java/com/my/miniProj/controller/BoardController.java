@@ -104,7 +104,16 @@ public class BoardController {
 		HttpSession session = request.getSession(false);
 		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
 		model.addAttribute("session", loginMember);
-				
+		
+		// 로그인 계정이 해당 게시글을 추천했는지 판별 0:추천안함 1:추천함
+		int result = boardService.likeStatus(loginMember.getPopoNum(), boardNum);
+		model.addAttribute(result);
+		
+		System.out.println("확인");
+		System.out.println(boardNum);
+		System.out.println(loginMember.getPopoNum());
+		System.out.println(result);
+		
 		return url;
 
 	}
@@ -225,6 +234,20 @@ public class BoardController {
 			System.out.println("게시글 삭제처리");
 
 			return "redirect:/boardMyList";
+		}
+		
+		// 게시글 추천
+		@RequestMapping(value = "likeBoard", method = RequestMethod.POST)
+		public String likeBoard(HttpServletRequest request, int boardNum) throws Exception {
+			
+			HttpSession session = request.getSession(false);
+			PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+			int popoNum = loginMember.getPopoNum();
+			
+			boardService.like(popoNum, boardNum);
+			System.out.println("게시글 추천 컨트롤러");
+			
+			return "redirect:/board" + "" + "List";
 		}
 
 }

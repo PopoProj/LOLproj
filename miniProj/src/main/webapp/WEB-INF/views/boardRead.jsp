@@ -93,9 +93,25 @@
 			<td>${board.boardViews }</td>
 		</tr>
 	</table>
-
+	
+	<!-- 추천 버튼 -->
+	<form action="likeBoard" method="post">
+	<input type="hidden" name="popoNum" value="${session.popoId}" >
+	<input type="hidden" name="boardNum" value="${board.boardNum}" >
+		
+		<c:choose>
+			<c:when test="${result == 1}" >
+				<input type="submit" value="추천취소">
+			</c:when>
+			<c:otherwise>
+				<input type="submit" value="추천">
+			</c:otherwise>
+		</c:choose>
+			
+	</form>
+	
+<c:if test="${session.popoId == board.boardWriter }">
 	<!-- 수정하기 버튼 -->
-	<c:if test="${session.popoId == board.boardWriter }">
 <form action="boardModifyForm" method="get">
     <input type="hidden" name="boardNum" value="${board.boardNum}">
     <input type="hidden" name="page" value="${pages.page}">
