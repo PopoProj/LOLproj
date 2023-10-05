@@ -160,10 +160,14 @@ public class PopoUserController {
     public String toMyInfo(HttpServletRequest request, Model model) throws Exception {
     	System.out.println("내 정보 보기 컨트롤러");
     	
+    	// 세션으로 로그인 한 id 가져오기
     	HttpSession session = request.getSession(false);
     	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+    	String id = loginMember.getPopoId();
     	
-    	model.addAttribute("myInfo", loginMember);
+    	// id로 db에서 popo 객체 생성하기
+    	PopoUserDTO popouser = popoUserService.getPopoById(id);
+    	model.addAttribute("myInfo", popouser);
     	
     	return "myInfo";
     }
@@ -188,7 +192,7 @@ public class PopoUserController {
 		System.out.println("내 정보 수정처리 컨트롤러");
 
 		popoUserService.updateInfo(popo);
-
+		
 		return "redirect:/toMyInfo";
 	}
 

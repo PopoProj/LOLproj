@@ -80,6 +80,9 @@ public class PopoUserService{
 	public int checkDuplicateEmail(String email) {
 		return popoUserDAO.checkDuplicateEmail(email);
 	}
+	public PopoUserDTO getPopoById(String id) {
+		return popoUserDAO.getPopoById(id);
+	}
  
 	public AdminDTO adminLoginAction(String id, String pw) {
 		// TODO Auto-generated method stub
