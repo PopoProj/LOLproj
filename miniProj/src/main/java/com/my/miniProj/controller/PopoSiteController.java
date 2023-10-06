@@ -61,7 +61,7 @@ public class PopoSiteController {
 				request.setAttribute("articles", null);
 			}
 			else {
-				List<Board> articles = boardService.getRecentArt();
+				List<Board> articles = boardService.getMostLikedArt();
 				request.setAttribute("articles", articles);
 			}
 		return "search";  	

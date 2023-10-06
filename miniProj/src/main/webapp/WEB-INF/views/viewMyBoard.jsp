@@ -12,6 +12,21 @@
 <html>
 <head>
     <title>내가 쓴 게시글 목록</title>
+    <style>
+    
+    @font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+font-family: 'SUITE-Regular';
+  box-sizing: border-box;
+   font-size: 20px;
+  }
+  </style>
 </head>
 <body>
 </div>
