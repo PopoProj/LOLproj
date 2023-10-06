@@ -9,11 +9,63 @@
 <html>
 <head>
     <title>게시글 수정</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+	body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h2 a {
+            text-decoration: none;
+            color: #2D7D4E;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        input[type="submit"], input[type="button"] {
+            padding: 10px 20px;
+            background: #2D7D4E;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover, input[type="button"]:hover{
+            background: #44BE79;
+        }
+
+        
+    </style>
 </head>
-<body>
-<h2>
-	<a href="/"> POPO 홈</a>
-</h2>
+  
+	    <div class = "homeBtn">
+		  <a href= "/">
+		      <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
+		  </a>
+		</div>
+
 <form action="boardModify" method="post">
     <input type="hidden" name="boardNum" value="${board.boardNum}">
     <input type="hidden" name="page" value="${pages.page}">
@@ -29,7 +81,8 @@
 </form>
 
 <!-- 게시글 상세 페이지로 이동 -->
-<a href="boardRead?boardNum=${board.boardNum}&page=${pages.page}&sizePerPage=${pages.sizePerPage}">취소</a>
 
+<a href="boardRead?boardNum=${board.boardNum}&page=${pages.page}&sizePerPage=${pages.sizePerPage}"><input type="button" value="취소"></a>
+</main>
 </body>
 </html>

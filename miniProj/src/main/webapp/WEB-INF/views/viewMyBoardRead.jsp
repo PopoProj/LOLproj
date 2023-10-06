@@ -10,22 +10,62 @@
 <html>
 <head>
     <title>내 게시글 상세보기</title>
-    <style>
-    @font-face {
-    font-family: 'SUITE-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
 
-* {
-font-family: 'SUITE-Regular';
-  box-sizing: border-box;
-  }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h2 a {
+            text-decoration: none;
+            color: #2D7D4E;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background: #2D7D4E;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #44BE79;
+        }
+
     </style>
 </head>
 <body>
-
+<div class = "homeBtn">
+		  <a href= "/">
+		      <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
+		  </a>
+		</div>
 	<table>
 		<tr>
 			<td>게시글 제목</td>
