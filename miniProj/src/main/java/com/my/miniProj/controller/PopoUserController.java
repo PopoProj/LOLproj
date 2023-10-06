@@ -87,19 +87,7 @@ public class PopoUserController {
 		request.setAttribute("id", id);
 		return "findId";
     }
-    
-//    @GetMapping("/updatePassword")
-//    public String updatePassword(PopoUserDTO popo) {
-//    	popoUserService.updatePassword(popo);
-//    	return "updatePassword";
-//    }
-    
-//    @GetMapping("/readByUserId")
-//    public String readByUserId(String id) {
-//    	PopoUserDTO selUser = popoUserService.readByUserId(id);
-//    	return "readByUserId";
-//    }
-    
+   
     @GetMapping("/checkDuplicate")
     public String checkDuplicate(HttpServletRequest request) {
     	String id = request.getParameter("id");
@@ -148,17 +136,10 @@ public class PopoUserController {
     	popoUserService.registerUser(popo);
     	return "registerUser";
     }
-
-//    @GetMapping("createAuth")
-//    public String createAuth() {
-//    	popoUserService.createAuth();
-//    	return "createAuth";
-//    }
     
     // 내 정보 보기
     @GetMapping("/toMyInfo")
     public String toMyInfo(HttpServletRequest request, Model model) throws Exception {
-    	System.out.println("내 정보 보기 컨트롤러");
     	
     	// 세션으로 로그인 한 id 가져오기
     	HttpSession session = request.getSession(false);
@@ -175,7 +156,6 @@ public class PopoUserController {
     // 내 정보 수정 페이지
     @GetMapping("myInfoEditForm")
     public String myInfoEditForm (HttpServletRequest request, Model model) throws Exception {
-    	System.out.println("내 정보 수정 페이지 컨트롤러");
     	
     	HttpSession session = request.getSession(false);
     	PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
@@ -189,7 +169,6 @@ public class PopoUserController {
     // 내 정보 수정
     @RequestMapping(value = "/myInfoEdit", method = RequestMethod.POST)
 	public String modify(PopoUserDTO popo) throws Exception {
-		System.out.println("내 정보 수정처리 컨트롤러");
 
 		popoUserService.updateInfo(popo);
 		

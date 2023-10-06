@@ -94,6 +94,7 @@
 		</tr>
 	</table>
 	
+<c:if test="${not empty session.popoNum}" >	
 	<!-- 추천 버튼 -->
 	<form action="likeBoard" method="post">
 	<input type="hidden" name="popoNum" value="${session.popoId}" >
@@ -107,8 +108,8 @@
 				<input type="submit" value="추천취소">
 			</c:otherwise>
 		</c:choose>
-			
 	</form>
+</c:if>
 	
 <c:if test="${session.popoId == board.boardWriter }">
 	<!-- 수정하기 버튼 -->

@@ -80,11 +80,8 @@ public class AdminController {
 	// 게시글 관리 목록 페이지
 	@RequestMapping(value = "/adminBoardList")
 	public String adminBoard(@ModelAttribute("pages") Pages pages, Model model) throws Exception {
-		
-		System.out.println("관리자 게시글 목록 컨트롤러");
 
 		List<Board> boardList = boardService.list(pages);
-		System.out.println(boardList.toString());
 		model.addAttribute("boardList", boardList);
 
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
@@ -92,7 +89,6 @@ public class AdminController {
 		pagination.setPages(pages);
 		pagination.setTotalCount(boardService.count());
 		model.addAttribute("pagination", pagination);
-		System.out.println(model.toString());
 		
 		return "adminBoardList";
 	}
@@ -100,7 +96,6 @@ public class AdminController {
 	// 게시글 관리 상세 페이지
 	@RequestMapping(value = "/adminBoardRead", method = RequestMethod.GET)
 	public String adminRead(HttpServletRequest request, @ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
-		System.out.println("관리자 게시글 상세 컨트롤러");
 
 		Board board = boardService.read(boardNum);
 		model.addAttribute(board);
@@ -111,7 +106,6 @@ public class AdminController {
 	// 게시글 수정 페이지
 		@RequestMapping(value = "/adminBoardModifyForm", method = RequestMethod.GET)
 		public String adminModifyForm(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
-			System.out.println("게시글 수정 컨트롤러");
 
 			// 조회한 게시글 상세 정보를 뷰에 전달한다.
 			model.addAttribute(boardService.read(boardNum));
@@ -122,7 +116,6 @@ public class AdminController {
 		// 게시글 수정 처리
 		@RequestMapping(value = "/adminBoardModify", method = RequestMethod.POST)
 		public String adminModify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
-			System.out.println("게시글 수정처리 컨트롤러");
 
 			boardService.modify(board);
 			
@@ -145,7 +138,6 @@ public class AdminController {
 			rttr.addAttribute("page", pages.getPage());
 			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 			rttr.addFlashAttribute("msg", "SUCCESS");
-			System.out.println("게시글 삭제처리");
 
 			return "redirect:/admin/adminBoard" + "" + "List";
 		}
@@ -153,12 +145,10 @@ public class AdminController {
 	// 회원 관리 목록 페이지
 	@RequestMapping(value = "/popoList", method = RequestMethod.GET)
 	public String popoList(@ModelAttribute("pages") Pages pages, Model model) throws Exception {
-		System.out.println("회원 관리 목록 컨트롤러");
 		
 		String url = "popoList";
 		
 		List<PopoUserDTO> popoList = popoUserService.popoList(pages);
-		System.out.println(popoList.toString());
 		model.addAttribute("popoList", popoList);
 		
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
@@ -166,7 +156,6 @@ public class AdminController {
 		pagination.setPages(pages);
 		pagination.setTotalCount(popoUserService.countUsers());
 		model.addAttribute("pagination", pagination);
-		System.out.println(model.toString());
 		
 		return url;
 	}
@@ -186,7 +175,6 @@ public class AdminController {
 		rttr.addAttribute("page", pages.getPage());
 		rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		System.out.println("회원 차단처리");
 		
 		return "redirect:/admin/popoList";
 	}

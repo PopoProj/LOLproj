@@ -45,4 +45,10 @@ public interface BoardDao {
 		
 		// 유저가 게시글을 추천했는지 여부
 		public int likeStatus(Map map) throws Exception;
+
+		// 게시글 추천수 +1
+		public void likeUp(int boardNum) throws Exception;
+
+		// 게시글 추천수 -1
+		public void likeDown(int boardNum) throws Exception;
 }
