@@ -197,7 +197,7 @@ font-family: 'SUITE-Regular';
 					</div>
 					
 					<div class = "item"  style = "font-size:15px;">
-					<%if (player.getRANKED_SOLO_5x5().get("tier") == null){
+					<%if (player.getRANKED_SOLO_5x5() == null){
 							out.print("Unranked");
 						}else{%>						
 							<img
@@ -223,11 +223,11 @@ font-family: 'SUITE-Regular';
       
       
       <div class = "middle">
-      	<img src="../../images/lanes/TOP.png" alt="champImg" width = '100' height = '100' />
-      	<img src="../../images/lanes/JUNGLE.png" alt="champImg"  width = '100' height = '100' />
-      	<img src="../../images/lanes/MIDDLE.png" alt="champImg"  width = '100' height = '100' />
-      	<img src="../../images/lanes/BOTTOM.png" alt="champImg"  width = '100' height = '100' />
-      	<img src="../../images/lanes/UTILITY.png" alt="champImg" width = '100' height = '100' />	
+      	<img src="../../images/lanes/TOP.png" alt="champImg" width = '105' height = '105' />
+      	<img src="../../images/lanes/JUNGLE.png" alt="champImg"  width = '105' height = '105' />
+      	<img src="../../images/lanes/MIDDLE.png" alt="champImg"  width = '105' height = '105' />
+      	<img src="../../images/lanes/BOTTOM.png" alt="champImg"  width = '105' height = '105' />
+      	<img src="../../images/lanes/UTILITY.png" alt="champImg" width = '100' height = '105' />	
       	
       </div>
       
@@ -247,7 +247,7 @@ font-family: 'SUITE-Regular';
 				</div>
 				
 				<div class = "item" style = "font-size:15px;">
-				<%if (player.getRANKED_SOLO_5x5().get("tier") == null){
+				<%if (player.getRANKED_SOLO_5x5() == null){
 						out.print("Unranked");
 					}else{%>						
 						<img

@@ -183,9 +183,9 @@
     ]]>
     </select>
     
-    <select id="getRecentArt" resultMap="board">
+    <select id="getMostLikedArt" resultMap="board">
     	<![CDATA[	
-    	 SELECT dt.* FROM (SELECT * FROM board ORDER BY board_date DESC) dt WHERE rownum <= 5 
+    	 SELECT lc.* FROM (SELECT * FROM board ORDER BY board_like DESC) lc WHERE rownum <= 5 
  	 ]]>
     </select>
     

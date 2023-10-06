@@ -72,8 +72,8 @@ public class BoardServiceImpl {
 			return result;
 		}
 
-		public List<Board> getRecentArt() {
-			return boardDao.getRecentArt();
+		public List<Board> getMostLikedArt() {
+			return boardDao.getMostLikedArt();
 		}
 
 		// 게시글 추천
