@@ -197,7 +197,7 @@ font-family: 'SUITE-Regular';
 					</div>
 					
 					<div class = "item"  style = "font-size:15px;">
-					<%if (player.getRANKED_SOLO_5x5().get("tier") == null){
+					<%if (player.getRANKED_SOLO_5x5() == null){
 							out.print("Unranked");
 						}else{%>						
 							<img
@@ -247,7 +247,7 @@ font-family: 'SUITE-Regular';
 				</div>
 				
 				<div class = "item" style = "font-size:15px;">
-				<%if (player.getRANKED_SOLO_5x5().get("tier") == null){
+				<%if (player.getRANKED_SOLO_5x5() == null){
 						out.print("Unranked");
 					}else{%>						
 						<img

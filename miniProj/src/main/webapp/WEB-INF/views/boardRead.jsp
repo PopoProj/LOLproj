@@ -59,9 +59,11 @@
     </style>
 </head>
 <body>
-<h2>
-	<a href="/"> POPO 홈</a>
-</h2>
+<div class = "homeBtn">
+		  <a href= "/">
+		      <img class="popoHome" src="../../images/popo.png" width = "384px" height = "216px"/>
+		  </a>
+		</div>
 	<table>
 		<tr>
 			<td>게시글 제목</td>
