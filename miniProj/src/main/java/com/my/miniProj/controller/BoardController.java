@@ -102,19 +102,28 @@ public class BoardController {
 
 		// 로그인 계정과 게시글 글쓴이가 같은지 판별
 		HttpSession session = request.getSession(false);
+		System.out.println(session.getAttribute("userSessionID"));
 		
-		//if (session == null) { // 비로그인
+//		if (session == null) { // 비로그인
+//			System.out.println("비로그인");
+//			
+//		} else 
 			
-		//} else if (session.getAttribute("userSessionId") != null) { //  일반 회원 로그인 상태
+		if (session.getAttribute("userSessionID") != null) { //  일반 회원 로그인 상태
+			System.out.println("일반로그인");
 			PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
 			model.addAttribute("session", loginMember);
+			System.out.println(model.getAttribute("session"));
 			
 			// 로그인 계정이 해당 게시글을 추천했는지 판별 0:추천안함 1:추천함
 			int result = boardService.likeStatus(loginMember.getPopoNum(), boardNum);
 			model.addAttribute("result", result);
-		//} else if (session.getAttribute("adminLogin") != null) { // 관리자 로그인 상태
-						// alert
-		//}
+		} else if (session.getAttribute("adminLogin") != null) { // 관리자 로그인 상태
+			System.out.println("관리자");
+			return "alertAdmin";
+		} else {
+			System.out.println("이건찍힘?");
+		}
 		
 		return url;
 
