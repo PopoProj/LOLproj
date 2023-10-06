@@ -30,7 +30,6 @@ public class BoardController {
 	// 게시글 등록 페이지
 	@RequestMapping(value = "/boardRegisterForm", method = RequestMethod.GET)
 	public String registerForm(HttpServletRequest request, Model model) throws Exception {
-		System.out.println("게시글 등록");
 		
 		HttpSession session = request.getSession(false);
 		
@@ -60,7 +59,6 @@ public class BoardController {
 		boardService.register(board, popoId);
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		System.out.println("게시글 등록 처리");
 
 		return "redirect:/boardList";
 	}
@@ -68,12 +66,10 @@ public class BoardController {
 	// 게시글 목록 페이지
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String list(@ModelAttribute("pages") Pages pages, Model model) throws Exception {
-		System.out.println("게시글 목록 컨트롤러");
 
 		String url = "boardList";
 
 		List<Board> boardList = boardService.list(pages);
-		System.out.println(boardList.toString());
 		model.addAttribute("boardList", boardList);
 
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
@@ -81,7 +77,6 @@ public class BoardController {
 		pagination.setPages(pages);
 		pagination.setTotalCount(boardService.count());
 		model.addAttribute("pagination", pagination);
-		System.out.println(model.toString());
 
 		return url;
 	}
@@ -89,7 +84,6 @@ public class BoardController {
 	// 게시글 상세 페이지
 	@RequestMapping(value = "/boardRead", method = RequestMethod.GET)
 	public String read(HttpServletRequest request, @ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
-		System.out.println("게시글 상세 컨트롤러");
 
 		String url = "boardRead";
 
@@ -98,31 +92,19 @@ public class BoardController {
 
 		// 게시글 조회수 증가
 		boardService.views(boardNum);
-		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
 
 		// 로그인 계정과 게시글 글쓴이가 같은지 판별
 		HttpSession session = request.getSession(false);
-		System.out.println(session.getAttribute("userSessionID"));
-		
-//		if (session == null) { // 비로그인
-//			System.out.println("비로그인");
-//			
-//		} else 
-			
+	
 		if (session.getAttribute("userSessionID") != null) { //  일반 회원 로그인 상태
-			System.out.println("일반로그인");
 			PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
 			model.addAttribute("session", loginMember);
-			System.out.println(model.getAttribute("session"));
 			
 			// 로그인 계정이 해당 게시글을 추천했는지 판별 0:추천안함 1:추천함
 			int result = boardService.likeStatus(loginMember.getPopoNum(), boardNum);
 			model.addAttribute("result", result);
 		} else if (session.getAttribute("adminLogin") != null) { // 관리자 로그인 상태
-			System.out.println("관리자");
 			return "alertAdmin";
-		} else {
-			System.out.println("이건찍힘?");
 		}
 		
 		return url;
@@ -132,7 +114,6 @@ public class BoardController {
 	// 게시글 수정 페이지
 	@RequestMapping(value = "/boardModifyForm", method = RequestMethod.GET)
 	public String modifyForm(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
-		System.out.println("게시글 수정 컨트롤러");
 
 		// 조회한 게시글 상세 정보를 뷰에 전달한다.
 		model.addAttribute(boardService.read(boardNum));
@@ -143,7 +124,6 @@ public class BoardController {
 	// 게시글 수정 처리
 	@RequestMapping(value = "/boardModify", method = RequestMethod.POST)
 	public String modify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
-		System.out.println("게시글 수정처리 컨트롤러");
 
 		boardService.modify(board);
 		
@@ -166,7 +146,6 @@ public class BoardController {
 		rttr.addAttribute("page", pages.getPage());
 		rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		System.out.println("게시글 삭제처리");
 
 		return "redirect:/board" + "" + "List";
 	}
@@ -178,7 +157,6 @@ public class BoardController {
 		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
 
 		List<Board> myList = boardService.listMyBoard(pages, loginMember.getPopoNum());
-		System.out.println(myList.toString());
 		model.addAttribute("myList", myList);
 
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
@@ -186,7 +164,6 @@ public class BoardController {
 		pagination.setPages(pages);
 		pagination.setTotalCount(boardService.myCount(loginMember.getPopoNum()));
 		model.addAttribute("pagination", pagination);
-		System.out.println(model.toString());
 
 		return "viewMyBoard";
 	}
@@ -195,14 +172,12 @@ public class BoardController {
 	// value는 jsp 파일에서 href=에 붙는 이름
 	@RequestMapping(value = "/myBoardRead", method = RequestMethod.GET)
 	public String myRead(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
-		System.out.println("게시글 상세 컨트롤러");
 
 		Board board = boardService.read(boardNum);
 		model.addAttribute(board);
 
 		// 게시글 조회수 증가
 		boardService.views(boardNum);
-		System.out.println("조회수 증가 컨트롤러 : " + board.getBoardViews());
 
 		return "viewMyBoardRead";
 	}
@@ -210,7 +185,6 @@ public class BoardController {
 	// 마이페이지 내가 쓴 게시글 수정 페이지
 	@RequestMapping(value = "/myBoardModifyForm", method = RequestMethod.GET)
 	public String myModify1(@ModelAttribute("pages") Pages pages, int boardNum, Model model) throws Exception {
-		System.out.println("게시글 수정 컨트롤러");
 		
 		Board board = boardService.read(boardNum);
 		model.addAttribute("board", board);
@@ -221,7 +195,6 @@ public class BoardController {
 		// 게시글 수정 처리
 		@RequestMapping(value = "/myBoardModify", method = RequestMethod.POST)
 		public String myModify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
-			System.out.println("게시글 수정처리 컨트롤러");
 
 			boardService.modify(board);
 
@@ -242,7 +215,6 @@ public class BoardController {
 			rttr.addAttribute("page", pages.getPage());
 			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 			rttr.addFlashAttribute("msg", "SUCCESS");
-			System.out.println("게시글 삭제처리");
 
 			return "redirect:/boardMyList";
 		}
@@ -255,7 +227,6 @@ public class BoardController {
 			PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
 			int popoNum = loginMember.getPopoNum();
 			
-			System.out.println(boardService.likeStatus(popoNum, boardNum));
 			if (boardService.likeStatus(popoNum, boardNum)==0) {
 				boardService.like(popoNum, boardNum);
 				boardService.likeUp(boardNum);
@@ -263,7 +234,6 @@ public class BoardController {
 				boardService.cancel(popoNum, boardNum);
 				boardService.likeDown(boardNum);
 			}
-			System.out.println("게시글 추천 컨트롤러");
 			
 			return "redirect:/board" + "" + "List";
 		}
