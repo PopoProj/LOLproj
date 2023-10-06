@@ -2,6 +2,7 @@ package com.my.miniProj.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,8 +70,7 @@ public class PopoUserController {
 		if (loginMember == null) {
 			return "needLogin";
 		}
-
-		request.setAttribute("userNickName", loginMember.getPopoNickname());
+		
 		return "myPage";
 	}
 	
@@ -168,11 +168,11 @@ public class PopoUserController {
 
     // 내 정보 수정
     @RequestMapping(value = "/myInfoEdit", method = RequestMethod.POST)
-	public String modify(PopoUserDTO popo) throws Exception {
-
+	public String modify(PopoUserDTO popo, HttpSession session, HttpServletRequest request) throws Exception {
 		popoUserService.updateInfo(popo);
+		session.setAttribute("userSessionID", popo);
 		
-		return "redirect:/toMyInfo";
+		return "editComplete";
 	}
 
     @GetMapping("/confirmQuit")

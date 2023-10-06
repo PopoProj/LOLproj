@@ -30,9 +30,8 @@ font-family: 'SUITE-Regular';
 %>
 
 <br>
-<a href = login> 비밀번호 찾기</a>
-<br>
-<a href = login>로그인하러가기</a>
+<a href = "/"> 메인페이지로</a>
+
 
 </body>
 </html>

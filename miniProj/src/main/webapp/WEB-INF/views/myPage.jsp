@@ -1,3 +1,4 @@
+<%@page import="com.my.miniProj.model.PopoUserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -120,16 +121,23 @@ header {
   	 padding-left: 60px;
   	}
   	
-  	
-  	
-  
-  
+
 </style>
 <title> 마이페이지  </title>
 </head>
 <body>
+<script type="text/javascript">
+
+window.addEventListener("pageshow", (event) => {
+	  if (event.persisted) {
+	    location.reload();
+	  } 
+	});
+</script>
+
 		<%
-			String nickName = (String) request.getAttribute("userNickName");
+			PopoUserDTO user = (PopoUserDTO) session.getAttribute("userSessionID");
+			String nickName = user.getPopoNickname();
 		%>
 	
     <header>
