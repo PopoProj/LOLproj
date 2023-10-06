@@ -110,4 +110,14 @@ public class BoardServiceImpl {
 			int result = boardDao.likeStatus(map);
 			return result;
 		}
+
+		// 게시글 추천수 +1
+		public void likeUp(int boardNum) throws Exception {
+			boardDao.likeUp(boardNum);
+		}
+
+		// 게시글 추천수 -1
+		public void likeDown(int boardNum) throws Exception {
+			boardDao.likeDown(boardNum);
+		}
 }

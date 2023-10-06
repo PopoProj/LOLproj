@@ -102,17 +102,19 @@ public class BoardController {
 
 		// 로그인 계정과 게시글 글쓴이가 같은지 판별
 		HttpSession session = request.getSession(false);
-		PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
-		model.addAttribute("session", loginMember);
 		
-		// 로그인 계정이 해당 게시글을 추천했는지 판별 0:추천안함 1:추천함
-		int result = boardService.likeStatus(loginMember.getPopoNum(), boardNum);
-		model.addAttribute("result", result);
-		
-		System.out.println("확인");
-		System.out.println(boardNum);
-		System.out.println(loginMember.getPopoNum());
-		System.out.println(result);
+		//if (session == null) { // 비로그인
+			
+		//} else if (session.getAttribute("userSessionId") != null) { //  일반 회원 로그인 상태
+			PopoUserDTO loginMember = (PopoUserDTO) session.getAttribute("userSessionID");
+			model.addAttribute("session", loginMember);
+			
+			// 로그인 계정이 해당 게시글을 추천했는지 판별 0:추천안함 1:추천함
+			int result = boardService.likeStatus(loginMember.getPopoNum(), boardNum);
+			model.addAttribute("result", result);
+		//} else if (session.getAttribute("adminLogin") != null) { // 관리자 로그인 상태
+						// alert
+		//}
 		
 		return url;
 
@@ -247,8 +249,10 @@ public class BoardController {
 			System.out.println(boardService.likeStatus(popoNum, boardNum));
 			if (boardService.likeStatus(popoNum, boardNum)==0) {
 				boardService.like(popoNum, boardNum);
+				boardService.likeUp(boardNum);
 			} else {
 				boardService.cancel(popoNum, boardNum);
+				boardService.likeDown(boardNum);
 			}
 			System.out.println("게시글 추천 컨트롤러");
 			

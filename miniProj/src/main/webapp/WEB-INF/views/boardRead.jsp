@@ -99,6 +99,13 @@
 	<input type="hidden" name="popoNum" value="${session.popoId}" >
 	<input type="hidden" name="boardNum" value="${board.boardNum}" >
 		
+		<!--<c:if test="${result == 0 }" >
+				<input type="submit" value="추천">
+		</c:if>
+		<c:if test="${result == 1 }" >
+				<input type="submit" value="추천취소">
+		</c:if>-->
+		
 		<c:choose>
 			<c:when test="${result == 0}" >
 				<input type="submit" value="추천">
