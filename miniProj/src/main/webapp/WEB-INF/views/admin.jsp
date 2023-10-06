@@ -76,11 +76,6 @@
             <source src="videos/adminhome.mp4" type="video/mp4">
         </video>
     </div>
-
-    <div class="button-container">
-        <a href="/admin/adminBoardList">게시판 관리</a>
-        <a href="/admin/popoList">회원 관리</a>
-    </div>
 </body>
 </html>
 
