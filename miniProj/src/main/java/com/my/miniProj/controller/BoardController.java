@@ -197,15 +197,17 @@ public class BoardController {
 		public String myModify(Board board, Pages pages, RedirectAttributes rttr) throws Exception {
 
 			boardService.modify(board);
+			
+			rttr.addAttribute("boardNum", board.getBoardNum());
 
 			// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
 			rttr.addAttribute("page", pages.getPage());
 			rttr.addAttribute("sizePerPages", pages.getSizePerPage());
 			rttr.addFlashAttribute("msg", "SUCCESS");
 
-			return "viewMyBoardRead";
+			return "redirect:/myBoardRead";
 		}
-		
+				
 		// 내 게시글 삭제 처리
 		@RequestMapping(value = "/myBoardRemove", method = RequestMethod.POST)
 		public String myRemove(@ModelAttribute("pages") Pages pages, int boardNum, RedirectAttributes rttr) throws Exception {

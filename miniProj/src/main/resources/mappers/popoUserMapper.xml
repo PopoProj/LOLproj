@@ -26,14 +26,6 @@
 		<result property="adminPw" column="ADMIN_PW" />
 	</resultMap>
 	
-	<!-- PopoAuth resultmap 정의 
-	<resultMap
-		type="com.my.miniProj.popo.model.PopoAuth" id="authMap">
-		<result property="popoNum" column="POPO_NUM" />
-		<result property="popoAuth" column="POPO_AUTH" />
-	</resultMap>
-	-->
-	
 	<select id = "loginAction" parameterType = "String" resultMap = "popoMap">
 		SELECT *
 		FROM popouser
