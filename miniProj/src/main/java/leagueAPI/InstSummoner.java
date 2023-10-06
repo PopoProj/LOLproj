@@ -136,7 +136,7 @@ public class InstSummoner {
 				+ "\n lane=" + lane + "\n pentaKills=" + pentaKills + "\n puuid=" + puuid + "\n quadraKills=" + quadraKills
 				+ "\n summonerId=" + summonerId + "\n summonerLevel=" + summonerLevel + "\n summonerName=" + summonerName
 				+ "\n teamEarlySurrendered=" + teamEarlySurrendered + "\n teamId=" + teamId + "\n teamPosition="
-				+ teamPosition  + "\n individualPosition= " + individualPosition + ", tripleKills=" + tripleKills + "\n win=" + win;
+				+ teamPosition  + "\n individualPosition= " + individualPosition + ", tripleKills=" + tripleKills + "\n win=" + win + "\n ranked" + RANKED_SOLO_5x5 + "\n flex" + RANKED_FLEX_SR;
 	}
 
 

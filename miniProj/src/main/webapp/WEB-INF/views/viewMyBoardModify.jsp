@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>내 게시글 수정</title>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 	body {
@@ -58,6 +59,7 @@
 
         
     </style>
+
 </head>
 <body>
 <div class = "homeBtn">

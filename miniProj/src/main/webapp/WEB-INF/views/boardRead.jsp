@@ -104,9 +104,11 @@
 		
 		<c:choose>
 			<c:when test="${result == 0}" >
+				<img alt="thumbsUp" src="../../images/thumbsUpRammus.png" width = "140px" height = "140px"><br>
 				<input type="submit" value="추천">
 			</c:when>
 			<c:otherwise>
+				<img alt="thumbsUp" src="../../images/thumbsDown.png" width = "140px" height = "140px"><br>
 				<input type="submit" value="추천취소">
 			</c:otherwise>
 		</c:choose>

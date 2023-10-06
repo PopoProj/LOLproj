@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>내 게시글 상세보기</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
@@ -56,6 +57,7 @@
         input[type="submit"]:hover {
             background: #44BE79;
         }
+
     </style>
 </head>
 <body>

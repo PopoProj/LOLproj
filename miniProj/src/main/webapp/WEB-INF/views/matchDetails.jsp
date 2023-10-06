@@ -223,11 +223,11 @@ font-family: 'SUITE-Regular';
       
       
       <div class = "middle">
-      	<img src="../../images/lanes/TOP.png" alt="champImg" width = '100' height = '100' />
-      	<img src="../../images/lanes/JUNGLE.png" alt="champImg"  width = '100' height = '100' />
-      	<img src="../../images/lanes/MIDDLE.png" alt="champImg"  width = '100' height = '100' />
-      	<img src="../../images/lanes/BOTTOM.png" alt="champImg"  width = '100' height = '100' />
-      	<img src="../../images/lanes/UTILITY.png" alt="champImg" width = '100' height = '100' />	
+      	<img src="../../images/lanes/TOP.png" alt="champImg" width = '105' height = '105' />
+      	<img src="../../images/lanes/JUNGLE.png" alt="champImg"  width = '105' height = '105' />
+      	<img src="../../images/lanes/MIDDLE.png" alt="champImg"  width = '105' height = '105' />
+      	<img src="../../images/lanes/BOTTOM.png" alt="champImg"  width = '105' height = '105' />
+      	<img src="../../images/lanes/UTILITY.png" alt="champImg" width = '100' height = '105' />	
       	
       </div>
       

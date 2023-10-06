@@ -38,10 +38,8 @@ header {
 
   main {
     background: #FFFFFF;
-    width: 80%;
-    min-height: 700px;
-    margin: 0 auto;
-
+    width: 100%;
+    display: flex;
   }
   
    footer {
@@ -89,11 +87,50 @@ header {
 	    text-align: left; /* If you want the text to be left-aligned on small screens */
 	  }
 	}
-	
+	.container{
+		display: flex;
+	flex-direction: row;
+	align-items: center;
+  	justify-content: center;
+  }
+  
+  .item{
+  	padding: 20px;
+  	font-size: 20px;
+  }
+  
+  .left{
+  width:30%;
+  padding-top: 50px;
+  	 padding-left: 300px;
+  }
+  
+  .middle{
+   	width:40%;
+     display: flex;
+	flex-direction: column;
+	align-items: center;
+  	justify-content: center;
+  	margin-bottom: 0px;
+  	}
+  	
+  	.right{
+  	 width:30%;
+  	 padding-top: 200px;
+  	 padding-left: 60px;
+  	}
+  	
+  	
+  	
+  
+  
 </style>
 <title> 마이페이지  </title>
 </head>
 <body>
+		<%
+			String nickName = (String) request.getAttribute("userNickName");
+		%>
 	
     <header>
     
@@ -112,17 +149,38 @@ header {
 
     </header>
     <main>
-	<div>
-		<%
-			String nickName = (String) request.getAttribute("userNickName");
-		%>
-		
-		<%= nickName %>님, 환영합니다 <br>
-		<a href = "/toFavourites"> 즐겨찾기 </a>
-		<a href = "/toRecord"> 검색기록 </a>
-		<a href = "/boardMyList"> 내가 쓴 글</a>
-		<a href = "/toMyInfo"> 내 정보 수정</a>
-		<a href = "/confirmQuit">회원탈퇴</a>
+    <div class = "left">
+    	<img alt="poro" src="../../images/happyPoro.png">
+    </div>
+    
+    <div class = "middle">
+		<h2><%= nickName %>님, 환영합니다 </h2><br>
+			
+	    <div class = "container">	
+			<div class = "item">		
+				<a href = "/toFavourites"> 즐겨찾기 </a>
+			</div>
+			
+		<div class = "item">		
+				<a href = "/toRecord"> 검색기록 </a>
+			</div>
+			
+		<div class = "item">		
+				<a href = "/boardMyList"> 내가 쓴 글</a>
+			</div>
+			
+		<div class = "item">		
+				<a href = "/toMyInfo"> 내 정보 수정</a>
+			</div>
+			
+		<div class = "item">		
+				<a href = "/confirmQuit">회원탈퇴</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class = "right">
+		<img alt="cat" src="../../images/happyCat.png">
 	</div>
 	</main>
 </body>

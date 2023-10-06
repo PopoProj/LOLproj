@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>내가 쓴 게시글 목록</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         /* 게시글 목록 테이블 스타일 */
@@ -81,6 +82,7 @@ font-family: 'SUITE-Regular';
   }
 
 @font-face {
+
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
@@ -90,6 +92,7 @@ font-family: 'SUITE-Regular';
 * {
 font-family: 'SUITE-Regular';
   box-sizing: border-box;
+
   }
 
 header {

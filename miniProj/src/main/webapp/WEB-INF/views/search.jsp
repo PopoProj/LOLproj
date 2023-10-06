@@ -245,7 +245,7 @@ window.addEventListener("pageshow", (event) => {
 	
 	
 		<div class = bottom>	
-			<div class = "summContainer"> 오늘 최다검색된 소환사<br>
+			<div class = "summContainer"> 최다검색된 소환사<br>
 				  <%
 				  if (ranking == null){
 					  out.print("<br>정보없음");
@@ -263,7 +263,7 @@ window.addEventListener("pageshow", (event) => {
 			</div>
 			
 		
-			<div class = "boardContainer"> 최근 올라온 게시글<br>
+			<div class = "boardContainer"> 추천수 많은 게시글 <br>
 				  <%
 				  if (articles == null){
 					  out.print("<br>정보없음");

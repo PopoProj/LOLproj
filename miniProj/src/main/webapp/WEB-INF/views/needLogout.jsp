@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-	alert("이미 유저로그인되어있는 상태입니다. 먼저 로그아웃해주세요.");
+	alert("이미 유저로 로그인되어있는 상태입니다. 먼저 로그아웃해주세요.");
 	history.back();
 </script>
 </body>
