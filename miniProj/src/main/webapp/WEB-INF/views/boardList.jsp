@@ -165,6 +165,29 @@ header {
     </style>
 </head>
 <body>
+
+<script type="text/javascript">
+
+window.addEventListener("pageshow", (event) => {
+	  if (event.persisted) {
+	    location.reload();
+	  } 
+	});
+</script>
+
+<%
+
+	session = request.getSession(false);
+	String aStr;
+	if (session.getAttribute("userSessionID") != null) {
+		aStr = "<a class = 'active' href = 'logout'> 로그아웃 </a>";
+	}
+	//boolean isSignedIn = (boolean) request.getAttribute("isSignedIn");
+	else{
+		aStr = "<a class = 'active' href = 'toLogin'> 로그인 </a>";
+	}
+%>
+	
 <header>   
 	    <div class = "homeBtn">
 		  <a href= "/">
@@ -174,7 +197,8 @@ header {
  		
     	<div class="topnav">
 	    	  <a class = "active" href="toMyPage"> 마이페이지</a>
-	    	  <a class = "active" href="boardList"> 게시판 </a>    	
+	    	  <a class = "active" href="boardList"> 게시판 </a>   
+	    	  <%=aStr %> 	
     	</div>
 
     </header>
