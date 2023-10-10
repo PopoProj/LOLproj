@@ -182,6 +182,29 @@ form.searchForm::after {
 	  }
 	}
 	
+		/* The Modal (background) */
+	.modal {
+	  display: none; /* Hidden by default */
+	  position: fixed; /* Stay in place */
+	  z-index: 1; /* Sit on top */
+	  padding-top: 100px; /* Location of the box */
+	  left: 0;
+	  top: 0;
+	  width: 100%; /* Full width */
+	  height: 100%; /* Full height */
+	  overflow: auto; /* Enable scroll if needed */
+	  background-color: rgb(0,0,0); /* Fallback color */
+	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+	}
+	
+	/* Modal Content (image) */
+	.modal-content {
+	  margin: auto;
+	  display: block;
+	  width: 8%;
+	  max-width: 700px;
+	  text-align: center;
+	}
 
 
 </style>
@@ -193,13 +216,13 @@ form.searchForm::after {
 
 <script type="text/javascript">
 
-window.addEventListener("pageshow", (event) => {
-	  if (event.persisted) {
-	    location.reload();
-	  } 
-	});
+	window.addEventListener("pageshow", (event) => {
+		  if (event.persisted) {
+			 var modal = document.getElementById("myModal");
+			 modal.style.display = "none";
+		  } 
+		});
 </script>
-
 <%
 
 	session = request.getSession(false);
@@ -237,9 +260,9 @@ window.addEventListener("pageshow", (event) => {
     </header>
     <main>
    		<div class = "searchBox">
-			<form class = "searchForm" action="searchResult" name="myForm" onsubmit="return checkBlank(myForm)">
+			<form class = "searchForm" action="searchResult" name="myForm" onsubmit="return checkBlank(myForm);">
 				<input type="text" tabindex="1" name="sumName" id = "sumName" placeholder="소환사 이름을 입력하세요!"/>
-				<button type="submit"><i class="fa fa-search"></i></button>
+				<button id = "searchBtn" type="submit"><i class="fa fa-search"></i></button>
 			</form>
 		</div>
 	
@@ -255,7 +278,7 @@ window.addEventListener("pageshow", (event) => {
 					  %>
 					  <br>
 					    <div class = "item">
-					      <%= i+1 %>. <a href = "searchResult?sumName=<%= name%>"> <%= name%> </a>
+					      <%= i+1 %>. <a href = "searchResult?sumName=<%= name%>" onclick="openModal();"> <%= name%> </a>
 					    </div>
 					
 					  <% } 
@@ -274,7 +297,7 @@ window.addEventListener("pageshow", (event) => {
 					  %>
 					  <br>
 					    <div class = "item">
-					      <%= i+1 %>. <a href = "/boardRead?boardNum=<%=boardNum%>"> <%=title %></a>
+					      <%= i+1 %>. <a href = "/boardRead?boardNum=<%=boardNum%>" onclick="openModal();"> <%=title %></a>
 					    </div>
 					    
 					  <% } 
@@ -285,18 +308,36 @@ window.addEventListener("pageshow", (event) => {
   
     <footer>
    	 	<a href="/admin/adminLogin">관리자 로그인</a>
+   	 			<!-- The Modal -->
+	<div id="myModal" class="modal">
+	  <img class="modal-content" id="img01">
+	</div>
+	<img id="spinner" src="../../images/Spinner.gif" alt="spinner" style = "display: none; width:30%;max-width:300px">
+		
     </footer>
     
     <script type="text/javascript">
+
+	
 	    function checkBlank(formObj) {
 	        if (document.getElementById('sumName').value) {
+	        	openModal();
 	            return true;
 	   
 	        }else{
 				alert("값을 입력해주세요.");
 				return false;
 	        }
-	    }    
+	    }   
+	    
+	    function openModal() {
+		    var modal = document.getElementById("myModal");
+		    var modalImg = document.getElementById("img01");
+		    var spinner = document.getElementById("spinner");
+			modalImg.src = spinner.src;
+			modal.style.display = "block";
+		}
 	</script>
+
 </body>
 </html>

@@ -114,8 +114,32 @@ font-family: 'SUITE-Regular';
       	align-content: center;
       }
       
+      	/* The Modal (background) */
+	.modal {
+	  display: none; /* Hidden by default */
+	  position: fixed; /* Stay in place */
+	  z-index: 1; /* Sit on top */
+	  padding-top: 100px; /* Location of the box */
+	  left: 0;
+	  top: 0;
+	  width: 100%; /* Full width */
+	  height: 100%; /* Full height */
+	  overflow: auto; /* Enable scroll if needed */
+	  background-color: rgb(0,0,0); /* Fallback color */
+	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+	}
+	
+	/* Modal Content (image) */
+	.modal-content {
+	  margin: auto;
+	  display: block;
+	  width: 8%;
+	  max-width: 700px;
+	  text-align: center;
+	}
+     
     </style>
-<title>Insert title here</title>
+<title>Insert title here	</title>
 </head>
 <body>
 
@@ -153,6 +177,15 @@ font-family: 'SUITE-Regular';
 	}
 
 %>
+<script type="text/javascript">
+
+	window.addEventListener("pageshow", (event) => {
+		  if (event.persisted) {
+			 var modal = document.getElementById("myModal");
+			 modal.style.display = "none";
+		  } 
+		});
+</script>
  <header>
 	<div class = "homeBtn">
 	  <a href= "/">
@@ -176,7 +209,7 @@ font-family: 'SUITE-Regular';
 		     
 					InstSummoner player = playersListed.get(i);
 	     	%>
-	     		<div class = "row" OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
+	     		<div class = "row" OnClick="openModal(); location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
 					
 					<div class = "itemImagesLeft">
 						<img src="../../images/item/<%=player.getItem0()%>.png" onerror="this.onerror=null; this.src='../../images/item/7050.png';" alt="item1" width = '40' height = '40' />
@@ -236,7 +269,7 @@ font-family: 'SUITE-Regular';
 			for (int 	i = 5; i < 10; i++){
 				InstSummoner player = playersListed.get(i);
 		%>
-     		<div class = "row" OnClick="location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
+     		<div class = "row" OnClick="openModal(); location.href ='/searchResult?sumName=<%=player.getSummonerName()%>'" style="cursor:pointer;" >
      			
 				<div>
 					<img src="../../images/champion/<%=player.getChampionName()%>.png" alt="champImg" width = '95' height = '95' />
@@ -283,6 +316,23 @@ font-family: 'SUITE-Regular';
 	      %>
       </div>
 </main>
+
+	<div id="myModal" class="modal">
+	  <img class="modal-content" id="img01">
+	</div>
+	<img id="spinner" src="../../images/Spinner.gif" alt="spinner" style = "display: none; width:30%;max-width:300px">
+		
+    
+    <script type="text/javascript">
+	    function openModal() {
+		    var modal = document.getElementById("myModal");
+		    var modalImg = document.getElementById("img01");
+		    var spinner = document.getElementById("spinner");
+			modalImg.src = spinner.src;
+			modal.style.display = "block";
+		}
+	</script>
+
 
 </body>
 </html>
