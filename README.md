@@ -28,5 +28,10 @@ Java 8, STS 4, SpringBoot 2.7, Oracle DB, Mybatis, Maven
 
  3. 로그인
 - 유저가 ID와 비밀번호를 입력했을 때 DB가 보유중인 데이터에서 SELECT, 만약 성공시 로그인 성공메시지와 Session 생성
-- <img width="80%" src="[https://user-images.githubusercontent.com/16822641/109461495-913fc480-7aa5-11eb-9d0e-aff762669f98.gif](https://github.com/PopoProj/LOLproj/assets/97634089/4a50b7ee-870c-4770-bd2d-92244fea5336)"/>
+- <img width="10%" src="[https://user-images.githubusercontent.com/16822641/109461495-913fc480-7aa5-11eb-9d0e-aff762669f98.gif](https://github.com/PopoProj/LOLproj/assets/97634089/4a50b7ee-870c-4770-bd2d-92244fea5336)"/>
+
+
+
+
+
 
